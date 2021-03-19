@@ -1,14 +1,17 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
 import Article from "../components/Article"
 import Image from "../components/Image"
+import HomeNavbar from "../components/HomeNavbar"
+
+import { Typography } from "@material-ui/core"
 
 import panorama from "../images/home/panorama.jpg"
 import pot1 from "../images/home/pot1.jpg"
 
 export default () => {
     return (
-        <Article>
+        <Article noNavbar>
+            <HomeNavbar />
             <Typography variant="body1" paragraph>
                 Cvinger pri Dolenjskih Toplicah je eno najpomembnejših
                 starejšeželeznodobnih središč v Sloveniji in širšem jugovzhodnem

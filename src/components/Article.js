@@ -26,6 +26,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles({
     container: {
         maxWidth: "800px",
+        padding: "0",
     },
 
     title: {
@@ -34,14 +35,14 @@ const useStyles = makeStyles({
     },
 })
 
-export default function Article({ title, children }) {
+export default function Article({ title, noNavbar, children }) {
     const classes = useStyles()
     return (
         <>
             <CssBaseline />
             <ThemeProvider theme={theme}>
                 <Header />
-                <Navbar />
+                {noNavbar ? null : <Navbar />}
                 <Container className={classes.container}>
                     {title ? (
                         <Typography variant="h2" className={classes.title}>

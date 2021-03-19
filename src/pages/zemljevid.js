@@ -1,21 +1,63 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core"
+import { animated, useSpring } from "react-spring"
+import { useDrag } from "react-use-gesture"
+
+import zemljevid from "../images/zemljevid/zemljevid.jpg"
 import Article from "../components/Article"
 
+const useStyles = makeStyles({
+    container: {
+        width: "900px",
+        height: "900px",
+        position: "relative",
+    },
+
+    image: {
+        width: "100px",
+        height: "100px",
+        touchAction: "none",
+        position: "relative",
+        userSelect: "none",
+        backgroundColor: "blue",
+    },
+})
+
 export default () => {
+    const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }))
+
+    const bind = useDrag(({ down, movement }) => {
+        set({ xy: down ? movement : [0, 0] })
+        console.log(movement)
+    })
+
+    const classes = useStyles()
+
     return (
         <Article title="Zemljevid">
-            <Typography variant="body1">
-                {[...new Array(32)]
-                    .map(
-                        () => `Cras mattis consectetur purus
-                sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-                egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-                vestibulum at eros. Praesent commodo cursus magna, vel
-                scelerisque nisl consectetur et.`
-                    )
-                    .join("\n")}
-            </Typography>
+            <div className={classes.zemljevid}>
+                <animated.div
+                    className={classes.image}
+                    {...bind()}
+                    style={{
+                        transform: xy.interpolate(
+                            (x, y) => `translate3d(${x}px, ${y}, 0)`
+                        ),
+                    }}
+                ></animated.div>
+            </div>
         </Article>
     )
 }
+
+/* <animated.img
+                    src={zemljevid}
+                    alt="zemljevid"
+                    className={classes.image}
+                    {...bind()}
+                    style={{
+                        transform: xy.interpolate(
+                            (x, y) => `translate3d(${x}px, ${y}, 0)`
+                        ),
+                    }}
+                /> */

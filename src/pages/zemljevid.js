@@ -28,24 +28,27 @@ export default () => {
 
     const bind = useDrag(({ down, movement }) => {
         set({ xy: down ? movement : [0, 0] })
-        console.log(movement)
     })
 
     const classes = useStyles()
 
     return (
         <Article title="Zemljevid">
-            <div className={classes.zemljevid}>
-                <animated.div
+            <animated.div
+                className={classes.container}
+                {...bind()}
+                style={{
+                    transform: xy.interpolate(
+                        (x, y) => `translate3d(${x}px, ${y}px, 0)`
+                    ),
+                }}
+            >
+                <img
+                    src={zemljevid}
+                    alt={zemljevid}
                     className={classes.image}
-                    {...bind()}
-                    style={{
-                        transform: xy.interpolate(
-                            (x, y) => `translate3d(${x}px, ${y}, 0)`
-                        ),
-                    }}
-                ></animated.div>
-            </div>
+                />
+            </animated.div>
         </Article>
     )
 }

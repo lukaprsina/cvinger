@@ -1,6 +1,6 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core"
-import { animated, useSpring } from "react-spring"
+import { animated, useSpring, config } from "react-spring"
 import { useDrag } from "react-use-gesture"
 
 import zemljevid from "../images/zemljevid/zemljevid.jpg"
@@ -14,21 +14,33 @@ const useStyles = makeStyles({
     },
 
     image: {
-        width: "100px",
-        height: "100px",
-        touchAction: "none",
         position: "relative",
-        userSelect: "none",
-        backgroundColor: "blue",
+        cursor: "grab",
+        pointerEvents: "none",
     },
 })
 
 export default () => {
-    const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }))
+    const [{ mapOffset }, setMapOffset] = useSpring(
+        () => ({
+            mapOffset: [0, 0],
+        }),
+        config.slow
+    )
 
-    const bind = useDrag(({ down, movement }) => {
-        set({ xy: down ? movement : [0, 0] })
-    })
+    const bind = useDrag(
+        ({ offset }) => {
+            setMapOffset({ mapOffset: offset })
+        },
+        {
+            bounds: {
+                left: -1200 / 2,
+                right: 1200 / 2,
+                top: -936 / 2,
+                bottom: 936 / 2,
+            },
+        }
+    )
 
     const classes = useStyles()
 
@@ -38,29 +50,17 @@ export default () => {
                 className={classes.container}
                 {...bind()}
                 style={{
-                    transform: xy.interpolate(
+                    transform: mapOffset.interpolate(
                         (x, y) => `translate3d(${x}px, ${y}px, 0)`
                     ),
                 }}
             >
                 <img
                     src={zemljevid}
-                    alt={zemljevid}
+                    alt={"zemljevid"}
                     className={classes.image}
                 />
             </animated.div>
         </Article>
     )
 }
-
-/* <animated.img
-                    src={zemljevid}
-                    alt="zemljevid"
-                    className={classes.image}
-                    {...bind()}
-                    style={{
-                        transform: xy.interpolate(
-                            (x, y) => `translate3d(${x}px, ${y}, 0)`
-                        ),
-                    }}
-                /> */

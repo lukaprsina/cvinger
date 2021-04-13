@@ -8,6 +8,8 @@ import { Typography } from "@material-ui/core"
 import panorama from "../images/home/panorama.jpg"
 import pot1 from "../images/home/pot1.jpg"
 
+// TODO: git lfs
+
 export default () => {
     return (
         <Article noNavbar>

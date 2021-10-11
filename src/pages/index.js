@@ -3,14 +3,12 @@ import Article from "../components/Article"
 import Image from "../components/Image"
 import HomeNavbar from "../components/HomeNavbar"
 
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 
 import panorama from "../images/home/panorama.jpg"
 import pot1 from "../images/home/pot1.jpg"
 
-// TODO: git lfs
-
-export default () => {
+const Home = () => {
     return (
         <Article noNavbar>
             <HomeNavbar />
@@ -81,3 +79,5 @@ export default () => {
         </Article>
     )
 }
+
+export default Home

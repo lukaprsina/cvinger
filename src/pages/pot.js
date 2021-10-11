@@ -1,5 +1,5 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import Image from "../components/Image"
 
@@ -7,7 +7,7 @@ import enote from "../images/pot/enote.jpg"
 import pot2 from "../images/pot/pot2.jpg"
 import smerokaz from "../images/pot/smerokaz.jpg"
 
-export default () => {
+const Pot = () => {
     return (
         <Article title="Arheološka pot">
             <Typography variant="body1" paragraph>
@@ -63,3 +63,5 @@ export default () => {
         </Article>
     )
 }
+
+export default Pot

@@ -1,9 +1,9 @@
 import React from "react"
 import { Link } from "gatsby"
-import { makeStyles } from "@material-ui/core"
 import logo from "../images/logo/logo.svg"
+import { Box } from "@mui/material"
 
-const useStyles = makeStyles({
+/* const useStyles = makeStyles({
     header: {
         display: "flex",
         width: "100vw",
@@ -19,15 +19,31 @@ const useStyles = makeStyles({
         width: "50vw",
         maxWidth: "615px",
     },
-})
+}) */
 
-export default function Header() {
-    const classes = useStyles()
+const Header = () => {
     return (
-        <div className={classes.header}>
+        <Box
+            /* className={classes.header} */ sx={{
+                display: "flex",
+                width: "100vw",
+                height: "200px",
+                overflow: "hidden",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fcf4e0",
+                "& img": {
+                    display: "block",
+                    width: "50vw",
+                    maxWidth: "615px",
+                },
+            }}
+        >
             <Link to="/">
-                <img src={logo} alt="cvinger" className={classes.logo} />
+                <img src={logo} alt="cvinger" /* className={classes.logo} */ />
             </Link>
-        </div>
+        </Box>
     )
 }
+
+export default Header

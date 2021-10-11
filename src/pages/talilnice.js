@@ -1,5 +1,5 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import Image from "../components/Image"
 
@@ -7,7 +7,7 @@ import raziskave from "../images/talilnice/raziskave.jpg"
 import talilnik from "../images/talilnice/talilnik.jpg"
 import vzorci from "../images/talilnice/vzorci.jpg"
 
-export default () => {
+const Talilnice = () => {
     return (
         <Article title="Talilniško območje">
             <Typography variant="body1" paragraph>
@@ -90,3 +90,5 @@ export default () => {
         </Article>
     )
 }
+
+export default Talilnice

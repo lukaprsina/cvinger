@@ -1,5 +1,5 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import Image from "../components/Image"
 
@@ -7,7 +7,7 @@ import jamar from "../images/jama/jamar.jpg"
 import načrt from "../images/jama/načrt.jpg"
 import ograja from "../images/jama/ograja.jpg"
 
-export default () => {
+const Jama = () => {
     return (
         <Article title="Cvingerska jama">
             <Typography variant="body1" paragraph>
@@ -122,3 +122,5 @@ export default () => {
         </Article>
     )
 }
+
+export default Jama

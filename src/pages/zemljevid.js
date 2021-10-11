@@ -1,66 +1,29 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core"
-import { animated, useSpring, config } from "react-spring"
-import { useDrag } from "react-use-gesture"
-
+import { MapContainer, ImageOverlay } from "react-leaflet"
+import { LatLngBounds } from "leaflet"
 import zemljevid from "../images/zemljevid/zemljevid.jpg"
 import Article from "../components/Article"
 
-const useStyles = makeStyles({
-    container: {
-        width: "900px",
-        height: "900px",
-        position: "relative",
-    },
-
-    image: {
-        position: "relative",
-        cursor: "grab",
-        pointerEvents: "none",
-    },
-})
-
-export default () => {
-    const [{ mapOffset }, setMapOffset] = useSpring(
-        () => ({
-            mapOffset: [0, 0],
-        }),
-        config.slow
+function MapPlaceholder() {
+    return (
+        <p>
+            <noscript>You need to enable JavaScript to see this map.</noscript>
+        </p>
     )
+}
 
-    const bind = useDrag(
-        ({ offset }) => {
-            setMapOffset({ mapOffset: offset })
-        },
-        {
-            bounds: {
-                left: -1200 / 2,
-                right: 1200 / 2,
-                top: -936 / 2,
-                bottom: 936 / 2,
-            },
-        }
+const Zemljevid = () => {
+    const bounds = new LatLngBounds(
+        [40.712216, -74.22655],
+        [40.773941, -74.12544]
     )
-
-    const classes = useStyles()
-
     return (
         <Article title="Zemljevid">
-            <animated.div
-                className={classes.container}
-                {...bind()}
-                style={{
-                    transform: mapOffset.interpolate(
-                        (x, y) => `translate3d(${x}px, ${y}px, 0)`
-                    ),
-                }}
-            >
-                <img
-                    src={zemljevid}
-                    alt={"zemljevid"}
-                    className={classes.image}
-                />
-            </animated.div>
+            {/* <MapContainer center={[0, 0]} zoom={13} scrollWheelZoom={false}>
+                <ImageOverlay url={zemljevid} bounds={bounds} />
+            </MapContainer> */}
         </Article>
     )
 }
+
+export default Zemljevid

@@ -1,8 +1,8 @@
 import React from "react"
 
-import { makeStyles, Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 
-const useStyles = makeStyles({
+/* const useStyles = makeStyles({
     figure: {
         margin: "0",
     },
@@ -13,16 +13,15 @@ const useStyles = makeStyles({
         display: "block",
         margin: "auto",
     },
-})
+}) */
 
-export default function Image({ src, caption, center }) {
-    const classes = useStyles()
+const Image = ({ src, caption, center }) => {
     return (
-        <figure className={classes.figure}>
+        <figure /* className={classes.figure} */>
             <img
                 src={src}
                 alt={caption}
-                className={classes.image}
+                /* className={classes.image} */
                 style={center ? { width: "auto", margin: "auto" } : null}
             />
             <Typography
@@ -35,3 +34,5 @@ export default function Image({ src, caption, center }) {
         </figure>
     )
 }
+
+export default Image

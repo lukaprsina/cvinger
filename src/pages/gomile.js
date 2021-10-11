@@ -1,5 +1,5 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import Image from "../components/Image"
 
@@ -8,7 +8,7 @@ import lidar from "../images/gomile/lidar.jpg"
 import situla from "../images/gomile/situla.png"
 import tabli from "../images/gomile/tabli.jpg"
 
-export default () => {
+const Gomile = () => {
     return (
         <Article title="Gomilno grobišče">
             <Typography variant="body1" paragraph>
@@ -141,3 +141,5 @@ export default () => {
         </Article>
     )
 }
+
+export default Gomile

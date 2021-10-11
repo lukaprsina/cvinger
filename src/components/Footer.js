@@ -1,13 +1,12 @@
 import React from "react"
-import { Box, Container, Button, Typography } from "@material-ui/core"
-import { useTheme, makeStyles } from "@material-ui/core/styles"
+import { Box, Container, Button, Typography } from "@mui/material"
 
 import dolenjski_muzej from "../images/logo/dolenjski_muzej.svg"
 import filozofska_fakulteta from "../images/logo/filozofska_fakulteta.svg"
 import obcina_dolenjske_toplice from "../images/logo/obcina_dolenjske_toplice.svg"
 import ZVKDS from "../images/logo/ZVKDS.svg"
 
-const useStyles = makeStyles({
+/* const useStyles = makeStyles({
     box: {
         marginTop: "40px",
         backgroundColor: props => props?.palette?.secondary?.main,
@@ -53,31 +52,38 @@ const useStyles = makeStyles({
         marginTop: "5px",
         marginBottom: "-47px",
     },
-})
+}) */
 
 function Logo({ children, href, style }) {
-    const classes = useStyles()
     return (
-        <a
-            href={href}
-            className={classes.logoLink}
-            style={style}
-            target="_blank"
-            rel="noreferrer"
-        >
+        <a href={href} style={style} target="_blank" rel="noreferrer">
             {children}
         </a>
     )
 }
 
-export default () => {
-    const theme = useTheme()
-    const classes = useStyles(theme)
-
+const Footer = () => {
     return (
-        <Box className={classes.box}>
-            <Container className={classes.container}>
-                <Container className={classes.logoContainer}>
+        <Box
+            /* className={classes.box} */ sx={{
+                marginTop: "40px",
+                backgroundColor: "palette.secondary.main",
+            }}
+        >
+            <Container
+                sx={{
+                    maxWidth: "800px",
+                    padding: "20px",
+                }} /* className={classes.container} */
+            >
+                <Container
+                    sx={{
+                        display: "flex",
+                        flexFlow: "row nowrap",
+                        justifyContent: "space-between",
+                        "& a": { textDecoration: "none", color: "inherit", width: "200px", height: "100px" }
+                    }} /* className={classes.logoContainer} */
+                >
                     <Logo
                         href="http://arheologija.ff.uni-lj.si/"
                         style={{ maxWidth: "90px" }}
@@ -110,7 +116,15 @@ export default () => {
                                 style={{ maxHeight: "80px" }}
                             />
                             <Typography
-                                className={classes.obcinaDT}
+                                /* className={classes.obcinaDT} */
+                                sx={{
+                                    textAlign: "center",
+                                    fontSize: "12px",
+                                    color: "black",
+                                    textDecoration: "none",
+                                    marginTop: "5px",
+                                    marginBottom: "-47px",
+                                }}
                                 variant="body2"
                             >
                                 Občina Dolenjske Toplice
@@ -118,16 +132,21 @@ export default () => {
                         </div>
                     </Logo>
                 </Container>
-                <div className={classes.avtorstvoWrapper}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.avtorstvo}
-                    >
-                        Avtorstvo
-                    </Button>
-                </div>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        margin: "20px auto 0",
+                        maxWidth: "800px",
+                        width: "100%",
+                    }}
+                /* className={classes.avtorstvo} */
+                >
+                    Avtorstvo
+                </Button>
             </Container>
         </Box>
     )
 }
+
+export default Footer

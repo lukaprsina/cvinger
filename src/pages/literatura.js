@@ -1,8 +1,8 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 import Article from "../components/Article"
 
-export default () => {
+const Literatura = () => {
     return (
         <Article title="Literatura">
             <Typography variant="body1">
@@ -19,3 +19,5 @@ export default () => {
         </Article>
     )
 }
+
+export default Literatura

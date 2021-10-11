@@ -1,63 +1,29 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core"
-import { animated, useSpring } from "react-spring"
-import { useDrag } from "react-use-gesture"
-
+import { MapContainer, ImageOverlay } from "react-leaflet"
+import { LatLngBounds } from "leaflet"
 import zemljevid from "../images/zemljevid/zemljevid.jpg"
 import Article from "../components/Article"
 
-const useStyles = makeStyles({
-    container: {
-        width: "900px",
-        height: "900px",
-        position: "relative",
-    },
+function MapPlaceholder() {
+    return (
+        <p>
+            <noscript>You need to enable JavaScript to see this map.</noscript>
+        </p>
+    )
+}
 
-    image: {
-        width: "100px",
-        height: "100px",
-        touchAction: "none",
-        position: "relative",
-        userSelect: "none",
-        backgroundColor: "blue",
-    },
-})
-
-export default () => {
-    const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }))
-
-    const bind = useDrag(({ down, movement }) => {
-        set({ xy: down ? movement : [0, 0] })
-        console.log(movement)
-    })
-
-    const classes = useStyles()
-
+const Zemljevid = () => {
+    const bounds = new LatLngBounds(
+        [40.712216, -74.22655],
+        [40.773941, -74.12544]
+    )
     return (
         <Article title="Zemljevid">
-            <div className={classes.zemljevid}>
-                <animated.div
-                    className={classes.image}
-                    {...bind()}
-                    style={{
-                        transform: xy.interpolate(
-                            (x, y) => `translate3d(${x}px, ${y}, 0)`
-                        ),
-                    }}
-                ></animated.div>
-            </div>
+            {/* <MapContainer center={[0, 0]} zoom={13} scrollWheelZoom={false}>
+                <ImageOverlay url={zemljevid} bounds={bounds} />
+            </MapContainer> */}
         </Article>
     )
 }
 
-/* <animated.img
-                    src={zemljevid}
-                    alt="zemljevid"
-                    className={classes.image}
-                    {...bind()}
-                    style={{
-                        transform: xy.interpolate(
-                            (x, y) => `translate3d(${x}px, ${y}, 0)`
-                        ),
-                    }}
-                /> */
+export default Zemljevid

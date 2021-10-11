@@ -1,5 +1,5 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import Image from "../components/Image"
 
@@ -7,7 +7,7 @@ import fotoskica from "../images/vhod/fotoskica.jpg"
 import tloris from "../images/vhod/tloris.jpg"
 import vhod from "../images/vhod/vhod.jpg"
 
-export default () => {
+const Vhod = () => {
     return (
         <Article title="Utrjen vhod">
             <Typography variant="body1" paragraph>
@@ -67,3 +67,5 @@ export default () => {
         </Article>
     )
 }
+
+export default Vhod

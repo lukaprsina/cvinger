@@ -1,5 +1,5 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
+import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import Image from "../components/Image"
 
@@ -7,7 +7,7 @@ import obzidje from "../images/gradisce/obzidje.jpg"
 import sonda from "../images/gradisce/sonda.jpg"
 import zid from "../images/gradisce/zid.jpg"
 
-export default () => {
+const Gradisce = () => {
     return (
         <Article title="Prazgodovinsko gradišče">
             <Typography variant="body1" paragraph>
@@ -158,3 +158,5 @@ export default () => {
         </Article>
     )
 }
+
+export default Gradisce

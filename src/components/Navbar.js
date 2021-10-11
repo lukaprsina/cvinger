@@ -3,14 +3,13 @@ import { Link } from "gatsby"
 import {
     AppBar,
     Button,
-    makeStyles,
     Toolbar,
     useScrollTrigger,
     Slide,
     Container,
-} from "@material-ui/core"
+} from "@mui/material"
 
-const useStyles = makeStyles({
+/* const useStyles = makeStyles({
     button: {
         color: "white",
     },
@@ -28,15 +27,14 @@ const useStyles = makeStyles({
     box: {
         marginBottom: "48px",
     },
-})
+}) */
 
 function NavbarButton({ to, children }) {
-    const classes = useStyles()
     return (
-        <Link to={to} className={classes.linkToButton}>
+        <Link to={to} /* className={classes.linkToButton} */>
             <Button
                 variant="text"
-                className={classes.button}
+                /* className={classes.button} */
                 color="primary"
                 size="small"
             >
@@ -56,12 +54,11 @@ function HideOnScroll({ children, threshold }) {
     )
 }
 
-export default function Navbar() {
-    const classes = useStyles()
+const Navbar = () => {
     return (
         <HideOnScroll threshold={400}>
             <AppBar position="sticky" color="primary">
-                <Toolbar className={classes.toolbar}>
+                <Toolbar /* className={classes.toolbar} */>
                     <Container>
                         <NavbarButton to="/pot">Arheološka pot</NavbarButton>
                         <NavbarButton to="/gradisce">
@@ -83,3 +80,5 @@ export default function Navbar() {
         </HideOnScroll>
     )
 }
+
+export default Navbar

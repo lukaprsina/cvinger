@@ -4,15 +4,14 @@ import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 
 import {
-    ThemeProvider,
     CssBaseline,
     Typography,
-    makeStyles,
+    ThemeProvider,
+    createTheme,
     Container,
-} from "@material-ui/core"
-import { createMuiTheme } from "@material-ui/core/styles"
+} from "@mui/material"
 
-const theme = createMuiTheme({
+const theme = createTheme({
     palette: {
         primary: {
             main: "#87171f",
@@ -23,29 +22,28 @@ const theme = createMuiTheme({
     },
 })
 
-const useStyles = makeStyles({
-    container: {
-        maxWidth: "800px",
-        padding: "0",
-    },
-
-    title: {
-        marginTop: "48px",
-        marginBottom: "32px",
-    },
-})
-
 export default function Article({ title, noNavbar, children }) {
-    const classes = useStyles()
     return (
         <>
             <CssBaseline />
             <ThemeProvider theme={theme}>
                 <Header />
                 {noNavbar ? null : <Navbar />}
-                <Container className={classes.container}>
+                <Container
+                    sx={{
+                        maxWidth: "800px",
+                        padding: "0",
+                    }}
+                >
                     {title ? (
-                        <Typography variant="h2" className={classes.title}>
+                        <Typography
+                            variant="h2"
+                            sx={{
+                                marginTop: "48px",
+                                marginBottom: "32px",
+                                color: "text.secondary",
+                            }}
+                        >
                             {title}
                         </Typography>
                     ) : null}

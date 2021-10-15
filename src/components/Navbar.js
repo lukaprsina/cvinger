@@ -31,9 +31,10 @@ import {
 
 function NavbarButton({ to, children }) {
     return (
-        <Link to={to} /* className={classes.linkToButton} */>
+        <Link to={to} style={{ textDecoration: "none" }}/* className={classes.linkToButton} */>
             <Button
                 variant="text"
+                sx={{ color: "white" }}
                 /* className={classes.button} */
                 color="primary"
                 size="small"
@@ -58,7 +59,11 @@ const Navbar = () => {
     return (
         <HideOnScroll threshold={400}>
             <AppBar position="sticky" color="primary">
-                <Toolbar /* className={classes.toolbar} */>
+                <Toolbar sx={{
+                    width: "100vw",
+                    maxWidth: "1200px",
+                    margin: "auto",
+                }} /* className={classes.toolbar} */>
                     <Container>
                         <NavbarButton to="/pot">Arheološka pot</NavbarButton>
                         <NavbarButton to="/gradisce">

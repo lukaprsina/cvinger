@@ -79,9 +79,11 @@ function Item({ image, text, to }) {
     return (
         <Box
             sx={{
-                display: "flex",
-                flexFlow: "column nowrap",
-                textDecoration: "none",
+                "> a": {
+                    display: "flex",
+                    flexFlow: "column nowrap",
+                    textDecoration: "none"
+                }
             }}
         >
             <Link
@@ -95,6 +97,8 @@ function Item({ image, text, to }) {
                     sx={{
                         borderRadius: "50%",
                         overflow: "hidden",
+                        width: "185px",
+                        height: "185px"
                     }}
                 >
                     <animated.img

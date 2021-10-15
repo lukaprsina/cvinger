@@ -66,17 +66,17 @@ const Footer = () => {
     return (
         <Box
             /* className={classes.box} */ sx={{
-                marginTop: "40px",
+                margin: "40px auto auto auto",
                 backgroundColor: "palette.secondary.main",
             }}
         >
-            <Container
+            <Box
                 sx={{
                     maxWidth: "800px",
-                    padding: "20px",
+                    margin: "auto",
                 }} /* className={classes.container} */
             >
-                <Container
+                <Box
                     sx={{
                         display: "flex",
                         flexFlow: "row nowrap",
@@ -109,7 +109,13 @@ const Footer = () => {
                         href="https://dolenjske-toplice.si/"
                         style={{ maxWidth: "121px" }}
                     >
-                        <div>
+                        <Box sx={{
+                            display: "flex",
+                            alignItems: "flex-end",
+                            flexWrap: "wrap",
+                            justifyContent: "center",
+                            height: "auto"
+                        }}>
                             <img
                                 src={obcina_dolenjske_toplice}
                                 alt="Občina Dolenjske Toplice"
@@ -118,25 +124,26 @@ const Footer = () => {
                             <Typography
                                 /* className={classes.obcinaDT} */
                                 sx={{
-                                    textAlign: "center",
+                                    margin: "5px 0",
+                                    /* textAlign: "center",
                                     fontSize: "12px",
                                     color: "black",
                                     textDecoration: "none",
-                                    marginTop: "5px",
-                                    marginBottom: "-47px",
+                                    marginBottom: "-47px", */
                                 }}
-                                variant="body2"
+                                align="center"
+                                variant="subtitle2"
                             >
                                 Občina Dolenjske Toplice
                             </Typography>
-                        </div>
+                        </Box>
                     </Logo>
-                </Container>
+                </Box>
                 <Button
                     variant="contained"
                     color="primary"
                     sx={{
-                        margin: "20px auto 0",
+                        margin: "40px auto 0",
                         maxWidth: "800px",
                         width: "100%",
                     }}
@@ -144,8 +151,8 @@ const Footer = () => {
                 >
                     Avtorstvo
                 </Button>
-            </Container>
-        </Box>
+            </Box >
+        </Box >
     )
 }
 

@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Typography } from "@mui/material"
+import { Typography, Box } from "@mui/material"
 
 /* const useStyles = makeStyles({
     figure: {
@@ -17,7 +17,15 @@ import { Typography } from "@mui/material"
 
 const Image = ({ src, caption, center }) => {
     return (
-        <figure /* className={classes.figure} */>
+        <Box sx={{
+            margin: "0", "& img": {
+                width: "100%",
+                maxHeight: "700px",
+                borderRadius: "7px",
+                display: "block",
+                margin: "auto",
+            }
+        }} /* className={classes.figure} */>
             <img
                 src={src}
                 alt={caption}
@@ -31,7 +39,7 @@ const Image = ({ src, caption, center }) => {
             >
                 {caption}
             </Typography>
-        </figure>
+        </Box>
     )
 }
 

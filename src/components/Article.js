@@ -8,7 +8,7 @@ import {
     Typography,
     ThemeProvider,
     createTheme,
-    Container,
+    Box,
 } from "@mui/material"
 
 const theme = createTheme({
@@ -29,10 +29,11 @@ export default function Article({ title, noNavbar, children }) {
             <ThemeProvider theme={theme}>
                 <Header />
                 {noNavbar ? null : <Navbar />}
-                <Container
+                <Box
                     sx={{
                         maxWidth: "800px",
                         padding: "0",
+                        margin: "auto"
                     }}
                 >
                     {title ? (
@@ -48,7 +49,7 @@ export default function Article({ title, noNavbar, children }) {
                         </Typography>
                     ) : null}
                     {children}
-                </Container>
+                </Box>
                 <Footer />
             </ThemeProvider>
         </>

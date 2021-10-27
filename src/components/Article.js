@@ -22,7 +22,17 @@ const theme = createTheme({
     },
 })
 
+let galleryImages = []
+
 export default function Article({ title, noNavbar, children }) {
+
+    React.Children.forEach(children, (child) => {
+        if (child.props.src && !child.props.noGallery)
+            galleryImages.push({ original: child.props.src, thumbnail: child.props.thumbnail ? child.props.thumbnail : child.props.src })
+    })
+
+    console.log(galleryImages)
+
     return (
         <>
             <CssBaseline />

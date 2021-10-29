@@ -127,6 +127,7 @@ const Gomile = () => {
                 src={situla}
                 caption="Cvingerska situla s tremi figuralnimi frizi."
                 center
+                noGallery
             />
 
             <Typography variant="body1" paragraph>

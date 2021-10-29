@@ -15,7 +15,7 @@ import { Typography, Box } from "@mui/material"
     },
 }) */
 
-const Image = ({ src, caption, center }) => {
+const Image = ({ src, caption, center = false }) => {
     return (
         <Box sx={{
             margin: "0", "& img": {

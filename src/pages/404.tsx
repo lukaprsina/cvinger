@@ -1,6 +1,6 @@
 import React from "react"
 import { Typography } from "@mui/material"
-import Article from "../components/Article.js"
+import Article from "../components/Article"
 
 const FourOFour = () => {
     return (

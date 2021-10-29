@@ -54,7 +54,7 @@ import ZVKDS from "../images/logo/ZVKDS.svg"
     },
 }) */
 
-function Logo({ children, href, style }) {
+function Logo({ children, href, style = {} }) {
     return (
         <a href={href} style={style} target="_blank" rel="noreferrer">
             {children}

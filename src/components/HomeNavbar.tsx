@@ -108,11 +108,11 @@ function Item({ image, text, to }) {
                         height="185px"
                         /* className={classes.image} */
                         style={{
-                            filter: brightness.interpolate(
+                            filter: brightness.to(
                                 num => `brightness(${num})`
                             ),
 
-                            transform: scale.interpolate(
+                            transform: scale.to(
                                 num => `scale(${num})`
                             ),
                         }}

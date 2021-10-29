@@ -22,7 +22,7 @@ const theme = createTheme({
     },
 })
 
-export default function Article({ title, noNavbar, children }) {
+export default function Article({ title = "", noNavbar = false, children }) {
     return (
         <>
             <CssBaseline />

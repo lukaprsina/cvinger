@@ -2,14 +2,6 @@ import React, { useState } from "react"
 import { Typography } from "@mui/material"
 import { useSpring, animated } from "react-spring"
 
-import pot from "../images/home/krogci/01_pot.png"
-import gradisce from "../images/home/krogci/02_gradisce.png"
-import vhod from "../images/home/krogci/03_vhod.png"
-import jama from "../images/home/krogci/04_jama.png"
-import talilnice from "../images/home/krogci/05_talilnice.png"
-import gomile from "../images/home/krogci/06_gomile.png"
-import zemljevid from "../images/home/krogci/07_zemljevid.png"
-import literatura from "../images/home/krogci/08_literatura.png"
 import Link from "next/link"
 import { Box } from "@mui/system"
 
@@ -51,19 +43,19 @@ const HomeNavbar = () => {
                 justifyContent: "space-between",
             }}
         >
-            <Item image={pot} text="Arheološka pot" to="pot" />
+            <Item image={"/images/home/krogci/01_pot.png"} text="Arheološka pot" to="pot" />
             <Item
-                image={gradisce}
+                image={"/images/home/krogci/02_gradisce.png"}
                 text="Prazgodovinsko gradišče"
                 to="gradisce"
             />
-            <Item image={vhod} text="Utrjen vhod" to="vhod" />
-            <Item image={jama} text="Cvingerska jama" to="jama" />
+            <Item image={"/images/home/krogci/03_vhod.png"} text="Utrjen vhod" to="vhod" />
+            <Item image={"/images/home/krogci/04_jama.png"} text="Cvingerska jama" to="jama" />
 
-            <Item image={talilnice} text="Talilniško obmčje" to="talilnice" />
-            <Item image={gomile} text="Gomilno grobišče" to="gomile" />
-            <Item image={zemljevid} text="Zemljevid" to="zemljevid" />
-            <Item image={literatura} text="Literatura" to="literatura" />
+            <Item image={"/images/home/krogci/05_talilnice.png"} text="Talilniško obmčje" to="talilnice" />
+            <Item image={"/images/home/krogci/06_gomile.png"} text="Gomilno grobišče" to="gomile" />
+            <Item image={"/images/home/krogci/07_zemljevid.png"} text="Zemljevid" to="zemljevid" />
+            <Item image={"/images/home/krogci/08_literatura.png"} text="Literatura" to="literatura" />
         </Box>
     )
 }

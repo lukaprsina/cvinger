@@ -1,11 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 import Article from "../components/Article"
-import Image from "../components/Image"
-
-import jamar from "../images/jama/jamar.jpg"
-import načrt from "../images/jama/načrt.jpg"
-import ograja from "../images/jama/ograja.jpg"
+import ArticleImage from "../components/ArticleImage"
 
 const Jama = () => {
     return (
@@ -20,8 +16,8 @@ const Jama = () => {
                 razrešiti arheologi in novomeški jamarji.
             </Typography>
 
-            <Image
-                src={ograja}
+            <ArticleImage
+                src={"/images/jama/ograja.jpg"}
                 caption="Zaščitna ograja okoli vhodnega brezna Cvingerske jame."
             />
 
@@ -96,8 +92,8 @@ const Jama = () => {
                 m.
             </Typography>
 
-            <Image
-                src={načrt}
+            <ArticleImage
+                src={"/images/jama/načrt.jpg"}
                 caption="Načrt Cvingerske jame. Načrt Tomaž Grdin."
                 center
             />
@@ -115,8 +111,8 @@ const Jama = () => {
                 tem, ko je prazgodovinska skupnost naselje že opustila.
             </Typography>
 
-            <Image
-                src={jamar}
+            <ArticleImage
+                src={"/images/jama/jamar.jpg"}
                 caption="Jamarsko prodiranje skozi ožino v Meniški dvoranici."
             />
         </Article>

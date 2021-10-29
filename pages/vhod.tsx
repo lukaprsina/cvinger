@@ -1,11 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 import Article from "../components/Article"
-import Image from "../components/Image"
-
-import fotoskica from "../images/vhod/fotoskica.jpg"
-import tloris from "../images/vhod/tloris.jpg"
-import vhod from "../images/vhod/vhod.jpg"
+import ArticleImage from "../components/ArticleImage"
 
 const Vhod = () => {
     return (
@@ -29,13 +25,13 @@ const Vhod = () => {
                 zapolnjeni z manj šimi kamni in drobirjem.
             </Typography>
 
-            <Image
-                src={vhod}
+            <ArticleImage
+                src={"/images/vhod/vhod.jpg"}
                 caption="Delno rekonstruiran (2020) skoraj 4 m širok dvojni zid ob dohodni poti."
             />
 
-            <Image
-                src={fotoskica}
+            <ArticleImage
+                src={"/images/vhod/fotoskica.jpg"}
                 caption="Digitalni model ostalin več kot 3 m širokega prečnega utrdbenega zidu."
             />
 
@@ -60,8 +56,8 @@ const Vhod = () => {
                 naši arheološki poti.
             </Typography>
 
-            <Image
-                src={tloris}
+            <ArticleImage
+                src={"/images/vhod/tloris.jpg"}
                 caption="Zračni posnetek, iz katerega je razviden potek dvojnega zidu."
             />
         </Article>

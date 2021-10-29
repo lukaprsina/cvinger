@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import { Map, imageOverlay, CRS } from "leaflet"
 import "leaflet/dist/leaflet.css"
 
-import zemljevid from "../images/zemljevid/zemljevid.jpg"
 import Article from "../components/Article"
 import { Box } from "@mui/system"
 
@@ -18,7 +17,7 @@ const Zemljevid = () => {
             zoomDelta: 0.5,
             maxZoom: 2,
         });
-        imageOverlay(zemljevid, bounds).addTo(map)
+        imageOverlay("/images/zemljevid/zemljevid.jpg", bounds).addTo(map)
         map.fitBounds(bounds)
     }, [])
 

@@ -16,7 +16,7 @@ import Image from "next/image"
     },
 }) */
 
-const Image = ({ src, caption, center = false }) => {
+const ArticleImage = ({ src, caption, center = false, noGallery = false }) => {
     return (
         <Box sx={{
             margin: "0", "& img": {
@@ -30,8 +30,9 @@ const Image = ({ src, caption, center = false }) => {
             <Image
                 src={src}
                 alt={caption}
-                /* className={classes.image} */
-                style={center ? { width: "auto", margin: "auto" } : null}
+                layout="fill"
+            /* className={classes.image} */
+            /* style={center ? { width: "auto", margin: "auto" } : null} */
             />
             <Typography
                 variant="caption"
@@ -44,4 +45,4 @@ const Image = ({ src, caption, center = false }) => {
     )
 }
 
-export default Image
+export default ArticleImage

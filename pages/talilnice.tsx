@@ -1,11 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 import Article from "../components/Article"
-import Image from "../components/Image"
-
-import raziskave from "../images/talilnice/raziskave.jpg"
-import talilnik from "../images/talilnice/talilnik.jpg"
-import vzorci from "../images/talilnice/vzorci.jpg"
+import ArticleImage from "../components/ArticleImage"
 
 const Talilnice = () => {
     return (
@@ -41,8 +37,8 @@ const Talilnice = () => {
                 merila 80 × 100 cm.
             </Typography>
 
-            <Image
-                src={vzorci}
+            <ArticleImage
+                src={"/images/talilnice/vzorci.jpg"}
                 caption="Oblikovni in utežnostni prikaz različnih oblik železa."
             />
 
@@ -57,8 +53,8 @@ const Talilnice = () => {
                 kovali tudi znotraj naselja.
             </Typography>
 
-            <Image
-                src={talilnik}
+            <ArticleImage
+                src={"/images/talilnice/talilnik.jpg"}
                 caption="Prerez skozi naloženo in dogorelo jaškasto talilno peč z jamo za žlindro."
             />
 
@@ -73,8 +69,8 @@ const Talilnice = () => {
                 so to sezidali v njeni neposredni bližini.
             </Typography>
 
-            <Image
-                src={raziskave}
+            <ArticleImage
+                src={"/images/talilnice/raziskave.jpg"}
                 caption="Raziskave v arheološkem izkopu (sondi) na talilniškem območju. Foto Matija Črešnar."
             />
 

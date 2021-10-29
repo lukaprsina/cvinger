@@ -1,11 +1,6 @@
 import React from "react"
-import { Box, Container, Button, Typography } from "@mui/material"
-import Image from "next/image"
-
-import dolenjski_muzej from "../images/logo/dolenjski_muzej.svg"
-import filozofska_fakulteta from "../images/logo/filozofska_fakulteta.svg"
-import obcina_dolenjske_toplice from "../images/logo/obcina_dolenjske_toplice.svg"
-import ZVKDS from "../images/logo/ZVKDS.svg"
+import { Box, Button, Typography } from "@mui/material"
+import ArticleImage from "./ArticleImage"
 
 /* const useStyles = makeStyles({
     box: {
@@ -89,14 +84,14 @@ const Footer = () => {
                         href="http://arheologija.ff.uni-lj.si/"
                         style={{ maxWidth: "90px" }}
                     >
-                        <Image
-                            src={filozofska_fakulteta}
+                        <ArticleImage
+                            src={"/images/logo/filozofska_fakulteta.svg"}
                             alt="Univerza v Ljubljani: Filozofska fakulteta"
                         />
                     </Logo>
                     <Logo href="https://www.zvkds.si">
-                        <Image
-                            src={ZVKDS}
+                        <ArticleImage
+                            src={"/images/logo/ZVKDS.svg"}
                             alt="Zavod za varstvo kulturne dediščine Slovenije"
                         />
                     </Logo>
@@ -104,7 +99,7 @@ const Footer = () => {
                         href="https://www.dolenjskimuzej.si/"
                         style={{ transform: "translateY(18px)" }}
                     >
-                        <Image src={dolenjski_muzej} alt="Dolenjski muzej" />
+                        <ArticleImage src={"/images/logo/dolenjski_muzej.svg"} alt="Dolenjski muzej" />
                     </Logo>
                     <Logo
                         href="https://dolenjske-toplice.si/"
@@ -117,9 +112,9 @@ const Footer = () => {
                             justifyContent: "center",
                             height: "auto"
                         }}>
-                            <Image
-                                src={obcina_dolenjske_toplice}
-                                alt="Občina Dolenjske Toplice"
+                            <ArticleImage
+                                src={"/images/logo/obcina_dolenjske_toplice.svg"}
+                                caption="Občina Dolenjske Toplice"
                                 style={{ maxHeight: "80px" }}
                             />
                             <Typography

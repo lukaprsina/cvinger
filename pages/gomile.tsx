@@ -1,12 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 import Article from "../components/Article"
-import Image from "../components/Image"
-
-import gomila from "../images/gomile/gomila.jpg"
-import lidar from "../images/gomile/lidar.jpg"
-import situla from "../images/gomile/situla.png"
-import tabli from "../images/gomile/tabli.jpg"
+import ArticleImage from "../components/ArticleImage"
 
 const Gomile = () => {
     return (
@@ -32,8 +27,8 @@ const Gomile = () => {
                 sodijo v mlajše obdobje starejše železne dobe.
             </Typography>
 
-            <Image
-                src={lidar}
+            <ArticleImage
+                src={"/images/gomile/lidar.jpg"}
                 caption="Prostorska razporeditev gomil - prikaz na digitalnem modelu terena."
             />
 
@@ -63,8 +58,8 @@ const Gomile = () => {
                 bili z zakovicami pritrjeni na pas.
             </Typography>
 
-            <Image
-                src={gomila}
+            <ArticleImage
+                src={"/images/gomile/gomila.jpg"}
                 caption="Ena od bolj prepoznavnih gomil na gomilnem grobišču Branževec."
             />
 
@@ -91,8 +86,8 @@ const Gomile = () => {
                 jantarne ogrlice ter votle in masivne bronaste zapestnice.
             </Typography>
 
-            <Image
-                src={tabli}
+            <ArticleImage
+                src={"/images/gomile/tabli.jpg"}
                 caption="Informativni tabli pri gomilnem grobišču."
             />
 
@@ -123,8 +118,8 @@ const Gomile = () => {
                 orožja, nakitnih predmetov ter keramičnega posodja.
             </Typography>
 
-            <Image
-                src={situla}
+            <ArticleImage
+                src={"/images/gomile/situla.png"}
                 caption="Cvingerska situla s tremi figuralnimi frizi."
                 center
                 noGallery

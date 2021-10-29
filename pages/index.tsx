@@ -1,12 +1,9 @@
 import React from "react"
 import Article from "../components/Article"
-import Image from "../components/Image"
+import ArticleImage from "../components/ArticleImage"
 import HomeNavbar from "../components/HomeNavbar"
 
 import { Typography } from "@mui/material"
-
-import panorama from "../images/home/panorama.jpg"
-import pot1 from "../images/home/pot1.jpg"
 
 function Home() {
     return (
@@ -33,8 +30,8 @@ function Home() {
                 dolenjske prazgodovinske skupnosti.
             </Typography>
 
-            <Image
-                src={panorama}
+            <ArticleImage
+                src={"/images/home/panorama.jpg"}
                 caption="Cvinger s prazgodovinskim gradiščem (v sredini) se dviguje nad sotočjem Krke in Radeščice."
             />
 
@@ -50,8 +47,8 @@ function Home() {
                 zakladnico evropske kulturne dediščine.
             </Typography>
 
-            <Image
-                src={pot1}
+            <ArticleImage
+                src={"/images/home/pot1.jpg"}
                 caption="Steze, po katerih poteka arheološka pot, se vijejo po mešanem gozdu."
             />
 

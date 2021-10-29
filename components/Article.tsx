@@ -24,7 +24,7 @@ const theme = createTheme({
 
 let galleryImages = []
 
-export default function Article({ title = "", noNavbar, children }) {
+export default function Article({ title = "", noNavbar = "", children }) {
 
     React.Children.forEach(children, (child) => {
         if (child.props.src && !child.props.noGallery)

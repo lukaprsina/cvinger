@@ -1,11 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 import Article from "../components/Article"
-import Image from "../components/Image"
-
-import obzidje from "../images/gradisce/obzidje.jpg"
-import sonda from "../images/gradisce/sonda.jpg"
-import zid from "../images/gradisce/zid.jpg"
+import ArticleImage from "../components/ArticleImage"
 
 const Gradisce = () => {
     return (
@@ -57,8 +53,8 @@ const Gradisce = () => {
                 zavojih varovale mogočne kamnite zapore.
             </Typography>
 
-            <Image
-                src={sonda}
+            <ArticleImage
+                src={"/images/gradisce/sonda.jpg"}
                 caption="Delno zasuta arheološka sonda razkriva sestavo prazgodovinskega obzidja."
             />
 
@@ -118,8 +114,8 @@ const Gradisce = () => {
                 mestih popravljeno.
             </Typography>
 
-            <Image
-                src={zid}
+            <ArticleImage
+                src={"/images/gradisce/zid.jpg"}
                 caption="Idealiziran prikaz kamnitega obzidja, ki je obdajalo gradišče."
             />
 
@@ -136,8 +132,8 @@ const Gradisce = () => {
                 vklesane v kamnito osnovo znotraj objekta.
             </Typography>
 
-            <Image
-                src={obzidje}
+            <ArticleImage
+                src={"/images/gradisce/obzidje.jpg"}
                 caption="Pojasnjevalni tabli pri delno rekonstruiranem obzidju iz leta 1990."
             />
 

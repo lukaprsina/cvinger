@@ -1,11 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 import Article from "../components/Article"
-import Image from "../components/Image"
-
-import enote from "../images/pot/enote.jpg"
-import pot2 from "../images/pot/pot2.jpg"
-import smerokaz from "../images/pot/smerokaz.jpg"
+import ArticleImage from "../components/ArticleImage"
 
 const Pot = () => {
     return (
@@ -28,13 +24,13 @@ const Pot = () => {
                 Sloveniji.
             </Typography>
 
-            <Image
-                src={pot2}
+            <ArticleImage
+                src={"/images/pot/pot2.jpg"}
                 caption="Pojasnjevalni tabli pri gomilnem grobišču."
             />
 
-            <Image
-                src={smerokaz}
+            <ArticleImage
+                src={"/images/pot/smerokaz.jpg"}
                 caption="Pot je označena z markacijo stilizirane situle in smerokazi."
             />
 
@@ -56,8 +52,8 @@ const Pot = () => {
                 prazgodovine. Priporočamo vam terensko obutev in … srečno pot!
             </Typography>
 
-            <Image
-                src={enote}
+            <ArticleImage
+                src={"/images/pot/enote.jpg"}
                 caption="Najpomembnejši gradniki arheološke poti na posnetku zračnega laserskega skeniranja."
             />
         </Article>

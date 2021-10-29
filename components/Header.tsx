@@ -1,7 +1,6 @@
 import React from "react"
 import Link from "next/link"
 import Image from "next/image"
-import logo from "../images/logo/logo.svg"
 import { Box } from "@mui/material"
 
 /* const useStyles = makeStyles({
@@ -42,7 +41,7 @@ const Header = () => {
         >
             <Link href="/">
                 <a>
-                    <Image src={logo} alt="cvinger" /* className={classes.logo} */ />
+                    <Image layout="fill" src={"/images/logo/logo.svg"} alt="cvinger" /* className={classes.logo} */ />
                 </a>
             </Link>
         </Box>

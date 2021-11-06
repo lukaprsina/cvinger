@@ -1,7 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 import Article from "../components/Article"
-import ArticleImage from "../components/ArticleImage"
+import Image from "../components/Image"
 
 const Pot = () => {
     return (
@@ -24,13 +24,13 @@ const Pot = () => {
                 Sloveniji.
             </Typography>
 
-            <ArticleImage
-                src={"/images/pot/pot2.jpg"}
+            <Image
+                src="/images/pot/pot2.jpg"
                 caption="Pojasnjevalni tabli pri gomilnem grobišču."
             />
 
-            <ArticleImage
-                src={"/images/pot/smerokaz.jpg"}
+            <Image
+                src="/images/pot/smerokaz.jpg"
                 caption="Pot je označena z markacijo stilizirane situle in smerokazi."
             />
 
@@ -52,8 +52,8 @@ const Pot = () => {
                 prazgodovine. Priporočamo vam terensko obutev in … srečno pot!
             </Typography>
 
-            <ArticleImage
-                src={"/images/pot/enote.jpg"}
+            <Image
+                src="/images/pot/enote.jpg"
                 caption="Najpomembnejši gradniki arheološke poti na posnetku zračnega laserskega skeniranja."
             />
         </Article>

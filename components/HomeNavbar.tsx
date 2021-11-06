@@ -5,57 +5,29 @@ import { useSpring, animated } from "react-spring"
 import Link from "next/link"
 import { Box } from "@mui/system"
 
-// TODO: use mui stack
-
-/* const useStyles = makeStyles({
-    container: {
-        display: "flex",
-        flexFlow: "row wrap",
-        margin: "50px 0",
-        justifyContent: "space-between",
-    },
-
-    item: {
-        display: "flex",
-        flexFlow: "column nowrap",
-        textDecoration: "none",
-    },
-
-    text: {
-        margin: "15px 0",
-        textAlign: "center",
-        color: "black",
-    },
-
-    image: {
-        borderRadius: "50%",
-        overflow: "hidden",
-    },
-}) */
-
 const HomeNavbar = () => {
     return (
         <Box
-            /* className={classes.container} */ sx={{
+            sx={{
                 display: "flex",
                 flexFlow: "row wrap",
                 margin: "50px 0",
                 justifyContent: "space-between",
             }}
         >
-            <Item image={"/images/home/krogci/01_pot.png"} text="Arheološka pot" to="pot" />
+            <Item image="/images/home/krogci/01_pot.png" text="Arheološka pot" to="pot" />
             <Item
-                image={"/images/home/krogci/02_gradisce.png"}
+                image="/images/home/krogci/02_gradisce.png"
                 text="Prazgodovinsko gradišče"
                 to="gradisce"
             />
-            <Item image={"/images/home/krogci/03_vhod.png"} text="Utrjen vhod" to="vhod" />
-            <Item image={"/images/home/krogci/04_jama.png"} text="Cvingerska jama" to="jama" />
+            <Item image="/images/home/krogci/03_vhod.png" text="Utrjen vhod" to="vhod" />
+            <Item image="/images/home/krogci/04_jama.png" text="Cvingerska jama" to="jama" />
 
-            <Item image={"/images/home/krogci/05_talilnice.png"} text="Talilniško obmčje" to="talilnice" />
-            <Item image={"/images/home/krogci/06_gomile.png"} text="Gomilno grobišče" to="gomile" />
-            <Item image={"/images/home/krogci/07_zemljevid.png"} text="Zemljevid" to="zemljevid" />
-            <Item image={"/images/home/krogci/08_literatura.png"} text="Literatura" to="literatura" />
+            <Item image="/images/home/krogci/05_talilnice.png" text="Talilniško obmčje" to="talilnice" />
+            <Item image="/images/home/krogci/06_gomile.png" text="Gomilno grobišče" to="gomile" />
+            <Item image="/images/home/krogci/07_zemljevid.png" text="Zemljevid" to="zemljevid" />
+            <Item image="/images/home/krogci/08_literatura.png" text="Literatura" to="literatura" />
         </Box>
     )
 }
@@ -78,7 +50,7 @@ function Item({ image, text, to }) {
                 }
             }}
         >
-            <Link href={"/pot"/* to */}                            >
+            <Link href="/pot"                            >
                 <a>
                     <Box
                         sx={{
@@ -95,7 +67,6 @@ function Item({ image, text, to }) {
                             alt={text}
                             width="185px"
                             height="185px"
-                            /* className={classes.image} */
                             style={{
                                 filter: brightness.to(
                                     num => `brightness(${num})`
@@ -109,7 +80,7 @@ function Item({ image, text, to }) {
                     </Box>
                     <Typography
                         variant="caption"
-                    /* className={classes.text} */ sx={{
+                        sx={{
                             margin: "15px 0",
                             textAlign: "center",
                             color: "black",
@@ -119,7 +90,7 @@ function Item({ image, text, to }) {
                     </Typography>
                 </a>
             </Link>
-        </Box>
+        </Box >
     )
 }
 

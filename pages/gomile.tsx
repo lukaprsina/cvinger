@@ -1,7 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 import Article from "../components/Article"
-import ArticleImage from "../components/ArticleImage"
+import Image from "../components/Image"
 
 const Gomile = () => {
     return (
@@ -27,8 +27,8 @@ const Gomile = () => {
                 sodijo v mlajše obdobje starejše železne dobe.
             </Typography>
 
-            <ArticleImage
-                src={"/images/gomile/lidar.jpg"}
+            <Image
+                src="/images/gomile/lidar.jpg"
                 caption="Prostorska razporeditev gomil - prikaz na digitalnem modelu terena."
             />
 
@@ -58,8 +58,8 @@ const Gomile = () => {
                 bili z zakovicami pritrjeni na pas.
             </Typography>
 
-            <ArticleImage
-                src={"/images/gomile/gomila.jpg"}
+            <Image
+                src="/images/gomile/gomila.jpg"
                 caption="Ena od bolj prepoznavnih gomil na gomilnem grobišču Branževec."
             />
 
@@ -86,8 +86,8 @@ const Gomile = () => {
                 jantarne ogrlice ter votle in masivne bronaste zapestnice.
             </Typography>
 
-            <ArticleImage
-                src={"/images/gomile/tabli.jpg"}
+            <Image
+                src="/images/gomile/tabli.jpg"
                 caption="Informativni tabli pri gomilnem grobišču."
             />
 
@@ -118,8 +118,8 @@ const Gomile = () => {
                 orožja, nakitnih predmetov ter keramičnega posodja.
             </Typography>
 
-            <ArticleImage
-                src={"/images/gomile/situla.png"}
+            <Image
+                src="/images/gomile/situla.png"
                 caption="Cvingerska situla s tremi figuralnimi frizi."
                 center
                 noGallery

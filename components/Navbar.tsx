@@ -9,34 +9,13 @@ import {
     Container,
 } from "@mui/material"
 
-/* const useStyles = makeStyles({
-    button: {
-        color: "white",
-    },
-
-    toolbar: {
-        width: "100vw",
-        maxWidth: "1200px",
-        margin: "auto",
-    },
-
-    linkToButton: {
-        textDecoration: "none",
-    },
-
-    box: {
-        marginBottom: "48px",
-    },
-}) */
-
 function NavbarButton({ to, children }) {
     return (
-        <Link href={to}/* className={classes.linkToButton} */>
+        <Link href={to}>
             <a style={{ textDecoration: "none" }}>
                 <Button
                     variant="text"
                     sx={{ color: "white" }}
-                    /* className={classes.button} */
                     color="primary"
                     size="small"
                 >
@@ -65,7 +44,7 @@ const Navbar = () => {
                     width: "100vw",
                     maxWidth: "1200px",
                     margin: "auto",
-                }} /* className={classes.toolbar} */>
+                }}>
                     <Container>
                         <NavbarButton to="/pot">Arheološka pot</NavbarButton>
                         <NavbarButton to="/gradisce">

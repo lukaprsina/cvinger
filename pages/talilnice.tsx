@@ -1,7 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 import Article from "../components/Article"
-import Image from "../components/Image"
+import ArticleImage from "../components/Image"
 
 const Talilnice = () => {
     return (
@@ -37,7 +37,7 @@ const Talilnice = () => {
                 merila 80 × 100 cm.
             </Typography>
 
-            <Image
+            <ArticleImage
                 src="/images/talilnice/vzorci.jpg"
                 caption="Oblikovni in utežnostni prikaz različnih oblik železa."
             />
@@ -53,7 +53,7 @@ const Talilnice = () => {
                 kovali tudi znotraj naselja.
             </Typography>
 
-            <Image
+            <ArticleImage
                 src="/images/talilnice/talilnik.jpg"
                 caption="Prerez skozi naloženo in dogorelo jaškasto talilno peč z jamo za žlindro."
             />
@@ -69,7 +69,7 @@ const Talilnice = () => {
                 so to sezidali v njeni neposredni bližini.
             </Typography>
 
-            <Image
+            <ArticleImage
                 src="/images/talilnice/raziskave.jpg"
                 caption="Raziskave v arheološkem izkopu (sondi) na talilniškem območju. Foto Matija Črešnar."
             />

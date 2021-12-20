@@ -21,11 +21,11 @@ const Header = () => {
                 },
             }}
         >
-            {/* <Link href="/">
+            <Link href="/">
                 <a>
                     <NextjsImage layout="fill" src="/images/logo/logo.svg" alt="cvinger" />
                 </a>
-            </Link> */}
+            </Link>
         </Box>
     )
 }

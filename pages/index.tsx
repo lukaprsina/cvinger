@@ -1,6 +1,6 @@
 import React from "react"
 import Article from "../components/Article"
-import Image from "../components/Image"
+import ArticleImage from "../components/Image"
 import HomeNavbar from "../components/HomeNavbar"
 
 import { Typography } from "@mui/material"
@@ -30,7 +30,7 @@ function Home() {
                 dolenjske prazgodovinske skupnosti.
             </Typography>
 
-            <Image
+            <ArticleImage
                 src="/images/home/panorama.jpg"
                 caption="Cvinger s prazgodovinskim gradiščem (v sredini) se dviguje nad sotočjem Krke in Radeščice."
             />
@@ -47,7 +47,7 @@ function Home() {
                 zakladnico evropske kulturne dediščine.
             </Typography>
 
-            <Image
+            <ArticleImage
                 src="/images/home/pot1.jpg"
                 caption="Steze, po katerih poteka arheološka pot, se vijejo po mešanem gozdu."
             />

@@ -1,6 +1,6 @@
 import React from "react"
 import { Box, Button, Typography } from "@mui/material"
-import Image from "./Image"
+import ArticleImage from "./Image"
 
 function Logo({ children, href, style = {} }) {
     return (

@@ -3,6 +3,10 @@ import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import ArticleImage from "../components/Image"
 
+import vzorci from "/public/images/talilnice/vzorci.jpg"
+import talilnik from "/public/images/talilnice/talilnik.jpg"
+import raziskave from "/public/images/talilnice/raziskave.jpg"
+
 const Talilnice = () => {
     return (
         <Article title="Talilniško območje">
@@ -38,7 +42,7 @@ const Talilnice = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/talilnice/vzorci.jpg"
+                src={vzorci}
                 caption="Oblikovni in utežnostni prikaz različnih oblik železa."
             />
 
@@ -54,7 +58,7 @@ const Talilnice = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/talilnice/talilnik.jpg"
+                src={talilnik}
                 caption="Prerez skozi naloženo in dogorelo jaškasto talilno peč z jamo za žlindro."
             />
 
@@ -70,7 +74,7 @@ const Talilnice = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/talilnice/raziskave.jpg"
+                src={raziskave}
                 caption="Raziskave v arheološkem izkopu (sondi) na talilniškem območju. Foto Matija Črešnar."
             />
 

@@ -3,6 +3,10 @@ import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import ArticleImage from "../components/Image"
 
+import pot2 from "/public/images/pot/pot2.jpg"
+import smerokaz from "/public/images/pot/smerokaz.jpg"
+import enote from "/public/images/pot/enote.jpg"
+
 const Pot = () => {
     return (
         <Article title="Arheološka pot">
@@ -25,12 +29,12 @@ const Pot = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/pot/pot2.jpg"
+                src={pot2}
                 caption="Pojasnjevalni tabli pri gomilnem grobišču."
             />
 
             <ArticleImage
-                src="/images/pot/smerokaz.jpg"
+                src={smerokaz}
                 caption="Pot je označena z markacijo stilizirane situle in smerokazi."
             />
 
@@ -53,7 +57,7 @@ const Pot = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/pot/enote.jpg"
+                src={enote}
                 caption="Najpomembnejši gradniki arheološke poti na posnetku zračnega laserskega skeniranja."
             />
         </Article>

@@ -4,7 +4,6 @@ import { Typography, Box } from "@mui/material"
 import NextjsImage from "next/image"
 
 const ArticleImage = ({ src, caption, center = false, noGallery = false }) => {
-    console.log(src)
     return (
         <Box sx={{
             margin: "0", "& img": {

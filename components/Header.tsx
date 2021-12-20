@@ -18,7 +18,7 @@ const Header = () => {
                     display: "block",
                     width: "50vw",
                     maxWidth: "615px",
-                },
+                }
             }}
         >
             <Link href="/">

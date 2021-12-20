@@ -35,7 +35,6 @@ export default function Article({ title = "", noNavbar = false, children }) {
 
     return (
         <>
-            <CssBaseline />
             <ThemeProvider theme={theme}>
                 <Header />
                 {noNavbar ? null : <Navbar />}
@@ -43,7 +42,7 @@ export default function Article({ title = "", noNavbar = false, children }) {
                     sx={{
                         maxWidth: "800px",
                         padding: "0",
-                        margin: "auto"
+                        margin: "auto",
                     }}
                 >
                     {title ? (

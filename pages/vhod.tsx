@@ -3,6 +3,10 @@ import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import ArticleImage from "../components/Image"
 
+import vhod from "/public/images/vhod/vhod.jpg"
+import fotoskica from "/public/images/vhod/fotoskica.jpg"
+import tloris from "/public/images/vhod/tloris.jpg"
+
 const Vhod = () => {
     return (
         <Article title="Utrjen vhod">
@@ -26,12 +30,12 @@ const Vhod = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/vhod/vhod.jpg"
+                src={vhod}
                 caption="Delno rekonstruiran (2020) skoraj 4 m širok dvojni zid ob dohodni poti."
             />
 
             <ArticleImage
-                src="/images/vhod/fotoskica.jpg"
+                src={fotoskica}
                 caption="Digitalni model ostalin več kot 3 m širokega prečnega utrdbenega zidu."
             />
 
@@ -57,7 +61,7 @@ const Vhod = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/vhod/tloris.jpg"
+                src={tloris}
                 caption="Zračni posnetek, iz katerega je razviden potek dvojnega zidu."
             />
         </Article>

@@ -5,6 +5,9 @@ import HomeNavbar from "../components/HomeNavbar"
 
 import { Typography } from "@mui/material"
 
+import panorama from "/public/images/home/panorama.jpg"
+import pot1 from "/public/images/home/pot1.jpg"
+
 function Home() {
     return (
         <Article noNavbar>
@@ -31,7 +34,7 @@ function Home() {
             </Typography>
 
             <ArticleImage
-                src="/images/home/panorama.jpg"
+                src={panorama}
                 caption="Cvinger s prazgodovinskim gradiščem (v sredini) se dviguje nad sotočjem Krke in Radeščice."
             />
 
@@ -48,7 +51,7 @@ function Home() {
             </Typography>
 
             <ArticleImage
-                src="/images/home/pot1.jpg"
+                src={pot1}
                 caption="Steze, po katerih poteka arheološka pot, se vijejo po mešanem gozdu."
             />
 

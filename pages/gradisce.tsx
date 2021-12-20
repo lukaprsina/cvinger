@@ -3,6 +3,10 @@ import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import ArticleImage from "../components/Image"
 
+import sonda from "/public/images/gradisce/sonda.jpg"
+import zid from "/public/images/gradisce/zid.jpg"
+import obzidje from "/public/images/gradisce/obzidje.jpg"
+
 const Gradisce = () => {
     return (
         <Article title="Prazgodovinsko gradišče">
@@ -54,7 +58,7 @@ const Gradisce = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/gradisce/sonda.jpg"
+                src={sonda}
                 caption="Delno zasuta arheološka sonda razkriva sestavo prazgodovinskega obzidja."
             />
 
@@ -115,7 +119,7 @@ const Gradisce = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/gradisce/zid.jpg"
+                src={zid}
                 caption="Idealiziran prikaz kamnitega obzidja, ki je obdajalo gradišče."
             />
 
@@ -133,7 +137,7 @@ const Gradisce = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/gradisce/obzidje.jpg"
+                src={obzidje}
                 caption="Pojasnjevalni tabli pri delno rekonstruiranem obzidju iz leta 1990."
             />
 

@@ -3,6 +3,10 @@ import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import ArticleImage from "../components/Image"
 
+import ograja from "/public/images/jama/ograja.jpg"
+import nacrt from "/public/images/jama/nacrt.jpg"
+import jamar from "/public/images/jama/jamar.jpg"
+
 const Jama = () => {
     return (
         <Article title="Cvingerska jama">
@@ -17,7 +21,7 @@ const Jama = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/jama/ograja.jpg"
+                src={ograja}
                 caption="Zaščitna ograja okoli vhodnega brezna Cvingerske jame."
             />
 
@@ -93,7 +97,7 @@ const Jama = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/jama/načrt.jpg"
+                src={nacrt}
                 caption="Načrt Cvingerske jame. Načrt Tomaž Grdin."
                 center
             />
@@ -112,7 +116,7 @@ const Jama = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/jama/jamar.jpg"
+                src={jamar}
                 caption="Jamarsko prodiranje skozi ožino v Meniški dvoranici."
             />
         </Article>

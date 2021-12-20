@@ -1,12 +1,12 @@
 import React, { useEffect } from "react"
-import { Map, imageOverlay, CRS } from "leaflet"
-import "leaflet/dist/leaflet.css"
+// import { Map, imageOverlay, CRS } from "leaflet"
+// import "leaflet/dist/leaflet.css"
 
 import Article from "../components/Article"
 import { Box } from "@mui/system"
 
 const Zemljevid = () => {
-    const bounds = [
+    /* const bounds = [
         [0, 0],
         [937, 1201],
     ];
@@ -17,9 +17,9 @@ const Zemljevid = () => {
             zoomDelta: 0.5,
             maxZoom: 2,
         });
-        imageOverlay("/images/zemljevid/zemljevid.jpg", bounds).addTo(map)
+        imageOverlay("/public/images/zemljevid/zemljevid.jpg", bounds).addTo(map)
         map.fitBounds(bounds)
-    }, [])
+    }, []) */
 
     return (
         <Article title="Zemljevid">

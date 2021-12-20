@@ -3,6 +3,11 @@ import { Typography } from "@mui/material"
 import Article from "../components/Article"
 import ArticleImage from "../components/Image"
 
+import lidar from "/public/images/gomile/lidar.jpg"
+import gomila from "/public/images/gomile/gomila.jpg"
+import tabli from "/public/images/gomile/tabli.jpg"
+import situla from "/public/images/gomile/situla.png"
+
 const Gomile = () => {
     return (
         <Article title="Gomilno grobišče">
@@ -28,7 +33,7 @@ const Gomile = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/gomile/lidar.jpg"
+                src={lidar}
                 caption="Prostorska razporeditev gomil - prikaz na digitalnem modelu terena."
             />
 
@@ -59,7 +64,7 @@ const Gomile = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/gomile/gomila.jpg"
+                src={gomila}
                 caption="Ena od bolj prepoznavnih gomil na gomilnem grobišču Branževec."
             />
 
@@ -87,7 +92,7 @@ const Gomile = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/gomile/tabli.jpg"
+                src={tabli}
                 caption="Informativni tabli pri gomilnem grobišču."
             />
 
@@ -119,7 +124,7 @@ const Gomile = () => {
             </Typography>
 
             <ArticleImage
-                src="/images/gomile/situla.png"
+                src={situla}
                 caption="Cvingerska situla s tremi figuralnimi frizi."
                 center
                 noGallery

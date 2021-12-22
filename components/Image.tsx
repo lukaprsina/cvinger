@@ -17,7 +17,7 @@ const ArticleImage = ({ src, caption, center = false, noGallery = false }) => {
             <NextjsImage
                 src={src}
                 alt={caption}
-                layout="fill"
+                layout="intrinsic"
             />
             <Typography
                 variant="caption"
@@ -26,7 +26,7 @@ const ArticleImage = ({ src, caption, center = false, noGallery = false }) => {
             >
                 {caption}
             </Typography>
-        </Box>
+        </Box >
     )
 }
 

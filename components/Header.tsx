@@ -3,6 +3,8 @@ import Link from "next/link"
 import NextjsImage from "next/image"
 import { Box } from "@mui/material"
 
+import logo from "/public/images/logo/logo.svg"
+
 const Header = () => {
     return (
         <Box
@@ -23,7 +25,7 @@ const Header = () => {
         >
             <Link href="/">
                 <a>
-                    <NextjsImage layout="fill" src="/images/logo/logo.svg" alt="cvinger" />
+                    <NextjsImage layout="fixed" src={logo} alt="cvinger" />
                 </a>
             </Link>
         </Box>

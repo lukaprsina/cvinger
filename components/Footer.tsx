@@ -2,6 +2,11 @@ import React from "react"
 import { Box, Button, Typography } from "@mui/material"
 import ArticleImage from "./Image"
 
+import filozofska_fakulteta from "/public/images/logo/filozofska_fakulteta.svg"
+import ZVKDS from "/public/images/logo/ZVKDS.svg"
+import dolenjski_muzej from "/public/images/logo/dolenjski_muzej.svg"
+import obcina_dolenjske_toplice from "/public/images/logo/obcina_dolenjske_toplice.svg"
+
 function Logo({ children, href, style = {} }) {
     return (
         <a href={href} style={style} target="_blank" rel="noreferrer">
@@ -11,8 +16,7 @@ function Logo({ children, href, style = {} }) {
 }
 
 const Footer = () => {
-    return <p>Footer</p>
-    /* return (
+    return (
         <Box
             sx={{
                 margin: "40px auto auto auto",
@@ -38,13 +42,13 @@ const Footer = () => {
                         style={{ maxWidth: "90px" }}
                     >
                         <ArticleImage
-                            src="/images/logo/filozofska_fakulteta.svg"
+                            src={filozofska_fakulteta}
                             alt="Univerza v Ljubljani: Filozofska fakulteta"
                         />
                     </Logo>
                     <Logo href="https://www.zvkds.si">
                         <ArticleImage
-                            src="/images/logo/ZVKDS.svg"
+                            src={ZVKDS}
                             alt="Zavod za varstvo kulturne dediščine Slovenije"
                         />
                     </Logo>
@@ -52,7 +56,7 @@ const Footer = () => {
                         href="https://www.dolenjskimuzej.si/"
                         style={{ transform: "translateY(18px)" }}
                     >
-                        <ArticleImage src="/images/logo/dolenjski_muzej.svg" alt="Dolenjski muzej" />
+                        <ArticleImage src={dolenjski_muzej} alt="Dolenjski muzej" />
                     </Logo>
                     <Logo
                         href="https://dolenjske-toplice.si/"
@@ -66,7 +70,7 @@ const Footer = () => {
                             height: "auto"
                         }}>
                             <ArticleImage
-                                src="/images/logo/obcina_dolenjske_toplice.svg"
+                                src={obcina_dolenjske_toplice}
                                 caption="Občina Dolenjske Toplice"
                                 style={{ maxHeight: "80px" }}
                             />
@@ -96,7 +100,7 @@ const Footer = () => {
                 </Button>
             </Box >
         </Box >
-    ) */
+    )
 }
 
 export default Footer

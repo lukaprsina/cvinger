@@ -35,6 +35,7 @@ export default function Article({ title = "", noNavbar = false, children }) {
 
     return (
         <>
+            <CssBaseline />
             <ThemeProvider theme={theme}>
                 <Header />
                 {noNavbar ? null : <Navbar />}

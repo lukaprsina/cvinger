@@ -3,7 +3,10 @@ import React from "react"
 import { Typography, Box } from "@mui/material"
 import NextjsImage from "next/image"
 
-const ArticleImage = ({ src, caption, center = false, noGallery = false }) => {
+const ArticleImage = ({ src, caption, center = false, noGallery = false, priority = false }) => {
+    let extension = /(?:\.([^.]+))?$/.exec(src.src)[1];
+    let blur = extension === "jpg" || extension === "png" || extension === "webp" || extension === "avif";
+
     return (
         <Box sx={{
             margin: "0", "& img": {
@@ -17,7 +20,8 @@ const ArticleImage = ({ src, caption, center = false, noGallery = false }) => {
             <NextjsImage
                 src={src}
                 alt={caption}
-                layout="intrinsic"
+                placeholder={blur ? "blur" : "empty"}
+                priority={priority}
             />
             <Typography
                 variant="caption"

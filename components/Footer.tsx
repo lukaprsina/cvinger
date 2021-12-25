@@ -49,22 +49,20 @@ const Footer = () => {
                     >
                         <LogoImage
                             src={filozofska_fakulteta}
-                            caption="Univerza v Ljubljani: Filozofska fakulteta"
-                            noBorder
+                            alt="Univerza v Ljubljani: Filozofska fakulteta"
                         />
                     </Logo>
                     <Logo href="https://www.zvkds.si">
                         <LogoImage
                             src={ZVKDS}
-                            caption="Zavod za varstvo kulturne dediščine Slovenije"
-                            noBorder
+                            alt="Zavod za varstvo kulturne dediščine Slovenije"
                         />
                     </Logo>
                     <Logo
                         href="https://www.dolenjskimuzej.si/"
                         style={{ transform: "translateY(18px)" }}
                     >
-                        <LogoImage src={dolenjski_muzej} caption="Dolenjski muzej" noBorder />
+                        <LogoImage src={dolenjski_muzej} alt="Dolenjski muzej" />
                     </Logo>
                     <Logo
                         href="https://dolenjske-toplice.si/"
@@ -78,19 +76,11 @@ const Footer = () => {
                             flexWrap: "wrap",
                             justifyContent: "center",
                             height: "auto",
-                            sx: {
-                                border: "10px solid blue",
-
-                                "& img": {
-                                    maxHeight: "80px",
-                                    border: "10px solid red",
-                                }
-                            }
                         }}>
                             <LogoImage
                                 src={obcina_dolenjske_toplice}
-                                caption="Občina Dolenjske Toplice"
-                                noBorder
+                                alt="Občina Dolenjske Toplice"
+                                logo_dt
                             />
                             <Typography
                                 sx={{

@@ -19,13 +19,15 @@ const Header = () => {
                 "& img": {
                     display: "block",
                     width: "50vw",
-                    maxWidth: "615px",
+                    // TODO: fix logo size
+                    // maxWidth: "615px",
+                    maxWidth: "800px",
                 }
             }}
         >
             <Link href="/">
                 <a>
-                    <NextjsImage layout="fixed" src={logo} alt="cvinger" />
+                    <NextjsImage src={logo} alt="cvinger" />
                 </a>
             </Link>
         </Box>

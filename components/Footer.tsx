@@ -1,13 +1,19 @@
 import React from "react"
 import { Box, Button, Typography } from "@mui/material"
-import ArticleImage from "./Image"
+import LogoImage from "./LogoImage"
 
 import filozofska_fakulteta from "/public/images/logo/filozofska_fakulteta.svg"
 import ZVKDS from "/public/images/logo/ZVKDS.svg"
 import dolenjski_muzej from "/public/images/logo/dolenjski_muzej.svg"
 import obcina_dolenjske_toplice from "/public/images/logo/obcina_dolenjske_toplice.svg"
 
-function Logo({ children, href, style = {} }) {
+type LogoProps = {
+    children: React.ReactNode,
+    href?: string,
+    style?: React.CSSProperties,
+}
+
+function Logo({ children, href, style = {} }: LogoProps) {
     return (
         <a href={href} style={style} target="_blank" rel="noreferrer">
             {children}
@@ -41,41 +47,52 @@ const Footer = () => {
                         href="http://arheologija.ff.uni-lj.si/"
                         style={{ maxWidth: "90px" }}
                     >
-                        <ArticleImage
+                        <LogoImage
                             src={filozofska_fakulteta}
-                            alt="Univerza v Ljubljani: Filozofska fakulteta"
+                            caption="Univerza v Ljubljani: Filozofska fakulteta"
+                            noBorder
                         />
                     </Logo>
                     <Logo href="https://www.zvkds.si">
-                        <ArticleImage
+                        <LogoImage
                             src={ZVKDS}
-                            alt="Zavod za varstvo kulturne dediščine Slovenije"
+                            caption="Zavod za varstvo kulturne dediščine Slovenije"
+                            noBorder
                         />
                     </Logo>
                     <Logo
                         href="https://www.dolenjskimuzej.si/"
                         style={{ transform: "translateY(18px)" }}
                     >
-                        <ArticleImage src={dolenjski_muzej} alt="Dolenjski muzej" />
+                        <LogoImage src={dolenjski_muzej} caption="Dolenjski muzej" noBorder />
                     </Logo>
                     <Logo
                         href="https://dolenjske-toplice.si/"
-                        style={{ maxWidth: "121px" }}
+                        style={{
+                            maxWidth: "121px"
+                        }}
                     >
                         <Box sx={{
                             display: "flex",
                             alignItems: "flex-end",
                             flexWrap: "wrap",
                             justifyContent: "center",
-                            height: "auto"
+                            height: "auto",
+                            sx: {
+                                border: "10px solid blue",
+
+                                "& img": {
+                                    maxHeight: "80px",
+                                    border: "10px solid red",
+                                }
+                            }
                         }}>
-                            <ArticleImage
+                            <LogoImage
                                 src={obcina_dolenjske_toplice}
                                 caption="Občina Dolenjske Toplice"
-                                style={{ maxHeight: "80px" }}
+                                noBorder
                             />
                             <Typography
-
                                 sx={{
                                     margin: "5px 0"
                                 }}

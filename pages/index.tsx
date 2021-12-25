@@ -1,6 +1,6 @@
 import React from "react"
 import Article from "../components/Article"
-import ArticleImage from "../components/Image"
+import ArticleImage from "../components/ArticleImage"
 import HomeNavbar from "../components/HomeNavbar"
 
 import { Typography } from "@mui/material"

@@ -3,8 +3,21 @@ import React from "react"
 import { Typography, Box } from "@mui/material"
 import NextjsImage from "next/image"
 
-const ArticleImage = ({ src, caption, center = false, noGallery = false, priority = false }) => {
-    let extension = /(?:\.([^.]+))?$/.exec(src.src)[1];
+type LogoImageProps = {
+    src: any,
+    caption: string,
+    center?: boolean,
+    noGallery?: boolean,
+    noBorder?: boolean,
+    priority?: boolean,
+}
+
+const extension_regex = /(?:\.([^.]+))?$/;
+
+const LogoImage = ({ src, caption, center = false, noBorder = false, noGallery = false, priority = false }: LogoImageProps) => {
+    let result = extension_regex.exec(src.src);
+    let extension = result ? result[1] : "";
+
     let blur = extension === "jpg" || extension === "png" || extension === "webp" || extension === "avif";
 
     return (
@@ -12,7 +25,7 @@ const ArticleImage = ({ src, caption, center = false, noGallery = false, priorit
             margin: "0", "& img": {
                 width: "100%",
                 maxHeight: "700px",
-                borderRadius: "7px",
+                borderRadius: noBorder ? "0" : "7px",
                 display: "block",
                 margin: "auto",
             }
@@ -34,4 +47,4 @@ const ArticleImage = ({ src, caption, center = false, noGallery = false, priorit
     )
 }
 
-export default ArticleImage
+export default LogoImage

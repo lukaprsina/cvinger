@@ -32,7 +32,13 @@ const HomeNavbar = () => {
     )
 }
 
-function Item({ image, text, to }) {
+type ItemProps = {
+    image: string,
+    text: string,
+    to: string,
+}
+
+function Item({ image, text, to }: ItemProps) {
     const [mouseHover, setMouseHover] = useState(false)
 
     const { brightness, scale } = useSpring({
@@ -50,7 +56,7 @@ function Item({ image, text, to }) {
                 }
             }}
         >
-            <Link href="/pot"                            >
+            <Link href="/pot">
                 <a>
                     <Box
                         sx={{

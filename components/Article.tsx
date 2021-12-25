@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react';
 import Header from "../components/Header"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
@@ -24,11 +24,19 @@ const theme = createTheme({
 
 let galleryImages = []
 
-export default function Article({ title = "", noNavbar = false, children }) {
+type ArticleProps = {
+    title?: string,
+    noNavbar?: boolean,
+    children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
+}
 
-    React.Children.forEach(children, (child) => {
-        if (child.props.src && !child.props.noGallery)
+
+export default function Article({ title = "", noNavbar = false, children }: ArticleProps) {
+    // TODO: any    
+    React.Children.forEach(children, (child: React.ReactElement<any>) => {
+        if (child.props.src && !child.props.noGallery) {
             galleryImages.push({ original: child.props.src, thumbnail: child.props.thumbnail ? child.props.thumbnail : child.props.src })
+        }
     })
 
     // console.log(galleryImages)

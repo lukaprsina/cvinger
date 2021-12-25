@@ -1,7 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 import Article from "../components/Article"
-import ArticleImage from "../components/Image"
+import ArticleImage from "../components/ArticleImage"
 
 import sonda from "/public/images/gradisce/sonda.jpg"
 import zid from "/public/images/gradisce/zid.jpg"

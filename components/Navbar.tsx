@@ -9,7 +9,12 @@ import {
     Container,
 } from "@mui/material"
 
-function NavbarButton({ to, children }) {
+type NavbarButtonType = {
+    to: string,
+    children: React.ReactNode,
+}
+
+function NavbarButton({ to, children }: NavbarButtonType) {
     return (
         <Link href={to}>
             <a style={{ textDecoration: "none" }}>
@@ -26,7 +31,12 @@ function NavbarButton({ to, children }) {
     )
 }
 
-function HideOnScroll({ children, threshold }) {
+type HideOnScrollType = {
+    children: React.ReactElement<any, any>,
+    threshold: number
+}
+
+function HideOnScroll({ children, threshold }: HideOnScrollType) {
     const trigger = useScrollTrigger({ threshold })
 
     return (

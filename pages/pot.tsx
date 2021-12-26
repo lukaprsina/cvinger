@@ -1,14 +1,16 @@
 import React from "react"
 import { Typography } from "@mui/material"
+
 import Article from "../components/Article"
 import ArticleImage from "../components/ArticleImage"
+import Gallery from "../components/Gallery"
 
 import pot2 from "/public/images/pot/pot2.jpg"
 import smerokaz from "/public/images/pot/smerokaz.jpg"
 import enote from "/public/images/pot/enote.jpg"
 
 const Pot = () => {
-    return (
+    return <Gallery>
         <Article title="Arheološka pot">
             <Typography variant="body1" paragraph>
                 Prve raziskovalce je Cvinger pritegnil že v sedemdesetih letih
@@ -61,7 +63,7 @@ const Pot = () => {
                 caption="Najpomembnejši gradniki arheološke poti na posnetku zračnega laserskega skeniranja."
             />
         </Article>
-    )
+    </Gallery>
 }
 
 export default Pot

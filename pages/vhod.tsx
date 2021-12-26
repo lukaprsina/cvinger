@@ -1,14 +1,16 @@
 import React from "react"
 import { Typography } from "@mui/material"
+
 import Article from "../components/Article"
 import ArticleImage from "../components/ArticleImage"
+import Gallery from "../components/Gallery"
 
 import vhod from "/public/images/vhod/vhod.jpg"
 import fotoskica from "/public/images/vhod/fotoskica.jpg"
 import tloris from "/public/images/vhod/tloris.jpg"
 
 const Vhod = () => {
-    return (
+    return <Gallery>
         <Article title="Utrjen vhod">
             <Typography variant="body1" paragraph>
                 Gradišče je imelo dva vhoda, severnega in južnega, vsi drugi
@@ -65,7 +67,7 @@ const Vhod = () => {
                 caption="Zračni posnetek, iz katerega je razviden potek dvojnega zidu."
             />
         </Article>
-    )
+    </Gallery>
 }
 
 export default Vhod

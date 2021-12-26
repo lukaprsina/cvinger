@@ -10,11 +10,12 @@ type ArticleImageProps = {
     noGallery?: boolean,
     noBorder?: boolean,
     priority?: boolean,
+    galleryRef?: React.ReactNode,
 }
 
 const extension_regex = /(?:\.([^.]+))?$/;
 
-const ArticleImage = ({ src, caption, center = false, noBorder = false, noGallery = false, priority = false }: ArticleImageProps) => {
+const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryRef, priority = false }: ArticleImageProps) => {
     let result = extension_regex.exec(src.src);
     let extension = result ? result[1] : "";
 
@@ -26,16 +27,17 @@ const ArticleImage = ({ src, caption, center = false, noBorder = false, noGaller
                 width: "100%",
                 maxHeight: "700px",
                 borderRadius: noBorder ? "0" : "7px",
-                display: "block",
-                margin: "auto",
             }
         }}>
-            <NextjsImage
-                src={src}
-                alt={caption}
-                placeholder={blur ? "blur" : "empty"}
-                priority={priority}
-            />
+            <Box sx={{ textAlign: "center" }}>
+                <NextjsImage
+                    src={src}
+                    alt={caption}
+                    placeholder={blur ? "blur" : "empty"}
+                    priority={priority}
+                    onClick={() => { console.log(src) }}
+                />
+            </Box>
             <Typography
                 variant="caption"
                 paragraph

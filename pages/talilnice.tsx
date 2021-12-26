@@ -1,14 +1,16 @@
 import React from "react"
 import { Typography } from "@mui/material"
+
 import Article from "../components/Article"
 import ArticleImage from "../components/ArticleImage"
+import Gallery from "../components/Gallery"
 
 import vzorci from "/public/images/talilnice/vzorci.jpg"
 import talilnik from "/public/images/talilnice/talilnik.jpg"
 import raziskave from "/public/images/talilnice/raziskave.jpg"
 
 const Talilnice = () => {
-    return (
+    return <Gallery>
         <Article title="Talilniško območje">
             <Typography variant="body1" paragraph>
                 Med najpomembnejše dejavnosti tukajšnjih prazgodovinskih
@@ -88,7 +90,7 @@ const Talilnice = () => {
                 pa je za čas starejše železne dobe uporabno le omejeno.
             </Typography>
         </Article>
-    )
+    </Gallery>
 }
 
 export default Talilnice

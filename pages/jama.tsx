@@ -1,14 +1,16 @@
 import React from "react"
 import { Typography } from "@mui/material"
+
 import Article from "../components/Article"
 import ArticleImage from "../components/ArticleImage"
+import Gallery from "../components/Gallery"
 
 import ograja from "/public/images/jama/ograja.jpg"
 import nacrt from "/public/images/jama/nacrt.jpg"
 import jamar from "/public/images/jama/jamar.jpg"
 
 const Jama = () => {
-    return (
+    return <Gallery>
         <Article title="Cvingerska jama">
             <Typography variant="body1" paragraph>
                 Dolenjski griči in hribi so na široko posejani s
@@ -120,7 +122,7 @@ const Jama = () => {
                 caption="Jamarsko prodiranje skozi ožino v Meniški dvoranici."
             />
         </Article>
-    )
+    </Gallery>
 }
 
 export default Jama

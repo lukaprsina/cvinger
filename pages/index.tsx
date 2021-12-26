@@ -1,15 +1,16 @@
 import React from "react"
+import { Typography } from "@mui/material"
+
 import Article from "../components/Article"
 import ArticleImage from "../components/ArticleImage"
 import HomeNavbar from "../components/HomeNavbar"
-
-import { Typography } from "@mui/material"
+import Gallery from "../components/Gallery"
 
 import panorama from "/public/images/home/panorama.jpg"
 import pot1 from "/public/images/home/pot1.jpg"
 
 function Home() {
-    return (
+    return <Gallery >
         <Article noNavbar>
             <HomeNavbar />
             <Typography variant="body1" paragraph>
@@ -77,7 +78,7 @@ function Home() {
                 tega obdobja v širši podonavski regiji.
             </Typography>
         </Article>
-    )
+    </Gallery>
 }
 
 export default Home

@@ -1,7 +1,9 @@
 import React from "react"
 import { Typography } from "@mui/material"
+
 import Article from "../components/Article"
 import ArticleImage from "../components/ArticleImage"
+import Gallery from "../components/Gallery"
 
 import lidar from "/public/images/gomile/lidar.jpg"
 import gomila from "/public/images/gomile/gomila.jpg"
@@ -9,7 +11,7 @@ import tabli from "/public/images/gomile/tabli.jpg"
 import situla from "/public/images/gomile/situla.png"
 
 const Gomile = () => {
-    return (
+    return <Gallery>
         <Article title="Gomilno grobišče">
             <Typography variant="body1" paragraph>
                 Cvingersko gomilno grobišče Branževec sodi med klasična
@@ -140,7 +142,7 @@ const Gomile = () => {
                 pokopov na našem prostoru.
             </Typography>
         </Article>
-    )
+    </Gallery>
 }
 
 export default Gomile

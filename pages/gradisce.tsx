@@ -1,14 +1,16 @@
 import React from "react"
 import { Typography } from "@mui/material"
+
 import Article from "../components/Article"
 import ArticleImage from "../components/ArticleImage"
+import Gallery from "../components/Gallery"
 
 import sonda from "/public/images/gradisce/sonda.jpg"
 import zid from "/public/images/gradisce/zid.jpg"
 import obzidje from "/public/images/gradisce/obzidje.jpg"
 
 const Gradisce = () => {
-    return (
+    return <Gallery>
         <Article title="Prazgodovinsko gradišče">
             <Typography variant="body1" paragraph>
                 V vseh obdobjih človekove prisotnosti na naših tleh so osnovne
@@ -156,7 +158,7 @@ const Gradisce = () => {
                 (koleraba, repa) in presenetljivo velike količine gorčice.
             </Typography>
         </Article>
-    )
+    </Gallery>
 }
 
 export default Gradisce

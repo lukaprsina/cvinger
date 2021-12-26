@@ -22,8 +22,6 @@ const theme = createTheme({
     },
 })
 
-let galleryImages = []
-
 type ArticleProps = {
     title?: string,
     noNavbar?: boolean,
@@ -32,15 +30,6 @@ type ArticleProps = {
 
 
 export default function Article({ title = "", noNavbar = false, children }: ArticleProps) {
-    // TODO: any    
-    React.Children.forEach(children, (child: React.ReactElement<any>) => {
-        if (child.props.src && !child.props.noGallery) {
-            galleryImages.push({ original: child.props.src, thumbnail: child.props.thumbnail ? child.props.thumbnail : child.props.src })
-        }
-    })
-
-    // console.log(galleryImages)
-
     return (
         <>
             <CssBaseline />

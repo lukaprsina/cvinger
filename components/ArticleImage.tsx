@@ -10,12 +10,12 @@ type ArticleImageProps = {
     noGallery?: boolean,
     noBorder?: boolean,
     priority?: boolean,
-    galleryRef?: React.ReactNode,
+    galleryCallback?: () => void
 }
 
 const extension_regex = /(?:\.([^.]+))?$/;
 
-const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryRef, priority = false }: ArticleImageProps) => {
+const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryCallback, priority = false }: ArticleImageProps) => {
     let result = extension_regex.exec(src.src);
     let extension = result ? result[1] : "";
 
@@ -35,7 +35,7 @@ const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryR
                     alt={caption}
                     placeholder={blur ? "blur" : "empty"}
                     priority={priority}
-                    onClick={() => { console.log(src) }}
+                    onClick={() => { galleryCallback ? galleryCallback() : null }}
                 />
             </Box>
             <Typography

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import NextjsImage from "next/image"
 
 type GalleryProps = {
@@ -20,24 +20,39 @@ declare type StaticImport = StaticRequire | StaticImageData;
 
 
 // a function that iterates through react children recursively
-function iterateChildren(children: JSX.Element, galleryCallback: () => void): [StaticImport[], React.ReactElement] | undefined {
+function iterateChildren(children: JSX.Element, galleryCallback: () => void): [StaticImport[], JSX.Element[]] | undefined {
     if (!children || !children.props)
         return;
 
-    const next = children.props.children
+    const next: JSX.Element[] = children.props.children
     let sources: StaticImport[] = [];
+    console.log(next)
 
-    let array_children: JSX.Element;
+    let array_children: JSX.Element[];
+
+    /* if (Array.isArray(next)) {
+        next.forEach((child: JSX.Element) => {
+            const new_sources = iterateChildren(child);
+
+            if (new_sources && new_sources.length != 0)
+                sources.push(...new_sources);
+        });
+    } */
+
     if (Array.isArray(next)) {
         next.forEach((child: JSX.Element) => {
             const new_sources_and_children = iterateChildren(child, galleryCallback);
+            console.log(new_sources_and_children)
             if (new_sources_and_children) {
                 const new_sources = new_sources_and_children[0]
+
                 if (new_sources && new_sources.length != 0)
-                    sources = sources.concat(new_sources_and_children[0]);
+                    sources = sources.concat(new_sources);
 
                 array_children = new_sources_and_children[1];
             }
+            else
+                array_children = next;
         });
     }
     else

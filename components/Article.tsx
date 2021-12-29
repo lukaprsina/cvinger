@@ -28,7 +28,6 @@ type ArticleProps = {
     children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
 }
 
-
 export default function Article({ title = "", noNavbar = false, children }: ArticleProps) {
     return (
         <>

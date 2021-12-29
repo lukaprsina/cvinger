@@ -18,39 +18,22 @@ interface StaticRequire {
 
 declare type StaticImport = StaticRequire | StaticImageData;
 
-function iterateChildren(children: JSX.Element, level: number, galleryCallback: () => void): [JSX.Element, JSX.Element | JSX.Element[]] {
+function iterateChildren(children: JSX.Element, galleryCallback: () => void): JSX.Element {
     let next: JSX.Element | JSX.Element[] = children.props.children
-    console.log(level)
-    console.log("of type:", children.type.name)
-    console.log("Next:", next)
 
     let new_children = children;
     let new_next: JSX.Element[] = [];
     let returned_children: JSX.Element = children;
     let add: { children?: any } = {}
 
-    level++;
-
     if (Array.isArray(next)) {
-        next.forEach((child: JSX.Element) => {
-            console.log("Entering:\t----------------------------------\n", level, "Child:", child)
-            console.log("Array:")
-            const [returned_children, returned_next] = iterateChildren(child, level + 1, galleryCallback)
-            console.log("Left:\t\t----------------------------------\n", level)
-
-            console.log("Returned Children:", returned_children)
-            console.log("Returned Next:", returned_next)
-            new_next.push(React.cloneElement(returned_children));
+        next.forEach((child: JSX.Element, index: number) => {
+            const returned_children = iterateChildren(child, galleryCallback)
+            new_next.push(React.cloneElement(returned_children, { key: index }));
         })
     }
     else if (React.isValidElement(next)) {
-        console.log("Entering:\t----------------------------------\n", level, "Child:", next)
-        console.log("NOT Array:")
-        const [returned_children, returned_next] = iterateChildren(next, level + 1, galleryCallback)
-        console.log("Left:\t\t----------------------------------\n", level)
-
-        console.log("Returned Children:", returned_children)
-        console.log("Returned Next:", returned_next)
+        const returned_children = iterateChildren(next, galleryCallback)
         new_next.push(React.cloneElement(returned_children));
     }
 
@@ -62,22 +45,16 @@ function iterateChildren(children: JSX.Element, level: number, galleryCallback: 
     if (children.type.name == "ArticleImage") {
         new_children = React.cloneElement(returned_children, {
             galleryCallback,
-            test: "Image",
             ...add
         })
-        console.log("Is ArticleImage")
     }
     else {
         new_children = React.cloneElement(returned_children, {
-            test: "Other",
-            /* children: [...new_next] */
             ...add
         })
     }
 
-    console.log({ new_children, new_next })
-
-    return [new_children, new_next];
+    return new_children;
 }
 
 
@@ -89,8 +66,7 @@ function Gallery({ children }: GalleryProps) {
         alert(1)
     };
 
-    const new_sources_and_children = iterateChildren(children, 0, galleryCallback);
-    console.log(new_sources_and_children)
+    const new_sources_and_children = iterateChildren(children, galleryCallback);
     /* let new_sources: StaticImport[] = [];
 
     let new_children: JSX.Element;
@@ -106,7 +82,7 @@ function Gallery({ children }: GalleryProps) {
     return (
         <>
             {/* images */}
-            {new_sources_and_children[0]}
+            {new_sources_and_children}
         </>
     );
 }

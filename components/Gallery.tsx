@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import NextjsImage from "next/image"
+import { Container, Typography } from "@mui/material";
 
 type GalleryProps = {
     children: React.ReactElement;
@@ -18,7 +19,7 @@ interface StaticRequire {
 
 declare type StaticImport = StaticRequire | StaticImageData;
 
-function iterateChildren(children: JSX.Element, galleryCallback: () => void): JSX.Element {
+function iterateChildren(children: JSX.Element, galleryCallback: (source: StaticImport) => void, sources: StaticImport[]): JSX.Element {
     let next: JSX.Element | JSX.Element[] = children.props.children
 
     let new_children = children;
@@ -28,12 +29,12 @@ function iterateChildren(children: JSX.Element, galleryCallback: () => void): JS
 
     if (Array.isArray(next)) {
         next.forEach((child: JSX.Element, index: number) => {
-            const returned_children = iterateChildren(child, galleryCallback)
+            const returned_children = iterateChildren(child, galleryCallback, sources)
             new_next.push(React.cloneElement(returned_children, { key: index }));
         })
     }
     else if (React.isValidElement(next)) {
-        const returned_children = iterateChildren(next, galleryCallback)
+        const returned_children = iterateChildren(next, galleryCallback, sources)
         new_next.push(React.cloneElement(returned_children));
     }
 
@@ -43,8 +44,9 @@ function iterateChildren(children: JSX.Element, galleryCallback: () => void): JS
         add.children = [...new_next];
 
     if (children.type.name == "ArticleImage") {
+        sources.push(children.props.src);
         new_children = React.cloneElement(returned_children, {
-            galleryCallback,
+            galleryCallback: () => galleryCallback(children.props.src),
             ...add
         })
     }
@@ -57,32 +59,53 @@ function iterateChildren(children: JSX.Element, galleryCallback: () => void): JS
     return new_children;
 }
 
-
 function Gallery({ children }: GalleryProps) {
     const [showGallery, setShowGallery] = React.useState(false);
-    const galleryCallback = () => {
-        setShowGallery(!showGallery)
-        console.log("Image clicked");
-        alert(1)
+
+    const [index, setIndex] = React.useState<StaticImport>();
+    const galleryCallback = (source: StaticImport) => {
+        setShowGallery(true)
+        setIndex(source)
     };
+    console.log(index)
 
-    const new_sources_and_children = iterateChildren(children, galleryCallback);
-    /* let new_sources: StaticImport[] = [];
+    let sources: StaticImport[] = []
+    const new_children = iterateChildren(children, galleryCallback, sources);
 
-    let new_children: JSX.Element;
+    const images = sources && showGallery && index ? (
+        <Container disableGutters maxWidth={false} sx={{
+            position: "fixed",
+            zIndex: "1000",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            width: "100vw",
+            flexDirection: "column",
+            backgroundColor: "rgba(0,0,0,0.4)",
+        }} onClick={() => setShowGallery(false)} >
+            <NextjsImage
+                src={index}
+                alt="yes"
+                layout="intrinsic"
+            />
+            <Container sx={{
+                backgroundColor: "white",
+                margin: "20px",
+                padding: "20px",
+                borderRadius: "7px",
+            }}>
+                <Typography variant="caption" component="p" align="center">
+                    {"Podnapis"}
+                </Typography>
+            </Container>
+        </Container>
+    ) : null;
 
-    if (new_sources_and_children) {
-        new_sources = new_sources_and_children[0]
-        new_children = new_sources_and_children[1][0];
-    } */
-
-    /* const images = new_sources && showGallery ? new_sources.map((src, index: number) => {
-        return <NextjsImage key={index} src={src} alt="Gallery" />
-    }) : null; */
     return (
         <>
-            {/* images */}
-            {new_sources_and_children}
+            {images}
+            {new_children}
         </>
     );
 }

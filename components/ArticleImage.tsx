@@ -33,6 +33,7 @@ const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryC
                 <NextjsImage
                     src={src}
                     alt={caption}
+                    layout="responsive"
                     placeholder={blur ? "blur" : "empty"}
                     priority={priority}
                     onClick={() => { galleryCallback ? galleryCallback() : null }}

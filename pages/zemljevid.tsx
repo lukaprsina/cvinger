@@ -4,6 +4,7 @@ import React, { useEffect } from "react"
 
 import Article from "../components/Article"
 import { Box } from "@mui/system"
+import { Typography } from "@mui/material"
 
 const Zemljevid = () => {
     /* const bounds = [
@@ -23,6 +24,7 @@ const Zemljevid = () => {
 
     return (
         <Article title="Zemljevid">
+            <Typography>a</Typography>
             <Box id="map-id" width={1200} height={936} ></Box>
         </Article>
     )

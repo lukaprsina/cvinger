@@ -4,6 +4,17 @@ import { useSpring, animated } from "react-spring"
 
 import Link from "next/link"
 import { Box } from "@mui/system"
+import NextjsImage from "next/image"
+
+
+import pot from "/public/images/home/krogci/01_pot.png"
+import gradisce from "/public/images/home/krogci/02_gradisce.png"
+import vhod from "/public/images/home/krogci/03_vhod.png"
+import jama from "/public/images/home/krogci/04_jama.png"
+import talilnice from "/public/images/home/krogci/05_talilnice.png"
+import gomile from "/public/images/home/krogci/06_gomile.png"
+import zemljevid from "/public/images/home/krogci/07_zemljevid.png"
+import literatura from "/public/images/home/krogci/08_literatura.png"
 
 const HomeNavbar = () => {
     return (
@@ -15,25 +26,25 @@ const HomeNavbar = () => {
                 justifyContent: "space-between",
             }}
         >
-            <Item image="/images/home/krogci/01_pot.png" text="Arheološka pot" to="pot" />
+            <Item image={pot} text="Arheološka pot" to="/pot" />
             <Item
-                image="/images/home/krogci/02_gradisce.png"
+                image={gradisce}
                 text="Prazgodovinsko gradišče"
-                to="gradisce"
+                to="/gradisce"
             />
-            <Item image="/images/home/krogci/03_vhod.png" text="Utrjen vhod" to="vhod" />
-            <Item image="/images/home/krogci/04_jama.png" text="Cvingerska jama" to="jama" />
+            <Item image={vhod} text="Utrjen vhod" to="/vhod" />
+            <Item image={jama} text="Cvingerska jama" to="/jama" />
 
-            <Item image="/images/home/krogci/05_talilnice.png" text="Talilniško obmčje" to="talilnice" />
-            <Item image="/images/home/krogci/06_gomile.png" text="Gomilno grobišče" to="gomile" />
-            <Item image="/images/home/krogci/07_zemljevid.png" text="Zemljevid" to="zemljevid" />
-            <Item image="/images/home/krogci/08_literatura.png" text="Literatura" to="literatura" />
+            <Item image={talilnice} text="Talilniško obmčje" to="/talilnice" />
+            <Item image={gomile} text="Gomilno grobišče" to="/gomile" />
+            <Item image={zemljevid} text="Zemljevid" to="/zemljevid" />
+            <Item image={literatura} text="Literatura" to="/literatura" />
         </Box>
     )
 }
 
 type ItemProps = {
-    image: string,
+    image: StaticImageData,
     text: string,
     to: string,
 }
@@ -46,6 +57,8 @@ function Item({ image, text, to }: ItemProps) {
         scale: mouseHover ? 1.05 : 1,
     })
 
+    const AnimatedNextjsImage = animated(NextjsImage)
+
     return (
         <Box
             sx={{
@@ -56,7 +69,7 @@ function Item({ image, text, to }: ItemProps) {
                 }
             }}
         >
-            <Link href="/pot">
+            <Link href={to}>
                 <a>
                     <Box
                         sx={{
@@ -68,20 +81,21 @@ function Item({ image, text, to }: ItemProps) {
                         onMouseEnter={() => setMouseHover(true)}
                         onMouseLeave={() => setMouseHover(false)}
                     >
-                        <animated.img
+                        <AnimatedNextjsImage
                             src={image}
                             alt={text}
                             width="185px"
                             height="185px"
-                            style={{
-                                filter: brightness.to(
-                                    num => `brightness(${num})`
-                                ),
+                        // TODO:
+                        /* style={{
+                            filter: brightness.to(
+                                num => `brightness(${num})`
+                            ),
 
-                                transform: scale.to(
-                                    num => `scale(${num})`
-                                ),
-                            }}
+                            transform: scale.to(
+                                num => `scale(${num})`
+                            ),
+                        }} */
                         />
                     </Box>
                     <Typography

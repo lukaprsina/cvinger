@@ -36,7 +36,9 @@ const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryC
                     layout="responsive"
                     placeholder={blur ? "blur" : "empty"}
                     priority={priority}
-                    onClick={() => { galleryCallback ? galleryCallback() : null }}
+                    onClick={() => {
+                        galleryCallback ? galleryCallback() : null
+                    }}
                 />
             </Box>
             <Typography

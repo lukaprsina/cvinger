@@ -1,6 +1,9 @@
 import React, { useEffect } from "react"
+
 import NextjsImage from "next/image"
 import { Container, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import ArticleImage from "./ArticleImage";
 
 type GalleryProps = {
     children: React.ReactElement;
@@ -13,13 +16,12 @@ interface StaticImageData {
     blurDataURL?: string
 }
 
-interface StaticRequire {
-    default: StaticImageData;
+type GalleryImage = {
+    src: StaticImageData,
+    caption: string,
 }
 
-declare type StaticImport = StaticRequire | StaticImageData;
-
-function iterateChildren(children: JSX.Element, galleryCallback: (source: StaticImport) => void, sources: StaticImport[]): JSX.Element {
+function iterateChildren(children: JSX.Element, galleryCallback: (source: number) => void, sources: GalleryImage[]): JSX.Element {
     let next: JSX.Element | JSX.Element[] = children.props.children
 
     let new_children = children;
@@ -43,10 +45,14 @@ function iterateChildren(children: JSX.Element, galleryCallback: (source: Static
     else if (new_next.length > 1)
         add.children = [...new_next];
 
-    if (children.type.name == "ArticleImage") {
-        sources.push(children.props.src);
+    if (children.type === ArticleImage && !children.props.noGallery) {
+        const gallery_image = { src: children.props.src, caption: children.props.caption }
+        sources.push(gallery_image);
+        let index = sources.length - 1
         new_children = React.cloneElement(returned_children, {
-            galleryCallback: () => galleryCallback(children.props.src),
+            galleryCallback: () => {
+                galleryCallback(index)
+            },
             ...add
         })
     }
@@ -61,50 +67,104 @@ function iterateChildren(children: JSX.Element, galleryCallback: (source: Static
 
 function Gallery({ children }: GalleryProps) {
     const [showGallery, setShowGallery] = React.useState(false);
+    const [image_index, setImageIndex] = React.useState<number>();
 
-    const [index, setIndex] = React.useState<StaticImport>();
-    const galleryCallback = (source: StaticImport) => {
+    let sources: GalleryImage[] = []
+    const galleryCallback = (index: number) => {
         setShowGallery(true)
-        setIndex(source)
+        setImageIndex(index)
     };
-    console.log(index)
 
-    let sources: StaticImport[] = []
     const new_children = iterateChildren(children, galleryCallback, sources);
 
-    const images = sources && showGallery && index ? (
+    useEffect(() => {
+        const html = document.documentElement
+        if (showGallery) {
+            html.classList.add("gallery-open")
+        }
+        else { html.classList.remove("gallery-open") }
+    }, [showGallery])
+
+    const gallery = sources && showGallery && (typeof image_index !== 'undefined') && image_index >= 0 ? <Container disableGutters maxWidth={false} sx={{
+        position: "fixed",
+        zIndex: "1998",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        height: "100vh",
+        width: "100vw",
+    }}>
         <Container disableGutters maxWidth={false} sx={{
             position: "fixed",
-            zIndex: "1000",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            zIndex: "1999",
             height: "100vh",
             width: "100vw",
-            flexDirection: "column",
             backgroundColor: "rgba(0,0,0,0.4)",
-        }} onClick={() => setShowGallery(false)} >
+        }} onClick={() => setShowGallery(false)}>
+        </Container>
+        <Box sx={{
+            zIndex: "1999",
+            "& img": {
+                borderRadius: "7px",
+                maxHeight: "90vh",
+            }
+        }}>
             <NextjsImage
-                src={index}
-                alt="yes"
+                src={sources[image_index].src}
+                alt={sources[image_index].caption}
                 layout="intrinsic"
+                priority
+                onClick={(e: React.MouseEvent<any>) => {
+                    var rect = e.currentTarget.getBoundingClientRect();
+                    var x = e.clientX - rect.left;
+                    var y = e.clientY - rect.top;
+
+                    if (x < rect.width / 2) {
+                        if (image_index > 0)
+                            setImageIndex(image_index - 1)
+                    } else {
+                        if (image_index < sources.length - 1)
+                            setImageIndex(image_index + 1)
+                    }
+
+                }}
             />
             <Container sx={{
                 backgroundColor: "white",
-                margin: "20px",
                 padding: "20px",
                 borderRadius: "7px",
             }}>
                 <Typography variant="caption" component="p" align="center">
-                    {"Podnapis"}
+                    {sources[image_index].caption}
                 </Typography>
             </Container>
-        </Container>
+        </Box>
+    </Container> : null;
+
+    const preload_before = ((typeof image_index !== 'undefined') && image_index > 0) ? (
+        <NextjsImage
+            priority
+            src={sources[image_index - 1].src}
+        />
+    ) : null;
+
+    const preload_after = ((typeof image_index !== 'undefined') && image_index < sources.length - 1) ? (
+        <NextjsImage
+            priority
+            src={sources[image_index + 1].src}
+        />
     ) : null;
 
     return (
         <>
-            {images}
+            {gallery}
+            <Box sx={{
+                display: "none!important",
+            }}>
+                {preload_before}
+                {preload_after}
+            </Box>
             {new_children}
         </>
     );

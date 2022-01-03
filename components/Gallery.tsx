@@ -1,9 +1,17 @@
-import React, { useEffect } from "react"
+import React from "react"
 
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper"
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 import NextjsImage from "next/image"
+
+import lidar from "/public/images/gomile/lidar.jpg"
+import ArticleImage from "./ArticleImage";
 import { Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import ArticleImage from "./ArticleImage";
 
 type GalleryProps = {
     children: React.ReactElement;
@@ -67,104 +75,71 @@ function iterateChildren(children: JSX.Element, galleryCallback: (source: number
 
 function Gallery({ children }: GalleryProps) {
     const [showGallery, setShowGallery] = React.useState(false);
-    const [image_index, setImageIndex] = React.useState<number>();
 
     let sources: GalleryImage[] = []
     const galleryCallback = (index: number) => {
         setShowGallery(true)
-        setImageIndex(index)
     };
 
     const new_children = iterateChildren(children, galleryCallback, sources);
 
-    useEffect(() => {
-        const html = document.documentElement
-        if (showGallery) {
-            html.classList.add("gallery-open")
-        }
-        else { html.classList.remove("gallery-open") }
-    }, [showGallery])
-
-    const gallery = sources && showGallery && (typeof image_index !== 'undefined') && image_index >= 0 ? <Container disableGutters maxWidth={false} sx={{
-        position: "fixed",
-        zIndex: "1998",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        height: "100vh",
-        width: "100vw",
-    }}>
-        <Container disableGutters maxWidth={false} sx={{
-            position: "fixed",
-            zIndex: "1999",
-            height: "100vh",
-            width: "100vw",
-            backgroundColor: "rgba(0,0,0,0.4)",
-        }} onClick={() => setShowGallery(false)}>
-        </Container>
-        <Box sx={{
-            zIndex: "1999",
-            "& img": {
-                borderRadius: "7px",
-                maxHeight: "90vh",
-            }
-        }}>
-            <NextjsImage
-                src={sources[image_index].src}
-                alt={sources[image_index].caption}
-                layout="intrinsic"
-                priority
-                onClick={(e: React.MouseEvent<any>) => {
-                    var rect = e.currentTarget.getBoundingClientRect();
-                    var x = e.clientX - rect.left;
-                    var y = e.clientY - rect.top;
-
-                    if (x < rect.width / 2) {
-                        if (image_index > 0)
-                            setImageIndex(image_index - 1)
-                    } else {
-                        if (image_index < sources.length - 1)
-                            setImageIndex(image_index + 1)
-                    }
-
-                }}
-            />
-            <Container sx={{
-                backgroundColor: "white",
-                padding: "20px",
-                borderRadius: "7px",
-            }}>
-                <Typography variant="caption" component="p" align="center">
-                    {sources[image_index].caption}
-                </Typography>
-            </Container>
-        </Box>
-    </Container> : null;
-
-    const preload_before = ((typeof image_index !== 'undefined') && image_index > 0) ? (
-        <NextjsImage
-            priority
-            src={sources[image_index - 1].src}
-        />
-    ) : null;
-
-    const preload_after = ((typeof image_index !== 'undefined') && image_index < sources.length - 1) ? (
-        <NextjsImage
-            priority
-            src={sources[image_index + 1].src}
-        />
-    ) : null;
-
     return (
         <>
-            {gallery}
-            <Box sx={{
-                display: "none!important",
-            }}>
-                {preload_before}
-                {preload_after}
-            </Box>
+            {showGallery && (
+                <Container disableGutters maxWidth={false} sx={{
+                    position: "fixed",
+                    zIndex: "1997",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                    width: "100vw",
+                }}>
+                    <Container disableGutters maxWidth={false} sx={{
+                        position: "fixed",
+                        zIndex: "1998",
+                        height: "100vh",
+                        width: "100vw",
+                        backgroundColor: "rgba(0,0,0,0.4)"
+                    }} onClick={() => setShowGallery(false)}>
+                    </Container>
+                    <Swiper
+                        modules={[Navigation, Pagination, Scrollbar, A11y]}
+                        centeredSlides={true}
+                        style={{ zIndex: "2000" }}
+                        pagination={{ clickable: true }}
+                    >
+                        {sources.map((source) => (
+                            <SwiperSlide key={source.src.src}>
+                                <Box sx={{
+                                    zIndex: "1999",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                }}>
+                                    <NextjsImage
+                                        src={source.src}
+                                        alt={source.caption}
+                                        priority
+                                    />
+                                    <Container sx={{
+                                        backgroundColor: "white",
+                                        padding: "20px",
+                                        borderRadius: "7px",
+                                        paddingBottom: "50px",
+                                        marginTop: "5px",
+                                    }}>
+                                        <Typography variant="caption" component="p" align="center">
+                                            {source.caption}
+                                        </Typography>
+                                    </Container>
+                                </Box>
+                            </SwiperSlide>))}
+                    </Swiper>
+                </Container>
+            )}
+
             {new_children}
         </>
     );

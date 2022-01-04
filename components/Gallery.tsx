@@ -103,40 +103,55 @@ function Gallery({ children }: GalleryProps) {
                         backgroundColor: "rgba(0,0,0,0.4)"
                     }} onClick={() => setShowGallery(false)}>
                     </Container>
-                    <Swiper
-                        modules={[Navigation, Pagination, Scrollbar, A11y]}
-                        centeredSlides={true}
-                        style={{ zIndex: "2000" }}
-                        pagination={{ clickable: true }}
-                    >
-                        {sources.map((source) => (
-                            <SwiperSlide key={source.src.src}>
-                                <Box sx={{
-                                    zIndex: "1999",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                }}>
-                                    <NextjsImage
-                                        src={source.src}
-                                        alt={source.caption}
-                                        priority
-                                    />
-                                    <Container sx={{
-                                        backgroundColor: "white",
-                                        padding: "20px",
-                                        borderRadius: "7px",
-                                        paddingBottom: "50px",
-                                        marginTop: "5px",
+
+                    <Box sx={{
+                        width: "100vw",
+                        // backgroundColor: "rgba(0,0.1,0,0.4)"
+                    }}>
+                        <Swiper
+                            modules={[Navigation, Pagination, Scrollbar, A11y]}
+                            centeredSlides={true}
+                            style={{ zIndex: "2000" }}
+                            pagination={{ clickable: true }}
+                            navigation={true}
+                            keyboard
+                            autoHeight
+                        >
+                            {sources.map((source) => (
+                                <SwiperSlide key={source.src.src}>
+                                    <Box sx={{
+                                        zIndex: "1999",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        flexDirection: "column",
+                                        alignItems: "center",
+                                        maxWidth: "100%",
+                                        maxHeight: "100vh",
+                                        "& img": {
+                                            borderRadius: "7px",
+                                            objectFit: "scale-down",
+                                        }
                                     }}>
-                                        <Typography variant="caption" component="p" align="center">
-                                            {source.caption}
-                                        </Typography>
-                                    </Container>
-                                </Box>
-                            </SwiperSlide>))}
-                    </Swiper>
+                                        <NextjsImage
+                                            src={source.src}
+                                            alt={source.caption}
+                                            priority
+                                        />
+                                        <Container sx={{
+                                            backgroundColor: "white",
+                                            padding: "20px",
+                                            borderRadius: "7px",
+                                            marginTop: "5px",
+                                            paddingBottom: "40px",
+                                        }}>
+                                            <Typography variant="caption" component="p" align="center">
+                                                {source.caption}
+                                            </Typography>
+                                        </Container>
+                                    </Box>
+                                </SwiperSlide>))}
+                        </Swiper>
+                    </Box>
                 </Container>
             )}
 

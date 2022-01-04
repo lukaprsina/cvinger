@@ -10,9 +10,8 @@ const Header = () => {
         <Box
             sx={{
                 display: "flex",
-                width: "100vw",
+                width: "100%",
                 height: "200px",
-                overflow: "hidden",
                 justifyContent: "center",
                 alignItems: "center",
                 backgroundColor: "#fcf4e0",

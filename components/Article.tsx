@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 
 import {
-    CssBaseline,
     Typography,
     ThemeProvider,
     createTheme,
@@ -31,7 +30,6 @@ type ArticleProps = {
 export default function Article({ title = "", noNavbar = false, children }: ArticleProps) {
     return (
         <>
-            <CssBaseline />
             <ThemeProvider theme={theme}>
                 <Header />
                 {noNavbar ? null : <Navbar />}

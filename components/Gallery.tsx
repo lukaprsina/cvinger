@@ -1,14 +1,15 @@
 import React from "react"
 
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper"
+import { Navigation, Pagination, Scrollbar, A11y, Keyboard } from "swiper"
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/keyboard';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+
 import NextjsImage from "next/image"
 
-import lidar from "/public/images/gomile/lidar.jpg"
 import ArticleImage from "./ArticleImage";
 import { Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -109,12 +110,12 @@ function Gallery({ children }: GalleryProps) {
                         // backgroundColor: "rgba(0,0.1,0,0.4)"
                     }}>
                         <Swiper
-                            modules={[Navigation, Pagination, Scrollbar, A11y]}
+                            modules={[Navigation, Pagination, Scrollbar, A11y, Keyboard]}
                             centeredSlides={true}
                             style={{ zIndex: "2000" }}
                             pagination={{ clickable: true }}
                             navigation={true}
-                            keyboard
+                            keyboard={{ enabled: true, pageUpDown: true }}
                             autoHeight
                         >
                             {sources.map((source) => (
@@ -128,7 +129,7 @@ function Gallery({ children }: GalleryProps) {
                                         maxWidth: "100%",
                                         maxHeight: "100vh",
                                         "& img": {
-                                            borderRadius: "7px",
+                                            borderRadius: "17px",
                                             objectFit: "scale-down",
                                         }
                                     }}>
@@ -153,7 +154,8 @@ function Gallery({ children }: GalleryProps) {
                         </Swiper>
                     </Box>
                 </Container>
-            )}
+            )
+            }
 
             {new_children}
         </>

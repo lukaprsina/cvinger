@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Pagination, Scrollbar, A11y, Keyboard } from "swiper"
@@ -74,11 +74,38 @@ function iterateChildren(children: JSX.Element, galleryCallback: (source: number
     return new_children;
 }
 
+type GalleryScrollListenerProps = {
+    setShowGallery: (show: boolean) => void
+};
+
+class GalleryScrollListener extends React.Component<GalleryScrollListenerProps> {
+    constructor(props: any) {
+        super(props);
+        this.handleScroll = this.handleScroll.bind(this);
+    }
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+    handleScroll() {
+        this.props.setShowGallery(false);
+    }
+    render() {
+        return null;
+    }
+}
+
 function Gallery({ children }: GalleryProps) {
     const [showGallery, setShowGallery] = React.useState(false);
+    const [showSubtitles, setShowSubtitles] = React.useState(true);
+    const [slideIndex, setSlideIndex] = React.useState(0);
+
 
     let sources: GalleryImage[] = []
     const galleryCallback = (index: number) => {
+        setSlideIndex(index)
         setShowGallery(true)
     };
 
@@ -86,7 +113,8 @@ function Gallery({ children }: GalleryProps) {
 
     return (
         <>
-            {showGallery && (
+            {showGallery && <>
+                <GalleryScrollListener setShowGallery={setShowGallery} />
                 <Container disableGutters maxWidth={false} sx={{
                     position: "fixed",
                     zIndex: "1997",
@@ -106,39 +134,41 @@ function Gallery({ children }: GalleryProps) {
                     </Container>
 
                     <Box sx={{
-                        width: "100vw",
-                        // backgroundColor: "rgba(0,0.1,0,0.4)"
+                        width: "100%",
                     }}>
                         <Swiper
                             modules={[Navigation, Pagination, Scrollbar, A11y, Keyboard]}
                             centeredSlides={true}
                             style={{ zIndex: "2000" }}
-                            pagination={{ clickable: true }}
+                            pagination={showSubtitles ? { clickable: true } : false}
                             navigation={true}
                             keyboard={{ enabled: true, pageUpDown: true }}
                             autoHeight
+                            initialSlide={slideIndex}
                         >
                             {sources.map((source) => (
                                 <SwiperSlide key={source.src.src}>
-                                    <Box sx={{
-                                        zIndex: "1999",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        maxWidth: "100%",
-                                        maxHeight: "100vh",
-                                        "& img": {
-                                            borderRadius: "17px",
-                                            objectFit: "scale-down",
-                                        }
-                                    }}>
+                                    <Box
+                                        onClick={() => setShowSubtitles(!showSubtitles)}
+                                        sx={{
+                                            zIndex: "1999",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                            maxWidth: "100%",
+                                            maxHeight: "100vh",
+                                            "& img": {
+                                                borderRadius: "17px",
+                                                objectFit: "scale-down",
+                                            }
+                                        }}>
                                         <NextjsImage
                                             src={source.src}
                                             alt={source.caption}
                                             priority
                                         />
-                                        <Container sx={{
+                                        {showSubtitles ? <Container sx={{
                                             backgroundColor: "white",
                                             padding: "20px",
                                             borderRadius: "7px",
@@ -148,13 +178,13 @@ function Gallery({ children }: GalleryProps) {
                                             <Typography variant="caption" component="p" align="center">
                                                 {source.caption}
                                             </Typography>
-                                        </Container>
+                                        </Container> : null}
                                     </Box>
                                 </SwiperSlide>))}
                         </Swiper>
                     </Box>
                 </Container>
-            )
+            </>
             }
 
             {new_children}

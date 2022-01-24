@@ -110,6 +110,7 @@ function Gallery({ children }: GalleryProps) {
     };
 
     const new_children = iterateChildren(children, galleryCallback, sources);
+    const swiper_button_color = "black";
 
     return (
         <>
@@ -135,6 +136,16 @@ function Gallery({ children }: GalleryProps) {
 
                     <Box sx={{
                         width: "100%",
+                        "& .swiper-button-prev": {
+                            color: swiper_button_color,
+                        },
+                        "& .swiper-button-next": {
+                            color: swiper_button_color,
+                        },
+                        "& .swiper-pagination-bullet-active": {
+                            backgroundColor: swiper_button_color,
+                        }
+
                     }}>
                         <Swiper
                             modules={[Navigation, Pagination, Scrollbar, A11y, Keyboard]}

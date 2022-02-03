@@ -9,6 +9,8 @@ import {
     createTheme,
     Box,
 } from "@mui/material"
+import { push as Menu } from 'react-burger-menu'
+import useBreakpointMatch from '../components/useBreakpointMatch';
 
 const theme = createTheme({
     palette: {
@@ -28,33 +30,39 @@ type ArticleProps = {
 }
 
 export default function Article({ title = "", noNavbar = false, children }: ArticleProps) {
+    let { matches } = useBreakpointMatch("mdUp");
+
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Header />
-                {noNavbar ? null : <Navbar />}
-                <Box
-                    sx={{
-                        maxWidth: "800px",
-                        padding: "0",
-                        margin: "auto",
-                    }}
-                >
-                    {title ? (
-                        <Typography
-                            variant="h2"
-                            sx={{
-                                marginTop: "48px",
-                                marginBottom: "32px",
-                                color: "text.secondary",
-                            }}
-                        >
-                            {title}
-                        </Typography>
-                    ) : null}
-                    {children}
-                </Box>
-                <Footer />
+                {matches ? null : <Menu pageWrapId="page-wrap" outerContainerId="outer-container">
+                    <a className="menu-item">Test</a>
+                </Menu>}
+                <Box id="page-wrap"><Header />
+                    {noNavbar ? null : <Navbar />}
+                    <Box
+                        sx={{
+                            maxWidth: "840px",
+                            padding: "0 20px",
+                            margin: "auto",
+                        }}
+                        id="page-wrap"
+                    >
+                        {title ? (
+                            <Typography
+                                variant="h2"
+                                sx={{
+                                    marginTop: "48px",
+                                    marginBottom: "32px",
+                                    color: "text.secondary",
+                                }}
+                            >
+                                {title}
+                            </Typography>
+                        ) : null}
+                        {children}
+                    </Box>
+                    <Footer /></Box>
             </ThemeProvider>
         </>
     )

@@ -3,30 +3,41 @@ import Link from "next/link"
 import NextjsImage from "next/image"
 import { Box } from "@mui/material"
 
+import "./useBreakpointMatch"
 import logo from "/public/images/logo/logo.svg"
+import useBreakpointMatch from "./useBreakpointMatch"
 
 const Header = () => {
+    let { matches } = useBreakpointMatch("mdUp");
+
     return (
         <Box
             sx={{
                 display: "flex",
                 width: "100%",
-                height: "200px",
-                justifyContent: "center",
+                height: {
+                    xs: "100px",
+                    md: "200px",
+                },
+                justifyContent: {
+                    xs: "space-between",
+                    md: "center",
+                },
                 alignItems: "center",
                 backgroundColor: "#fcf4e0",
-                "& img": {
-                    display: "block",
-                    width: "50vw",
-                    // TODO: fix logo size
-                    // maxWidth: "615px",
-                    maxWidth: "800px",
+                padding: {
+                    xs: "0 20px",
+                    md: "0",
                 }
             }}
         >
-            <Link href="/">
+            <Link href="/" passHref>
                 <a>
-                    <NextjsImage src={logo} alt="cvinger" />
+                    <NextjsImage
+                        src={logo}
+                        alt="cvinger"
+                        width={matches ? "615px" : "150px"}
+                        height={matches ? "125px" : "30px"} />
                 </a>
             </Link>
         </Box>

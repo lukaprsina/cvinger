@@ -23,7 +23,8 @@ const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryC
 
     return (
         <Box sx={{
-            margin: "0", "& img": {
+            margin: "0",
+            "& img": {
                 width: "100%",
                 maxHeight: "700px",
                 borderRadius: noBorder ? "0" : "7px",

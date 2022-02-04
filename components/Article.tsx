@@ -11,6 +11,7 @@ import {
 } from "@mui/material"
 import { push as Menu } from 'react-burger-menu'
 import useBreakpointMatch from '../components/useBreakpointMatch';
+import Link from 'next/link';
 
 const theme = createTheme({
     palette: {
@@ -29,6 +30,23 @@ type ArticleProps = {
     children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
 }
 
+type ItemProps = {
+    to: string,
+    text: string,
+}
+
+function Item({ to, text }: ItemProps) {
+    return (
+        <Link href={to}>
+            <a style={{ textDecoration: "none" }}>
+                <Typography variant="h6" color="white">
+                    {text}
+                </Typography>
+            </a>
+        </Link>
+    )
+}
+
 export default function Article({ title = "", noNavbar = false, children }: ArticleProps) {
     let { matches } = useBreakpointMatch("mdUp");
 
@@ -36,15 +54,22 @@ export default function Article({ title = "", noNavbar = false, children }: Arti
         <>
             <ThemeProvider theme={theme}>
                 {matches ? null : <Menu pageWrapId="page-wrap" outerContainerId="outer-container">
-                    <a className="menu-item">Test</a>
+                    <Item to="/pot" text="Arheološka pot" />
+                    <Item to="/gradisce" text="Prazgodovinsko gradišče" />
+                    <Item to="/vhod" text="Utrjen vhod" />
+                    <Item to="/jama" text="Cvingerska jama" />
+                    <Item to="/talilnice" text="Talilniško območje" />
+                    <Item to="/gomile" text="Gomilno grobišče" />
+                    <Item to="/zemljevid" text="Zemljevid" />
+                    <Item to="/literatura" text="Literatura" />
                 </Menu>}
                 <Box id="page-wrap"><Header />
                     {noNavbar ? null : <Navbar />}
                     <Box
                         sx={{
                             maxWidth: "840px",
-                            padding: "0 20px",
                             margin: "auto",
+                            padding: "20px",
                         }}
                         id="page-wrap"
                     >
@@ -52,9 +77,10 @@ export default function Article({ title = "", noNavbar = false, children }: Arti
                             <Typography
                                 variant="h2"
                                 sx={{
-                                    marginTop: "48px",
+                                    marginTop: "28px",
                                     marginBottom: "32px",
                                     color: "text.secondary",
+                                    overflowWrap: "break-word"
                                 }}
                             >
                                 {title}

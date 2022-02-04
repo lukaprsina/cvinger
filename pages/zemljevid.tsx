@@ -25,7 +25,7 @@ const Zemljevid = () => {
     return (
         <Article title="Zemljevid">
             <Typography>a</Typography>
-            <Box id="map-id" width={1200} height={936} ></Box>
+            {/* <Box id="map-id" width={1200} height={936} ></Box> */}
         </Article>
     )
 }

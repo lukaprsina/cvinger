@@ -28,7 +28,9 @@ const Header = () => {
                 padding: {
                     xs: "0 20px",
                     md: "0",
-                }
+                },
+                boxShadow: "0 3px 3px rgb(0 0 0 / 50%)",
+                borderBottom: "1px solid rgb(135, 23, 31)",
             }}
         >
             <Link href="/" passHref>

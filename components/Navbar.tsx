@@ -8,6 +8,7 @@ import {
     Slide,
     Container,
 } from "@mui/material"
+import useBreakpointMatch from "./useBreakpointMatch"
 
 type NavbarButtonType = {
     to: string,
@@ -47,8 +48,9 @@ function HideOnScroll({ children, threshold }: HideOnScrollType) {
 }
 
 const Navbar = () => {
-    return (
-        <HideOnScroll threshold={400}>
+    let { matches } = useBreakpointMatch("mdUp");
+    return <>{
+        matches ? <HideOnScroll threshold={400}>
             <AppBar position="sticky" color="primary">
                 <Toolbar sx={{
                     width: "100vw",
@@ -73,8 +75,8 @@ const Navbar = () => {
                     </Container>
                 </Toolbar>
             </AppBar>
-        </HideOnScroll>
-    )
+        </HideOnScroll> : null
+    }</>
 }
 
 export default Navbar

@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { Typography } from "@mui/material"
-import { useSpring, animated } from "react-spring"
+import { useSpring, animated, config } from "react-spring"
 
 import Link from "next/link"
 import { Box } from "@mui/system"
 import NextjsImage from "next/image"
-
+import useBreakpointMatch from "./useBreakpointMatch"
 
 import pot from "/public/images/home/krogci/01_pot.png"
 import gradisce from "/public/images/home/krogci/02_gradisce.png"
@@ -17,14 +17,17 @@ import zemljevid from "/public/images/home/krogci/07_zemljevid.png"
 import literatura from "/public/images/home/krogci/08_literatura.png"
 
 const HomeNavbar = () => {
-    return (
-        <Box
+    let { matches } = useBreakpointMatch("mdUp");
+
+    return <>        {
+        matches ? <Box
             sx={{
                 display: "flex",
                 flexFlow: "row wrap",
                 margin: "50px 0",
                 justifyContent: "space-between",
-            }}
+            }
+            }
         >
             <Item image={pot} text="Arheološka pot" to="/pot" />
             <Item
@@ -39,8 +42,8 @@ const HomeNavbar = () => {
             <Item image={gomile} text="Gomilno grobišče" to="/gomile" />
             <Item image={zemljevid} text="Zemljevid" to="/zemljevid" />
             <Item image={literatura} text="Literatura" to="/literatura" />
-        </Box>
-    )
+        </Box > : null
+    }</>
 }
 
 type ItemProps = {
@@ -52,12 +55,11 @@ type ItemProps = {
 function Item({ image, text, to }: ItemProps) {
     const [mouseHover, setMouseHover] = useState(false)
 
+    const [flip, set] = useState(false)
     const { brightness, scale } = useSpring({
         brightness: mouseHover ? 1.2 : 1,
         scale: mouseHover ? 1.05 : 1,
     })
-
-    const AnimatedNextjsImage = animated(NextjsImage)
 
     return (
         <Box
@@ -81,22 +83,20 @@ function Item({ image, text, to }: ItemProps) {
                         onMouseEnter={() => setMouseHover(true)}
                         onMouseLeave={() => setMouseHover(false)}
                     >
-                        <AnimatedNextjsImage
-                            src={image}
+                        <animated.img
+                            src={image.src}
                             alt={text}
                             width="185px"
                             height="185px"
-                        // TODO:
-                        /* style={{
-                            filter: brightness.to(
-                                num => `brightness(${num})`
-                            ),
+                            style={{
+                                filter: brightness.to(
+                                    num => `brightness(${num})`
+                                ),
 
-                            transform: scale.to(
-                                num => `scale(${num})`
-                            ),
-                        }} */
-                        />
+                                transform: scale.to(
+                                    num => `scale(${num})`
+                                ),
+                            }} />
                     </Box>
                     <Typography
                         variant="caption"

@@ -1,23 +1,14 @@
 from pathlib import Path
 import os
-""" from pdf2image import convert_from_path
-from pdf2image.exceptions import (
-    PDFInfoNotInstalledError,
-    PDFPageCountError,
-    PDFSyntaxError
-) """
 import fitz
 
-if Path.cwd().name != "documents":
-    if Path(Path.cwd() / "documents").exists():
-        os.chdir("./documents")
-    else:
-        print("Please run this script from the root of the project or from the scripts folder.")
-        exit()
+os.chdir("public/documents")
 
-Path("./output").mkdir(exist_ok=True)
+Path("output").mkdir(exist_ok=True)
 paths = []
-pathlist = Path(".\\literatura").rglob('*.pdf')
+urls = []
+
+pathlist = Path("literatura").rglob('*.pdf')
 for path in pathlist:
     path_in_str = str(path)
     print("Working on " + path_in_str)
@@ -28,6 +19,7 @@ for path in pathlist:
     output = path.stem + ".jpg"
     pix.save(Path("output") / output)
     paths.append(output)
+    urls.append(path_in_str)
 
 paths.sort()
 print("Writing paths.txt")
@@ -36,8 +28,8 @@ i = 0
 with open("paths.txt", "w", encoding="utf-8") as f:
     for path in paths:
         try:
-            f.write(f"import img{i} from \"../" + str(Path("documents/output/") /
-                                                      path).replace("\\", "/") + "\"\n")
+            f.write(f"import img{i} from \"/public/documents/output/" +
+                    path.replace("\\", "/") + "\"\n")
             i += 1
 
         except:
@@ -49,4 +41,5 @@ with open("paths.txt", "w", encoding="utf-8") as f:
 
     for i in range(0, max):
         f.write("{image: img" + str(i) +
-                ", text: \"" + str(paths[i]) + "\"},\n")
+                ", text: \"" + str(paths[i]) +
+                "\", path: \"/documents/" + str(urls[i]).replace("\\", "/") + "\"},\n")

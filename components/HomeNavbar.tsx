@@ -55,7 +55,6 @@ type ItemProps = {
 function Item({ image, text, to }: ItemProps) {
     const [mouseHover, setMouseHover] = useState(false)
 
-    const [flip, set] = useState(false)
     const { brightness, scale } = useSpring({
         brightness: mouseHover ? 1.2 : 1,
         scale: mouseHover ? 1.05 : 1,
@@ -103,7 +102,7 @@ function Item({ image, text, to }: ItemProps) {
                         sx={{
                             margin: "15px 0",
                             textAlign: "center",
-                            color: "black",
+                            color: "rgb(135, 23, 31)",
                         }}
                     >
                         {text}

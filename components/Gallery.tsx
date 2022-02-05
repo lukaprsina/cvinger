@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from "react"
 
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Pagination, Scrollbar, A11y, Keyboard } from "swiper"
@@ -74,28 +74,40 @@ function iterateChildren(children: JSX.Element, galleryCallback: (source: number
     return new_children;
 }
 
-type GalleryScrollListenerProps = {
-    setShowGallery: (show: boolean) => void
-};
+// https://stackoverflow.com/a/57926311/14393392
+function useEventListener(eventName: string, handler: any, element = window) {
+    // Create a ref that stores handler
+    const savedHandler = useRef();
 
-class GalleryScrollListener extends React.Component<GalleryScrollListenerProps> {
-    constructor(props: any) {
-        super(props);
-        this.handleScroll = this.handleScroll.bind(this);
-    }
-    componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
-    }
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-    }
-    handleScroll() {
-        this.props.setShowGallery(false);
-    }
-    render() {
-        return null;
-    }
-}
+    // Update ref.current value if handler changes.
+    // This allows our effect below to always get latest handler ...
+    // ... without us needing to pass it in effect deps array ...
+    // ... and potentially cause effect to re-run every render.
+    useEffect(() => {
+        savedHandler.current = handler;
+    }, [handler]);
+
+    useEffect(
+        () => {
+            // Make sure element supports addEventListener
+            // On 
+            const isSupported = element && element.addEventListener;
+            if (!isSupported) return;
+
+            // Create event listener that calls handler function stored in ref
+            const eventListener = (event: Event) => savedHandler.current(event);
+
+            // Add event listener
+            element.addEventListener(eventName, eventListener);
+
+            // Remove event listener on cleanup
+            return () => {
+                element.removeEventListener(eventName, eventListener);
+            };
+        },
+        [eventName, element] // Re-run if eventName or element changes
+    );
+};
 
 function Gallery({ children }: GalleryProps) {
     const [showGallery, setShowGallery] = React.useState(false);
@@ -108,6 +120,16 @@ function Gallery({ children }: GalleryProps) {
         setSlideIndex(index)
         setShowGallery(true)
     };
+
+    useEventListener('keydown', (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+            setShowGallery(false)
+        }
+    });
+
+    useEventListener('scroll', () => {
+        setShowGallery(false)
+    });
 
     const new_children = iterateChildren(children, galleryCallback, sources);
     const swiper_button_color = "black";
@@ -145,7 +167,6 @@ function Gallery({ children }: GalleryProps) {
                         "& .swiper-pagination-bullet-active": {
                             backgroundColor: swiper_button_color,
                         }
-
                     }}>
                         <Swiper
                             modules={[Navigation, Pagination, Scrollbar, A11y, Keyboard]}

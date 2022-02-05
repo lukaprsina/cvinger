@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Box, Button, Typography } from "@mui/material"
 import LogoImage from "./LogoImage"
 
@@ -22,11 +22,38 @@ function Logo({ children, href, style = {} }: LogoProps) {
 }
 
 const Footer = () => {
+    const [avtorstvo, setAvtorstvo] = useState(false)
+    const zasluge = avtorstvo && (
+        <Box sx={{
+            color: "white",
+            backgroundColor: "primary.main",
+            textAlign: "center",
+            padding: "20px",
+            paddingTop: "30px",
+            borderRadius: "0 0 4px 4px",
+            marginTop: "-10px",
+        }}>
+            <Typography>
+                <b>Besedila:</b> dr. Borut Križ, Andrej Hudoklin, Marko Pršina, dr.
+                Matija Črešnar
+            </Typography>
+            <Typography><b>Fotografije:</b> Marko Pršina</Typography>
+            <Typography>
+                <b>Ilustracije in grafični prikazi:</b> Marko Pršina, dr. Matija
+                Črešnar
+            </Typography>
+            <Typography>
+                <b>Oblikovanje informativnih tabel, zgibanke in spletne strani:</b>
+                Marko Pršina
+            </Typography>
+            <Typography><b>Spletna postavitev:</b> Luka Pršina</Typography>
+        </Box >)
     return (
         <Box
             sx={{
-                margin: "40px auto auto auto",
-                backgroundColor: "palette.secondary.main",
+                margin: "20px auto auto auto",
+                backgroundColor: "secondary.main",
+                padding: "20px",
             }}
         >
             <Box
@@ -98,13 +125,15 @@ const Footer = () => {
                     variant="contained"
                     color="primary"
                     sx={{
-                        margin: "40px auto 0",
+                        margin: "60px auto 0",
                         maxWidth: "800px",
                         width: "100%",
                     }}
+                    onClick={() => setAvtorstvo(!avtorstvo)}
                 >
                     Avtorstvo
                 </Button>
+                {zasluge}
             </Box >
         </Box >
     )

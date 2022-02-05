@@ -6,9 +6,10 @@ import {
     Toolbar,
     useScrollTrigger,
     Slide,
-    Container,
 } from "@mui/material"
 import useBreakpointMatch from "./useBreakpointMatch"
+import { Box } from "@mui/system"
+import { useRouter } from "next/router"
 
 type NavbarButtonType = {
     to: string,
@@ -16,13 +17,19 @@ type NavbarButtonType = {
 }
 
 function NavbarButton({ to, children }: NavbarButtonType) {
+    let clicked = false;
+    if (path == to)
+        clicked = true;
+
     return (
         <Link href={to}>
             <a style={{ textDecoration: "none" }}>
                 <Button
-                    variant="text"
-                    sx={{ color: "white" }}
-                    color="primary"
+                    variant={clicked ? "contained" : "text"}
+                    sx={{
+                        color: "secondary.light",
+                    }}
+                    color={clicked ? "info" : "primary"}
                     size="small"
                 >
                     {children}
@@ -47,8 +54,22 @@ function HideOnScroll({ children, threshold }: HideOnScrollType) {
     )
 }
 
+function Circle() {
+    return <Box sx={{
+        width: "4px",
+        height: "4px",
+        borderRadius: "50%",
+        backgroundColor: "secondary.light",
+    }}></Box>
+}
+
+let path: string;
+
 const Navbar = () => {
     let { matches } = useBreakpointMatch("mdUp");
+    const router = useRouter()
+    path = router.pathname
+
     return <>{
         matches ? <HideOnScroll threshold={400}>
             <AppBar position="sticky" color="primary">
@@ -56,23 +77,30 @@ const Navbar = () => {
                     width: "100vw",
                     maxWidth: "1200px",
                     margin: "auto",
+                    display: "flex",
+                    justifyContent: "space-between",
                 }}>
-                    <Container>
-                        <NavbarButton to="/pot">Arheološka pot</NavbarButton>
-                        <NavbarButton to="/gradisce">
-                            Prazgodovinsko gradišče
-                        </NavbarButton>
-                        <NavbarButton to="/vhod">Utrjen vhod</NavbarButton>
-                        <NavbarButton to="/jama">Cvingerska jama</NavbarButton>
-                        <NavbarButton to="/talilnice">
-                            Talilniško območje
-                        </NavbarButton>
-                        <NavbarButton to="/gomile">
-                            Gomilno grobišče
-                        </NavbarButton>
-                        <NavbarButton to="/zemljevid">Zemljevid</NavbarButton>
-                        <NavbarButton to="/literatura">Literatura</NavbarButton>
-                    </Container>
+                    <NavbarButton to="/pot">Arheološka pot</NavbarButton>
+                    <Circle />
+                    <NavbarButton to="/gradisce">
+                        Prazgodovinsko gradišče
+                    </NavbarButton>
+                    <Circle />
+                    <NavbarButton to="/vhod">Utrjen vhod</NavbarButton>
+                    <Circle />
+                    <NavbarButton to="/jama">Cvingerska jama</NavbarButton>
+                    <Circle />
+                    <NavbarButton to="/talilnice">
+                        Talilniško območje
+                    </NavbarButton>
+                    <Circle />
+                    <NavbarButton to="/gomile">
+                        Gomilno grobišče
+                    </NavbarButton>
+                    <Circle />
+                    <NavbarButton to="/zemljevid">Zemljevid</NavbarButton>
+                    <Circle />
+                    <NavbarButton to="/literatura">Literatura</NavbarButton>
                 </Toolbar>
             </AppBar>
         </HideOnScroll> : null

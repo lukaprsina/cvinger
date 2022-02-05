@@ -22,7 +22,7 @@ function NavbarButton({ to, children }: NavbarButtonType) {
         clicked = true;
 
     return (
-        <Link href={to}>
+        <Link href={to} prefetch={false}>
             <a style={{ textDecoration: "none" }}>
                 <Button
                     variant={clicked ? "contained" : "text"}

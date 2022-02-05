@@ -71,7 +71,7 @@ function Item({ image, text, to }: ItemProps) {
                 }
             }}
         >
-            <Link href={to}>
+            <Link href={to} prefetch={false}>
                 <a>
                     <Box
                         sx={{

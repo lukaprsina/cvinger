@@ -4,7 +4,7 @@ import { Typography, Box } from "@mui/material"
 import NextjsImage from "next/image"
 
 type ArticleImageProps = {
-    src: any,
+    src: StaticImageData,
     caption: string,
     center?: boolean,
     noGallery?: boolean,

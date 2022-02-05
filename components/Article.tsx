@@ -24,7 +24,7 @@ type ItemProps = {
 
 function Item({ to, text }: ItemProps) {
     return (
-        <Link href={to}>
+        <Link href={to} prefetch={false}>
             <a style={{ textDecoration: "none" }}>
                 <Typography variant="h6" color="white">
                     {text}

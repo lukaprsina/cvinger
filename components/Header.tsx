@@ -33,7 +33,7 @@ const Header = () => {
                 borderBottom: "1px solid rgb(135, 23, 31)",
             }}
         >
-            <Link href="/" passHref>
+            <Link href="/" prefetch={false}>
                 <a>
                     <NextjsImage
                         src={logo}

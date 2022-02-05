@@ -1,6 +1,6 @@
 import React from "react"
 import NextjsImage from "next/image"
-import NextjsLink from "next/link"
+import Link from "next/link"
 import { Typography } from "@mui/material"
 import { Box } from "@mui/system"
 
@@ -38,7 +38,7 @@ import img28 from "/public/documents/output/Zhuber, P. 1900, Zdravišče Toplice
 
 
 type PDFFile = {
-    image: any,
+    image: StaticImageData,
     text: string,
     path: string
 }
@@ -92,7 +92,7 @@ function PDFIcon({ image }: PDFIconProps) {
             objectFit: "scale-down",
         },
     }}>
-        <NextjsLink href={image.path} >
+        <Link href={image.path} prefetch={false} >
             <a style={{
                 display: "flex",
                 justifyContent: "center",
@@ -110,7 +110,7 @@ function PDFIcon({ image }: PDFIconProps) {
                     width: "80%",
                 }} textAlign="center" paragraph variant="body2">{image.text}</Typography>
             </a>
-        </NextjsLink>
+        </Link>
     </Box>
 }
 

@@ -6,6 +6,7 @@ import {
     createTheme,
 } from "@mui/material";
 import { Box } from '@mui/system';
+import Head from "next/head";
 
 const theme = createTheme({
     palette: {
@@ -36,13 +37,20 @@ const theme = createTheme({
 })
 
 function App({ Component, pageProps }) {
-    return <ThemeProvider theme={theme}>
-        <Box id="outer-container" sx={{
-            backgroundColor: "secondary.light",
-        }}>
-            <CssBaseline />
-            <Component {...pageProps} />
-        </Box></ThemeProvider>;
+    return <>
+        <Head>
+            <link rel="shortcut icon" href="/favicon.png" />
+            <title>Cvinger</title>
+        </Head>
+        <ThemeProvider theme={theme}>
+            <Box id="outer-container" sx={{
+                backgroundColor: "secondary.light",
+            }}>
+                <CssBaseline />
+                <Component {...pageProps} />
+            </Box>
+        </ThemeProvider>
+    </>;
 }
 
 export default App;

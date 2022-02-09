@@ -82,7 +82,7 @@ const arr: PDFFile[] = [
 function PDFIcon({ image }: PDFIconProps) {
     return <Box sx={{
         width: "200px",
-        height: "200px",
+        height: "300px",
         textAlign: "center",
         alignItems: "flex-start",
         overflowWrap: "break-word",

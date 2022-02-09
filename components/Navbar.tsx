@@ -6,6 +6,7 @@ import {
     Toolbar,
     useScrollTrigger,
     Slide,
+    Typography,
 } from "@mui/material"
 import useBreakpointMatch from "./useBreakpointMatch"
 import { Box } from "@mui/system"
@@ -25,9 +26,12 @@ function NavbarButton({ to, children }: NavbarButtonType) {
         <Link href={to} prefetch={false}>
             <a style={{ textDecoration: "none" }}>
                 <Button
+                    fullWidth={false}
                     variant={clicked ? "contained" : "text"}
                     sx={{
                         color: "secondary.light",
+                        textTransform: "none",
+                        fontSize: "typography.fontSize",
                     }}
                     color={clicked ? "info" : "primary"}
                     size="small"

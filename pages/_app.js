@@ -24,6 +24,10 @@ const theme = createTheme({
     typography: {
         fontFamily: "Calibri, sans-serif",
         fontSize: 16,
+        caption: {
+            fontSize: 14,
+            fontVariant: "small-caps",
+        }
     },
     breakpoints: {
         values: {

@@ -16,19 +16,20 @@ const deltaZoom = 0.5
 const multiplier = 1;
 
 const Zemljevid = () => {
-    const { x, y, scale, zoom } = useSpring({
+    const { x, y, scale, zoom, transformCenter } = useSpring({
         to: {
             scale: 1,
             zoom: memZoom,
             x: pos.x,
             y: pos.y,
+            transformCenter: { x: 0, y: 0 },
         },
     })
 
     const preventDefault = (e: Event) => e.preventDefault()
     useEventListener("gesturestart", preventDefault)
     useEventListener("gesturechange", preventDefault)
-    const myRef = React.useRef(null)
+    const myRef = React.useRef<HTMLElement>()
     let [text, setText] = React.useState("hihi")
 
     useGesture({
@@ -57,9 +58,26 @@ const Zemljevid = () => {
                     memZoom = zoom.get()
                 }
             }
-
+            let shit: DOMRect;
+            if (myRef.current) {
+                shit = myRef.current.getBoundingClientRect()
+                transformCenter.set({
+                    x: event.pageX - shit.x,
+                    y: event.pageY - shit.y
+                })
+                console.log(transformCenter.get())
+            }
         },
-        onPinch: ({ delta: [dx, dy] }) => {
+        onPinch: ({ event, delta: [dx, dy] }) => {
+            let shit: DOMRect;
+            if (myRef.current) {
+                shit = myRef.current.getBoundingClientRect()
+                transformCenter.set({
+                    x: event.pageX - shit.x,
+                    y: event.pageY - shit.y
+                })
+                console.log(transformCenter.get())
+            }
             const dist = (dx * 0.5) + zoom.get()
             if (dist >= minZoom && dist <= maxZoom) {
                 zoom.set(dist)
@@ -94,6 +112,8 @@ const Zemljevid = () => {
                         height={zemljevid.height}
                         alt="zemljevid"
                         style={{
+                            transformOrigin: to([transformCenter], (transformCenter) => `${transformCenter.x}px ${transformCenter.y}px`),
+                            // transformOrigin: `${zemljevid.width}px 0px`,
                             scale: to([zoom, scale], (s, z) => s + z),
                         }}
                     />

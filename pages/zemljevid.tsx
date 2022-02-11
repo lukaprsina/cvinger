@@ -2,37 +2,39 @@ import React, { useState } from "react"
 
 import Article from "../components/Article"
 import { useSpring, animated, to } from "react-spring"
-import { Container } from "@mui/material"
+import { Button, Container, Typography } from "@mui/material"
 import useEventListener from "../components/useEventListener";
 import { useGesture } from '@use-gesture/react'
 
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 
-const Zemljevid = () => {
-    const maxZoom = 5
-    const minZoom = 0
-    const deltaZoom = 0.5
+let pos = { x: 0, y: 0 }
+let memZoom = 0;
+const maxZoom = 5
+const minZoom = 0
+const deltaZoom = 0.5
+const multiplier = 1;
 
+const Zemljevid = () => {
     const { x, y, scale, zoom } = useSpring({
         to: {
             scale: 1,
-            zoom: 0,
-            x: 0,
-            y: 0,
+            zoom: memZoom,
+            x: pos.x,
+            y: pos.y,
         },
     })
-
-    let pos = { x: 0, y: 0 }
 
     const preventDefault = (e: Event) => e.preventDefault()
     useEventListener("gesturestart", preventDefault)
     useEventListener("gesturechange", preventDefault)
     const myRef = React.useRef(null)
+    let [text, setText] = React.useState("hihi")
 
-    const bind = useGesture({
+    useGesture({
         onDrag: ({ event, delta: [mx, my] }) => {
             event.preventDefault()
-            pos = { x: pos.x + mx * 0.5, y: pos.y + my * 0.5 }
+            pos = { x: pos.x + mx * multiplier, y: pos.y + my * multiplier }
             x.set(pos.x)
             y.set(pos.y)
         },
@@ -47,17 +49,22 @@ const Zemljevid = () => {
             if (delta[1] > 0) {
                 if (zoomLevel > minZoom) {
                     zoom.set(zoomLevel - deltaZoom)
+                    memZoom = zoom.get()
                 }
             } else if (delta[1] < 0) {
                 if (zoomLevel < maxZoom) {
                     zoom.set(zoomLevel + deltaZoom)
+                    memZoom = zoom.get()
                 }
             }
-            console.log(zoomLevel)
 
         },
-        onPinch: ({ offset: [mx, my] }) => {
-            console.log("pinch", mx, my)
+        onPinch: ({ delta: [dx, dy] }) => {
+            const dist = (dx * 0.5) + zoom.get()
+            if (dist >= minZoom && dist <= maxZoom) {
+                zoom.set(dist)
+                memZoom = zoom.get()
+            }
         },
     }, {
         target: myRef,
@@ -66,11 +73,12 @@ const Zemljevid = () => {
 
     return (
         <Article title="Zemljevid">
+            <Typography>{text}</Typography>
+            <Button onClick={() => setText("a" + text)}>Rerender</Button>
             <Container fixed sx={{
                 overflow: "hidden",
             }}>
                 <animated.div
-                    // {...bind()}
                     ref={myRef}
                     style={{
                         x,

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 
 import Article from "../components/Article"
 import { useSpring, animated, to } from "react-spring"
@@ -14,6 +14,9 @@ const maxZoom = 5
 const minZoom = 0
 const deltaZoom = 0.5
 const multiplier = 1;
+let counter = 0;
+let shit = "";
+let rect: DomRect | undefined;
 
 const Zemljevid = () => {
     const { x, y, scale, zoom, transformCenter } = useSpring({
@@ -30,7 +33,11 @@ const Zemljevid = () => {
     useEventListener("gesturestart", preventDefault)
     useEventListener("gesturechange", preventDefault)
     const myRef = React.useRef<HTMLElement>()
-    let [text, setText] = React.useState("hihi")
+    let [text, setText] = React.useState("")
+
+    React.useEffect(() => {
+        rect = myRef.current.getBoundingClientRect()
+    }, [])
 
     useGesture({
         onDrag: ({ event, delta: [mx, my] }) => {
@@ -46,6 +53,15 @@ const Zemljevid = () => {
 
             if (last)
                 return
+
+            if (myRef.current) {
+                let rect = myRef.current.getBoundingClientRect()
+                transformCenter.set({
+                    x: event.pageX - rect.x,
+                    y: event.pageY - rect.y
+                })
+            }
+
             const zoomLevel = zoom.get()
             if (delta[1] > 0) {
                 if (zoomLevel > minZoom) {
@@ -58,26 +74,21 @@ const Zemljevid = () => {
                     memZoom = zoom.get()
                 }
             }
-            let shit: DOMRect;
-            if (myRef.current) {
-                shit = myRef.current.getBoundingClientRect()
-                transformCenter.set({
-                    x: event.pageX - shit.x,
-                    y: event.pageY - shit.y
-                })
-                console.log(transformCenter.get())
-            }
         },
-        onPinch: ({ event, delta: [dx, dy] }) => {
-            let shit: DOMRect;
-            if (myRef.current) {
-                shit = myRef.current.getBoundingClientRect()
+        onPinch: ({ event, delta: [dx, dy], last }) => {
+            if (myRef.current /* && counter == 100 */) {
                 transformCenter.set({
-                    x: event.pageX - shit.x,
-                    y: event.pageY - shit.y
+                    x: event.pageX - rect.x,
+                    y: event.pageY - rect.y
                 })
-                console.log(transformCenter.get())
+                let test = transformCenter.get().x
+                // transformCenter.get().x
+                shit += (`${text}${Math.round((test + Number.EPSILON) * 100) / 100}\n`)
+                counter = 0;
             }
+
+            counter++
+
             const dist = (dx * 0.5) + zoom.get()
             if (dist >= minZoom && dist <= maxZoom) {
                 zoom.set(dist)
@@ -92,7 +103,7 @@ const Zemljevid = () => {
     return (
         <Article title="Zemljevid">
             <Typography>{text}</Typography>
-            <Button onClick={() => setText("a" + text)}>Rerender</Button>
+            <Button onClick={() => setText(shit)}>Test me!</Button>
             <Container fixed sx={{
                 overflow: "hidden",
             }}>
@@ -113,7 +124,6 @@ const Zemljevid = () => {
                         alt="zemljevid"
                         style={{
                             transformOrigin: to([transformCenter], (transformCenter) => `${transformCenter.x}px ${transformCenter.y}px`),
-                            // transformOrigin: `${zemljevid.width}px 0px`,
                             scale: to([zoom, scale], (s, z) => s + z),
                         }}
                     />

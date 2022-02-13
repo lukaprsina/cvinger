@@ -45,6 +45,7 @@ function App({ Component, pageProps }) {
         <Head>
             <link rel="shortcut icon" href="/favicon.png" />
             <title>Cvinger</title>
+            <meta name="msapplication-tap-highlight" content="no" />
         </Head>
         <ThemeProvider theme={theme}>
             <Box id="outer-container" sx={{

@@ -14,6 +14,7 @@ let memZoom = 1
 
 function Zemljevid() {
     const myRef = useRef<HTMLImageElement>(null)
+    const container = useRef<HTMLImageElement>(null)
 
     const { x, y, zoom } = useSpring({
         to: {
@@ -26,16 +27,26 @@ function Zemljevid() {
     })
 
     useEffect(() => {
-        if (typeof myRef.current == "undefined")
+        if (typeof myRef.current == "undefined" || typeof container.current == "undefined")
             return
+
+        pos.x = zemljevid.width / -4 || -200
+        x.set(pos.x)
+        let test = window.screen.height - container.current.getBoundingClientRect().top - 100
+        if (test < zemljevid.height)
+            container.current.style.height = test + "px"
+
+        console.log(test)
+
 
         const mc = new Hammer(myRef.current) as HammerManager
         mc.add(new Hammer.Pan({ threshold: 0, pointers: 0 }));
         mc.add(new Hammer.Pinch({ threshold: 0 })).recognizeWith([mc.get('pan')]);
+        mc.get('pinch').set({ enable: true });
 
         mc.on("panstart, panmove panend", e => {
-            x.set(pos.x + e.deltaX)
-            y.set(pos.y + e.deltaY)
+            x.set(pos.x + (e.deltaX / zoom.get()))
+            y.set(pos.y + (e.deltaY) / zoom.get())
 
             if (e.type == "panend") {
                 pos = { x: x.get(), y: y.get() }
@@ -47,16 +58,18 @@ function Zemljevid() {
 
             if (e.type == "pinchend") {
                 memZoom = zoom.get()
-                console.log(memZoom)
             }
+
+            console.log(zoom.get(), x.get(), y.get())
         })
     }, [x, y, zoom])
 
     return (
         <Article>
-            <Container fixed sx={{
+            <Container ref={container} fixed sx={{
                 overflow: "hidden",
-                border: "1px solid black"
+                border: "1px solid black",
+                width: "100%",
             }}>
                 <animated.img
                     ref={myRef}

@@ -6,24 +6,64 @@ import { Container } from "@mui/material"
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import { useRef } from "react"
 import { useEffect } from "react"
+import { useWheel } from "@use-gesture/react"
 
 const Hammer = typeof window !== 'undefined' ? require('hammerjs') : undefined;
 
 let pos = { x: -200, y: 4 }
 let memZoom = 1
+const maxZoom = 5
+const minZoom = 1
+const deltaZoom = 0.5
 
 function Zemljevid() {
     const myRef = useRef<HTMLImageElement>(null)
     const container = useRef<HTMLImageElement>(null)
 
-    const { x, y, zoom } = useSpring({
+    const [styles, set] = useSpring(() => ({
         to: {
             zoom: memZoom,
             x: pos.x,
             y: pos.y,
             transformCenter: { x: 0, y: 0 },
+            transformOrigin: { x: 500, y: 500 },
         },
-        config: config.molasses,
+        from: {
+            transformCenter: { x: zemljevid.width, y: zemljevid.height },
+        },
+        loop: { reverse: true },
+
+        config: { friction: 32, tension: 180, },
+    }))
+
+    useWheel(({ event, delta, last }) => {
+        event.preventDefault()
+        pos.x -= delta[0]
+        set({ x: pos.x })
+
+        if (last)
+            return
+
+        const zoomLevel = styles.zoom.get()
+        console.log({ x: event.offsetX, y: event.offsetY }, { x: styles.x.get(), y: styles.y.get() })
+        // transformCenter.x.set(event.offsetX)
+        // transformCenter.y.set(event.offsetY)
+        set({ transformCenter: { x: event.offsetX + styles.x.get(), y: event.offsetY + styles.y.get() } })
+
+        if (delta[1] > 0) {
+            if (zoomLevel > minZoom) {
+                set({ zoom: zoomLevel - deltaZoom })
+                memZoom = styles.zoom.get()
+            }
+        } else if (delta[1] < 0) {
+            if (zoomLevel < maxZoom) {
+                set({ zoom: zoomLevel + deltaZoom })
+                memZoom = styles.zoom.get()
+            }
+        }
+    }, {
+        target: myRef,
+        eventOptions: { passive: false }
     })
 
     useEffect(() => {
@@ -31,13 +71,11 @@ function Zemljevid() {
             return
 
         pos.x = zemljevid.width / -4 || -200
-        x.set(pos.x)
-        let test = window.screen.height - container.current.getBoundingClientRect().top - 100
-        if (test < zemljevid.height)
-            container.current.style.height = test + "px"
-
-        console.log(test)
-
+        set({ x: pos.x })
+        if (container.current) {
+            let till_end = window.screen.height - container.current.getBoundingClientRect().top - 100
+            container.current.style.height = Math.min(till_end, zemljevid.height) + "px"
+        }
 
         const mc = new Hammer(myRef.current) as HammerManager
         mc.add(new Hammer.Pan({ threshold: 0, pointers: 0 }));
@@ -45,24 +83,22 @@ function Zemljevid() {
         mc.get('pinch').set({ enable: true });
 
         mc.on("panstart, panmove panend", e => {
-            x.set(pos.x + (e.deltaX / zoom.get()))
-            y.set(pos.y + (e.deltaY) / zoom.get())
+            set({ x: pos.x + (e.deltaX / styles.zoom.get()) })
+            set({ y: pos.y + (e.deltaY) / styles.zoom.get() })
 
             if (e.type == "panend") {
-                pos = { x: x.get(), y: y.get() }
+                pos = { x: styles.x.get(), y: styles.y.get() }
             }
         })
 
         mc.on("pinchstart, pinchmove pinchend", e => {
-            zoom.set(e.scale * memZoom)
+            set({ zoom: e.scale * memZoom })
 
             if (e.type == "pinchend") {
-                memZoom = zoom.get()
+                memZoom = styles.zoom.get()
             }
-
-            console.log(zoom.get(), x.get(), y.get())
         })
-    }, [x, y, zoom])
+    }, [styles.x, styles.y, styles.zoom, set])
 
     return (
         <Article>
@@ -78,10 +114,14 @@ function Zemljevid() {
                     height={zemljevid.height}
                     alt="zemljevid"
                     style={{
-                        x,
+                        /* x,
                         y,
-                        zoom
+                        zoom,
+                        // transformOrigin: "bottom right", */
+                        transformOrigin: to([styles], (transformCenter) => `${transformCenter.x}px ${transformCenter.y}px`),
+                        ...styles
                     }}
+
                 />
             </Container>
         </Article>

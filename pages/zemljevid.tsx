@@ -1,7 +1,7 @@
 import React from "react"
 
 import Article from "../components/Article"
-import { useSpring, animated, to } from "react-spring"
+import { useSpring, animated, to, config } from "react-spring"
 import { Container } from "@mui/material"
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import { useRef } from "react"
@@ -9,52 +9,54 @@ import { useEffect } from "react"
 
 const Hammer = typeof window !== 'undefined' ? require('hammerjs') : undefined;
 
-let pos = { x: 0, y: 0 }
-let memZoom = 0;
-const maxZoom = 5
-const minZoom = 0
-const deltaZoom = 0.5
-let isDragging = false;
+let pos = { x: -200, y: 4 }
+let memZoom = 1
 
 function Zemljevid() {
     const myRef = useRef<HTMLImageElement>(null)
 
-    const { x, y, scale, zoom, transformCenter } = useSpring({
+    const { x, y, zoom } = useSpring({
         to: {
-            scale: 1,
             zoom: memZoom,
             x: pos.x,
             y: pos.y,
             transformCenter: { x: 0, y: 0 },
         },
+        config: config.molasses,
     })
 
     useEffect(() => {
         if (typeof myRef.current == "undefined")
             return
 
-        const hammer = new Hammer(myRef.current) as HammerManager
-        hammer.add(new Hammer.Pan({ threshold: 0, pointers: 0 }));
+        const mc = new Hammer(myRef.current) as HammerManager
+        mc.add(new Hammer.Pan({ threshold: 0, pointers: 0 }));
+        mc.add(new Hammer.Pinch({ threshold: 0 })).recognizeWith([mc.get('pan')]);
 
-        hammer.on("panstart, panmove panend", e => {
-            if (!isDragging) {
-                isDragging = true;
-            }
-
+        mc.on("panstart, panmove panend", e => {
             x.set(pos.x + e.deltaX)
             y.set(pos.y + e.deltaY)
 
-            if (e.isFinal && typeof myRef.current !== "undefined") {
-                isDragging = false;
+            if (e.type == "panend") {
                 pos = { x: x.get(), y: y.get() }
             }
         })
-    }, [x, y])
+
+        mc.on("pinchstart, pinchmove pinchend", e => {
+            zoom.set(e.scale * memZoom)
+
+            if (e.type == "pinchend") {
+                memZoom = zoom.get()
+                console.log(memZoom)
+            }
+        })
+    }, [x, y, zoom])
 
     return (
         <Article>
             <Container fixed sx={{
                 overflow: "hidden",
+                border: "1px solid black"
             }}>
                 <animated.img
                     ref={myRef}
@@ -64,7 +66,8 @@ function Zemljevid() {
                     alt="zemljevid"
                     style={{
                         x,
-                        y
+                        y,
+                        zoom
                     }}
                 />
             </Container>

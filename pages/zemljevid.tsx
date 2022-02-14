@@ -1,7 +1,7 @@
 import React from "react"
 
 import Article from "../components/Article"
-import { useSpring, animated, to, config } from "react-spring"
+import { useSpring, animated, to, config, SpringRef } from "react-spring"
 import { Container } from "@mui/material"
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import { useRef } from "react"
@@ -16,20 +16,25 @@ const maxZoom = 5
 const minZoom = 1
 const deltaZoom = 0.5
 
+type StyleType = {
+    scale: number,
+    x: number,
+    y: number,
+}
+
+type ZemljevidSpringType = [
+    StyleType, SpringRef<StyleType>
+]
+
 function Zemljevid() {
     const myRef = useRef<HTMLImageElement>(null)
     const container = useRef<HTMLImageElement>(null)
 
     const [styles, set] = useSpring(() => ({
         to: {
-            zoom: memZoom,
+            scale: memZoom,
             x: pos.x,
             y: pos.y,
-            transformCenter: { x: 0, y: 0 },
-            transformOrigin: { x: 500, y: 500 },
-        },
-        from: {
-            transformCenter: { x: zemljevid.width, y: zemljevid.height },
         },
         loop: { reverse: true },
 
@@ -44,21 +49,17 @@ function Zemljevid() {
         if (last)
             return
 
-        const zoomLevel = styles.zoom.get()
-        console.log({ x: event.offsetX, y: event.offsetY }, { x: styles.x.get(), y: styles.y.get() })
-        // transformCenter.x.set(event.offsetX)
-        // transformCenter.y.set(event.offsetY)
-        set({ transformCenter: { x: event.offsetX + styles.x.get(), y: event.offsetY + styles.y.get() } })
+        const zoomLevel = styles.scale.get()
 
         if (delta[1] > 0) {
             if (zoomLevel > minZoom) {
-                set({ zoom: zoomLevel - deltaZoom })
-                memZoom = styles.zoom.get()
+                set({ scale: zoomLevel - deltaZoom })
+                memZoom = styles.scale.get()
             }
         } else if (delta[1] < 0) {
             if (zoomLevel < maxZoom) {
-                set({ zoom: zoomLevel + deltaZoom })
-                memZoom = styles.zoom.get()
+                set({ scale: zoomLevel + deltaZoom })
+                memZoom = styles.scale.get()
             }
         }
     }, {
@@ -83,8 +84,8 @@ function Zemljevid() {
         mc.get('pinch').set({ enable: true });
 
         mc.on("panstart, panmove panend", e => {
-            set({ x: pos.x + (e.deltaX / styles.zoom.get()) })
-            set({ y: pos.y + (e.deltaY) / styles.zoom.get() })
+            set({ x: pos.x + (e.deltaX / styles.scale.get()) })
+            set({ y: pos.y + (e.deltaY / styles.scale.get()) })
 
             if (e.type == "panend") {
                 pos = { x: styles.x.get(), y: styles.y.get() }
@@ -92,13 +93,13 @@ function Zemljevid() {
         })
 
         mc.on("pinchstart, pinchmove pinchend", e => {
-            set({ zoom: e.scale * memZoom })
+            set({ scale: e.scale * memZoom })
 
             if (e.type == "pinchend") {
-                memZoom = styles.zoom.get()
+                memZoom = styles.scale.get()
             }
         })
-    }, [styles.x, styles.y, styles.zoom, set])
+    }, [styles.x, styles.y, styles.scale, set])
 
     return (
         <Article>
@@ -114,12 +115,7 @@ function Zemljevid() {
                     height={zemljevid.height}
                     alt="zemljevid"
                     style={{
-                        /* x,
-                        y,
-                        zoom,
-                        // transformOrigin: "bottom right", */
-                        transformOrigin: to([styles], (transformCenter) => `${transformCenter.x}px ${transformCenter.y}px`),
-                        ...styles
+                        ...styles,
                     }}
 
                 />

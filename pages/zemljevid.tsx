@@ -1,8 +1,8 @@
-import React from "react"
+import React, { useState } from "react"
 
 import Article from "../components/Article"
 import { useSpring, animated, to, config, SpringRef } from "react-spring"
-import { Container } from "@mui/material"
+import { Container, } from "@mui/material"
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import { useRef } from "react"
 import { useEffect } from "react"
@@ -35,10 +35,11 @@ function Zemljevid() {
             scale: memZoom,
             x: pos.x,
             y: pos.y,
+            width: zemljevid.width,
+            height: zemljevid.height,
+            transformOrigin: { x: zemljevid.width / 2, y: zemljevid.height / 2 },
         },
         loop: { reverse: true },
-
-        config: { friction: 32, tension: 180, },
     }))
 
     useWheel(({ event, delta, last }) => {
@@ -46,10 +47,22 @@ function Zemljevid() {
         pos.x -= delta[0]
         set({ x: pos.x })
 
+        set({ scale: 1.5 * memZoom })
         if (last)
-            return
+            memZoom = styles.scale.get()
 
-        const zoomLevel = styles.scale.get()
+        /* const zoomLevel = styles.scale.get()
+
+        if (myRef.current) {
+            let rect = myRef.current.getBoundingClientRect()
+            styles.transformOrigin.set({
+                // set({
+                // transformOrigin: {
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top,
+                //}
+            })
+        }
 
         if (delta[1] > 0) {
             if (zoomLevel > minZoom) {
@@ -61,7 +74,7 @@ function Zemljevid() {
                 set({ scale: zoomLevel + deltaZoom })
                 memZoom = styles.scale.get()
             }
-        }
+        } */
     }, {
         target: myRef,
         eventOptions: { passive: false }
@@ -116,8 +129,8 @@ function Zemljevid() {
                     alt="zemljevid"
                     style={{
                         ...styles,
+                        transformOrigin: to([styles.transformOrigin], (origin) => `${origin.x}px ${origin.y}px`),
                     }}
-
                 />
             </Container>
         </Article>

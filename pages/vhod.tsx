@@ -8,6 +8,7 @@ import Gallery from "../components/Gallery"
 import vhod from "/public/images/vhod/vhod.jpg"
 import fotoskica from "/public/images/vhod/fotoskica.jpg"
 import tloris from "/public/images/vhod/tloris.jpg"
+import PdfButton from "../components/PdfButton"
 
 const Vhod = () => {
     return <Gallery>
@@ -65,6 +66,11 @@ const Vhod = () => {
             <ArticleImage
                 src={tloris}
                 caption="Zračni posnetek, iz katerega je razviden potek dvojnega zidu."
+            />
+
+            <PdfButton
+                href="Informativna_tabla_utrjen_vhod.pdf"
+                text="Informativna tabla utrjen vhod"
             />
         </Article>
     </Gallery>

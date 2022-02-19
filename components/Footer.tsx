@@ -15,7 +15,7 @@ type LogoProps = {
 
 function Logo({ children, href, style = {} }: LogoProps) {
     return (
-        <a href={href} style={style} target="_blank" rel="noreferrer">
+        <a href={href} style={style} target="_blank" rel="noopener noreferrer">
             {children}
         </a>
     )

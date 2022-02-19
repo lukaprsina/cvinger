@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Container, Tab, Tabs, Typography } from "@mui/material"
 
 import Article from "../components/Article"
@@ -14,9 +14,15 @@ import TabPanel from "../components/TabPanel"
 import { Box } from "@mui/system"
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import Image from "next/image"
+import PdfButton from "../components/PdfButton"
 
 const Jama = () => {
     const [tab, setTab] = React.useState(0);
+    const [sketchfabHeight, setSketchfabHeight] = useState(600)
+
+    useEffect(() => {
+        setSketchfabHeight(window.innerHeight * 0.7)
+    }, [setSketchfabHeight])
 
     return <Gallery>
         <Article title="Cvingerska jama">
@@ -64,7 +70,12 @@ const Jama = () => {
             </Typography>
 
             <Box>
-                <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
+                <Tabs
+                    value={tab}
+                    onChange={(e, newValue) => setTab(newValue)}
+                    scrollButtons="auto"
+                    variant="scrollable"
+                >
                     <Tab label="Model jame pred raziskavami" />
                     <Tab label="Vhod jame" />
                     <Tab label="Notranjost jame" />
@@ -75,14 +86,14 @@ const Jama = () => {
                     overflow: "hidden",
                     border: "1px solid black",
                     width: "100%",
-                    height: "800px",
+                    height: `${sketchfabHeight}px`,
                     padding: "0px!important",
                 }}
             >
                 <TabPanel value={tab} index={0}>
                     <iframe
                         width="100%"
-                        height="800px"
+                        height={sketchfabHeight}
                         title="Model jame pred raziskavami"
                         src="https://sketchfab.com/models/c31f716e4e404254a9a0de31b5131fcd/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
                         frameBorder="0"
@@ -92,7 +103,7 @@ const Jama = () => {
                 <TabPanel value={tab} index={1}>
                     <iframe
                         width="100%"
-                        height="800px"
+                        height={sketchfabHeight}
                         title="Vhod jame"
                         src="https://sketchfab.com/models/371c41e033ab45c88be6f5da1660f163/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
                         frameBorder="0"
@@ -102,7 +113,7 @@ const Jama = () => {
                 <TabPanel value={tab} index={2}>
                     <iframe
                         width="100%"
-                        height="800px"
+                        height={sketchfabHeight}
                         title="Notranjost jame"
                         src="https://sketchfab.com/models/259166b8a4dd4eda9f7176d5fdb4f6d6/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
                         frameBorder="0"
@@ -190,6 +201,11 @@ const Jama = () => {
             <ArticleImage
                 src={jamar}
                 caption="Jamarsko prodiranje skozi ožino v Meniški dvoranici."
+            />
+
+            <PdfButton
+                href="Informativna_tabla_Cvingerska_jama.pdf"
+                text="Informativna tabla Cvingerska jama"
             />
         </Article>
     </Gallery>

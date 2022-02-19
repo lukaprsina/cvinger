@@ -69,8 +69,6 @@ function Zemljevid() {
 
     useWheel(({ event, delta, last }) => {
         event.preventDefault()
-
-
         transformation.x -= delta[0]
         matrix.translateX = transformation.x
 
@@ -180,7 +178,12 @@ function Zemljevid() {
     return (
         <Article>
             <Box>
-                <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
+                <Tabs
+                    value={tab}
+                    onChange={(e, newValue) => setTab(newValue)}
+                    scrollButtons="auto"
+                    variant="scrollable"
+                >
                     <Tab label="Zemljevid" />
                     <Tab label="Google zemljevid" />
                 </Tabs>

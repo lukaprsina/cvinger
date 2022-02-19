@@ -8,6 +8,7 @@ import Gallery from "../components/Gallery"
 import vzorci from "/public/images/talilnice/vzorci.jpg"
 import talilnik from "/public/images/talilnice/talilnik.jpg"
 import raziskave from "/public/images/talilnice/raziskave.jpg"
+import PdfButton from "../components/PdfButton"
 
 const Talilnice = () => {
     return <Gallery>
@@ -89,6 +90,11 @@ const Talilnice = () => {
                 keramičnih ali kovinskih najdb, radiokarbonsko datiranje oglja
                 pa je za čas starejše železne dobe uporabno le omejeno.
             </Typography>
+
+            <PdfButton
+                href="Informativna_tabla_talilniško_območje.pdf"
+                text="Informativna tabla talilniško območje"
+            />
         </Article>
     </Gallery>
 }

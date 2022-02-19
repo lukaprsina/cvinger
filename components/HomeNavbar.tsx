@@ -26,8 +26,7 @@ const HomeNavbar = () => {
                 flexFlow: "row wrap",
                 margin: "50px 0",
                 justifyContent: "space-between",
-            }
-            }
+            }}
         >
             <Item image={pot} text="Arheološka pot" to="/pot" />
             <Item

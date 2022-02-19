@@ -19,10 +19,7 @@ const Header = () => {
                     xs: "100px",
                     md: "200px",
                 },
-                justifyContent: {
-                    xs: "space-between",
-                    md: "center",
-                },
+                justifyContent: "center",
                 alignItems: "center",
                 backgroundColor: "#fcf4e0",
                 padding: {
@@ -34,12 +31,16 @@ const Header = () => {
             }}
         >
             <Link href="/" prefetch={false}>
-                <a>
+                <a style={{
+                    height: !matches ? "30px" : "initial",
+                }}
+                >
                     <NextjsImage
                         src={logo}
                         alt="cvinger"
                         width={matches ? "615px" : "150px"}
-                        height={matches ? "125px" : "30px"} />
+                        height={matches ? "125px" : "30px"}
+                    />
                 </a>
             </Link>
         </Box>

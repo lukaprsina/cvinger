@@ -8,6 +8,7 @@ import Gallery from "../components/Gallery"
 import pot2 from "/public/images/pot/pot2.jpg"
 import smerokaz from "/public/images/pot/smerokaz.jpg"
 import enote from "/public/images/pot/enote.jpg"
+import PdfButton from "../components/PdfButton"
 
 const Pot = () => {
     return <Gallery>
@@ -61,6 +62,11 @@ const Pot = () => {
             <ArticleImage
                 src={enote}
                 caption="Najpomembnejši gradniki arheološke poti na posnetku zračnega laserskega skeniranja."
+            />
+
+            <PdfButton
+                href="Uvodna_tabla_osnovna_šola.pdf"
+                text="Uvodna tabla osnovne šole"
             />
         </Article>
     </Gallery>

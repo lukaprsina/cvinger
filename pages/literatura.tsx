@@ -1,7 +1,7 @@
 import React from "react"
 import NextjsImage from "next/image"
 import Link from "next/link"
-import { Typography } from "@mui/material"
+import { Button, ButtonGroup, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 
 import Article from "../components/Article"
@@ -43,12 +43,12 @@ type PDFFile = {
     path: string
 }
 
-type PDFIconProps = {
+type PdfProps = {
     image: PDFFile,
 }
 
 const arr: PDFFile[] = [
-    { image: img0, text: "Archäologisches Korrespondenzblatt 35, 2005, 191-204 copy.jpg", path: "/documents/literatura/Archäologisches Korrespondenzblatt 35, 2005, 191-204 copy.pdf" },
+    { image: img0, text: "Archäologisches Korrespondenzblatt 35, 2005, 191-204.jpg", path: "/documents/literatura/Archäologisches Korrespondenzblatt 35, 2005, 191-204.pdf" },
     { image: img1, text: "Arheo 34, 2017, 79-93.jpg", path: "/documents/literatura/Arheo 34, 2017, 79-93.pdf" },
     { image: img2, text: "Arheo 35, 2018.jpg", path: "/documents/literatura/Arheo 35, 2018.pdf" },
     { image: img3, text: "Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.jpg", path: "/documents/literatura/Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.pdf" },
@@ -79,7 +79,7 @@ const arr: PDFFile[] = [
     { image: img28, text: "Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.jpg", path: "/documents/literatura/Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.pdf" },
 ]
 
-function PDFIcon({ image }: PDFIconProps) {
+function PdfIcon({ image }: PdfProps) {
     return <Box sx={{
         width: "200px",
         height: "300px",
@@ -114,17 +114,63 @@ function PDFIcon({ image }: PDFIconProps) {
     </Box>
 }
 
+type MyLinkProps = {
+    children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
+    href: any,
+    onClick: any,
+}
+
+// eslint-disable-next-line react/display-name
+const MyLink = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, children }: MyLinkProps, ref) => {
+    return (
+        <Typography
+            sx={{
+                "& a": {
+                    textDecoration: "none!important",
+                    color: "black",
+                },
+            }}
+        >
+            <a onClick={onClick} href={href} ref={ref}>{children}</a>
+        </Typography>
+    )
+})
+
+function PdfList({ image }: PdfProps) {
+    return (
+        <Link href={image.path} passHref>
+            <MyLink>{image.text}</MyLink>
+        </Link>
+    )
+}
+
 function Literatura() {
+    const [icons, setIcons] = React.useState(true);
     return (
         <Article title="Literatura">
-            <Box sx={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-between",
-                alignItems: "center",
-            }}>
-                {arr.map((image, index) => <PDFIcon image={image} key={index} />)}
-            </Box>
+            <ButtonGroup variant="outlined" sx={{ marginBottom: "20px" }}>
+                <Button
+                    variant={icons ? "outlined" : "text"}
+                    onClick={() => setIcons(true)}
+                >Ikone</Button>
+                <Button
+                    variant={!icons ? "outlined" : "text"}
+                    onClick={() => setIcons(false)}
+                >List</Button>
+            </ButtonGroup>
+            {icons ? (
+                <Box sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                }}>
+                    {arr.map((image, index) => <PdfIcon image={image} key={index} />)}
+                </Box>) : (
+                <>
+                    {arr.map((image, index) => <PdfList image={image} key={index} />)}
+                </>
+            )}
         </Article>
     )
 }

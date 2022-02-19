@@ -8,6 +8,7 @@ import Gallery from "../components/Gallery"
 import sonda from "/public/images/gradisce/sonda.jpg"
 import zid from "/public/images/gradisce/zid.jpg"
 import obzidje from "/public/images/gradisce/obzidje.jpg"
+import PdfButton from "../components/PdfButton"
 
 const Gradisce = () => {
     return <Gallery>
@@ -157,6 +158,11 @@ const Gradisce = () => {
                 sestavljali proso, pšenica, ječmen, lan, bezeg, robide, križnice
                 (koleraba, repa) in presenetljivo velike količine gorčice.
             </Typography>
+
+            <PdfButton
+                href="Informativna_tabla_prazgodovinsko_gradišče.pdf"
+                text="Informativna tabla prazgodovinsko gradišče"
+            />
         </Article>
     </Gallery>
 }

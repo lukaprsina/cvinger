@@ -9,6 +9,7 @@ import lidar from "/public/images/gomile/lidar.jpg"
 import gomila from "/public/images/gomile/gomila.jpg"
 import tabli from "/public/images/gomile/tabli.jpg"
 import situla from "/public/images/gomile/situla.png"
+import PdfButton from "../components/PdfButton"
 
 const Gomile = () => {
     return <Gallery>
@@ -141,6 +142,11 @@ const Gomile = () => {
                 naknadno, s čimer predstavlja enega prvih žganih slovanskih
                 pokopov na našem prostoru.
             </Typography>
+
+            <PdfButton
+                href="Informativna_tabla_gomilno_grobišče.pdf"
+                text="Informativna tabla gomilno grobišče"
+            />
         </Article>
     </Gallery>
 }

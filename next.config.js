@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
-  typescript: {
+  /* typescript: {
     ignoreBuildErrors: true,
-  },
+  }, */
 }
 

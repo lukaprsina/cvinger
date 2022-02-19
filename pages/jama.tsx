@@ -1,5 +1,5 @@
 import React from "react"
-import { Typography } from "@mui/material"
+import { Container, Tab, Tabs, Typography } from "@mui/material"
 
 import Article from "../components/Article"
 import ArticleImage from "../components/ArticleImage"
@@ -8,8 +8,16 @@ import Gallery from "../components/Gallery"
 import ograja from "/public/images/jama/ograja.jpg"
 import nacrt from "/public/images/jama/nacrt.jpg"
 import jamar from "/public/images/jama/jamar.jpg"
+import first from "/public/images/jama/1987.jpg"
+import second from "/public/images/jama/2017.jpg"
+import TabPanel from "../components/TabPanel"
+import { Box } from "@mui/system"
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import Image from "next/image"
 
 const Jama = () => {
+    const [tab, setTab] = React.useState(0);
+
     return <Gallery>
         <Article title="Cvingerska jama">
             <Typography variant="body1" paragraph>
@@ -55,6 +63,54 @@ const Jama = () => {
                 in njenih skrivnostih krožile med domačini.
             </Typography>
 
+            <Box>
+                <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
+                    <Tab label="Model jame pred raziskavami" />
+                    <Tab label="Vhod jame" />
+                    <Tab label="Notranjost jame" />
+                </Tabs>
+            </Box>
+            <Container
+                sx={{
+                    overflow: "hidden",
+                    border: "1px solid black",
+                    width: "100%",
+                    height: "800px",
+                    padding: "0px!important",
+                }}
+            >
+                <TabPanel value={tab} index={0}>
+                    <iframe
+                        width="100%"
+                        height="800px"
+                        title="Model jame pred raziskavami"
+                        src="https://sketchfab.com/models/c31f716e4e404254a9a0de31b5131fcd/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
+                        frameBorder="0"
+                        allow="autoplay; fullscreen; vr"
+                    ></iframe>
+                </TabPanel>
+                <TabPanel value={tab} index={1}>
+                    <iframe
+                        width="100%"
+                        height="800px"
+                        title="Vhod jame"
+                        src="https://sketchfab.com/models/371c41e033ab45c88be6f5da1660f163/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
+                        frameBorder="0"
+                        allow="autoplay; fullscreen; vr"
+                    ></iframe>
+                </TabPanel>
+                <TabPanel value={tab} index={2}>
+                    <iframe
+                        width="100%"
+                        height="800px"
+                        title="Notranjost jame"
+                        src="https://sketchfab.com/models/259166b8a4dd4eda9f7176d5fdb4f6d6/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
+                        frameBorder="0"
+                        allow="autoplay; fullscreen; vr"
+                    ></iframe>
+                </TabPanel>
+            </Container>
+
             <Typography variant="body1" paragraph>
                 Cvingersko jamo so uradno prvi obiskali topliški jamarji, sicer
                 člani Jamarskega kluba Novo mesto (1982). Za trikotnim vhodom (2
@@ -76,7 +132,20 @@ const Jama = () => {
                 jamsko nadaljevanje ali dostop do arheoloških plasti je zato
                 tudi po zaključenih raziskavah ostal neznanka.
             </Typography>
-
+            <ReactCompareSlider
+                itemOne={(
+                    <Image
+                        src={first}
+                        alt="Cvingerska jama"
+                    />
+                )}
+                itemTwo={(
+                    <Image
+                        src={second}
+                        alt="Cvingerska jama"
+                    />
+                )}
+            />
             <Typography variant="body1" paragraph>
                 Delo v jami je zastalo za natanko tri desetletja, dokler niso
                 jamarji dobili vnovičnega povabila arheološke raziskovalne ekipe
@@ -102,6 +171,7 @@ const Jama = () => {
                 src={nacrt}
                 caption="Načrt Cvingerske jame. Načrt Tomaž Grdin."
                 center
+                maxHeight={1000}
             />
 
             <Typography variant="body1" paragraph>

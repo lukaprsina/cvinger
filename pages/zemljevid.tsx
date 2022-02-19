@@ -1,30 +1,60 @@
 import React, { useState } from "react"
 
 import Article from "../components/Article"
-import { useSpring, animated, to, config, SpringRef } from "react-spring"
-import { Container, } from "@mui/material"
+import { useSpring, animated } from "react-spring"
+import { Container, Tab, Tabs } from "@mui/material"
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import { useRef } from "react"
 import { useEffect } from "react"
 import { useWheel } from "@use-gesture/react"
+import { Box } from "@mui/system"
+import TabPanel from "../components/TabPanel"
 
 const Hammer = typeof window !== 'undefined' ? require('hammerjs') : undefined;
 
-let pos = { x: -200, y: 4 }
-let memZoom = 1
+let transformation = {
+    originX: 0,
+    originY: 0,
+    x: 0,
+    y: 0,
+    scale: 1
+}
 const maxZoom = 5
 const minZoom = 1
 const deltaZoom = 0.5
+let matrix: MatrixProps = { scale: 1, translateX: 0, translateY: 0 }
 
-type StyleType = {
+type TestProps = {
+    minScale: number,
+    maxScale: number,
     scale: number,
-    x: number,
-    y: number,
 }
 
-type ZemljevidSpringType = [
-    StyleType, SpringRef<StyleType>
-]
+type AProps = {
+    pos: number,
+    prevPos: number,
+}
+
+type BProps = {
+    pos: number,
+    prevPos: number,
+    translate: number,
+}
+
+const hasPositionChanged = ({ pos, prevPos }: AProps) => pos !== prevPos;
+
+const valueInRange = ({ minScale, maxScale, scale }: TestProps) => scale <= maxScale && scale >= minScale;
+
+const getTranslate = ({ minScale, maxScale, scale }: TestProps) => ({ pos, prevPos, translate }: BProps) =>
+    valueInRange({ minScale, maxScale, scale }) && hasPositionChanged({ pos, prevPos })
+        ? translate + (pos - prevPos * scale) * (1 - 1 / scale)
+        : translate;
+
+type MatrixProps = { scale: number, translateX: number, translateY: number }
+
+const getMatrix = ({ scale, translateX, translateY }: MatrixProps) => (
+    [scale, 0, 0, scale, translateX, translateY]
+);
 
 function Zemljevid() {
     const myRef = useRef<HTMLImageElement>(null)
@@ -32,49 +62,70 @@ function Zemljevid() {
 
     const [styles, set] = useSpring(() => ({
         to: {
-            scale: memZoom,
-            x: pos.x,
-            y: pos.y,
-            width: zemljevid.width,
-            height: zemljevid.height,
-            transformOrigin: { x: zemljevid.width / 2, y: zemljevid.height / 2 },
+            matrix: [1, 0, 0, 1, 0, 0],
+            transformOrigin: "0 0",
         },
-        loop: { reverse: true },
     }))
 
     useWheel(({ event, delta, last }) => {
         event.preventDefault()
-        pos.x -= delta[0]
-        set({ x: pos.x })
 
-        set({ scale: 1.5 * memZoom })
+
+        transformation.x -= delta[0]
+        matrix.translateX = transformation.x
+
         if (last)
-            memZoom = styles.scale.get()
+            return
 
-        /* const zoomLevel = styles.scale.get()
+        const x = event.pageX
+        const y = event.pageY
 
-        if (myRef.current) {
-            let rect = myRef.current.getBoundingClientRect()
-            styles.transformOrigin.set({
-                // set({
-                // transformOrigin: {
-                x: event.clientX - rect.left,
-                y: event.clientY - rect.top,
-                //}
-            })
-        }
+        const el = container.current?.getBoundingClientRect()
+        if (!el)
+            return
 
+        const { left, top } = el;
+
+        const zoomLevel = matrix.scale
+
+        let newZoom: number = 1;
         if (delta[1] > 0) {
             if (zoomLevel > minZoom) {
-                set({ scale: zoomLevel - deltaZoom })
-                memZoom = styles.scale.get()
+                newZoom = zoomLevel - deltaZoom
             }
         } else if (delta[1] < 0) {
             if (zoomLevel < maxZoom) {
-                set({ scale: zoomLevel + deltaZoom })
-                memZoom = styles.scale.get()
+                newZoom = zoomLevel + deltaZoom
             }
-        } */
+        }
+
+        const orX = x - left;
+        const orY = y - top;
+        const newOrX = orX / zoomLevel;
+        const newOrY = orY / zoomLevel;
+
+        const translate = getTranslate({ scale: newZoom, minScale: minZoom, maxScale: maxZoom });
+        const translateX = translate({ pos: orX, prevPos: transformation.originX, translate: transformation.x });
+        const translateY = translate({ pos: orY, prevPos: transformation.originY, translate: transformation.y });
+
+        // let count be a random number between 900 and 1200
+        /* let count1 = Math.floor(Math.random() * (1200 - 900 + 1)) + 900;
+        let count2 = Math.floor(Math.random() * (900 - 600 + 1)) + 900; */
+
+        matrix.translateX = translateX
+        matrix.translateY = translateY
+        matrix.scale = newZoom
+        /* set({
+            matrix: getMatrix(matrix),
+            transformOrigin: `${newOrX}px ${newOrY}px`
+        }) */
+        styles.transformOrigin.set(`${newOrX}px ${newOrY}px`)
+        styles.matrix.set(getMatrix(matrix))
+        transformation.x = translateX
+        transformation.y = translateY
+        transformation.originX = newOrX
+        transformation.originY = newOrY
+        transformation.scale = newZoom
     }, {
         target: myRef,
         eventOptions: { passive: false }
@@ -84,8 +135,6 @@ function Zemljevid() {
         if (typeof myRef.current == "undefined" || typeof container.current == "undefined")
             return
 
-        pos.x = zemljevid.width / -4 || -200
-        set({ x: pos.x })
         if (container.current) {
             let till_end = window.screen.height - container.current.getBoundingClientRect().top - 100
             container.current.style.height = Math.min(till_end, zemljevid.height) + "px"
@@ -97,44 +146,78 @@ function Zemljevid() {
         mc.get('pinch').set({ enable: true });
 
         mc.on("panstart, panmove panend", e => {
-            set({ x: pos.x + (e.deltaX / styles.scale.get()) })
-            set({ y: pos.y + (e.deltaY / styles.scale.get()) })
+            if (e.type == "panstart") {
+                matrix.translateX = transformation.x
+                matrix.translateY = transformation.y
+            }
+            matrix.translateX = transformation.x + e.deltaX
+            matrix.translateY = transformation.y + e.deltaY
 
             if (e.type == "panend") {
-                pos = { x: styles.x.get(), y: styles.y.get() }
+                transformation.x = matrix.translateX
+                transformation.y = matrix.translateY
             }
+            /* set({
+                matrix: getMatrix(matrix),
+            }) */
+            styles.matrix.set(getMatrix(matrix))
         })
 
         mc.on("pinchstart, pinchmove pinchend", e => {
-            set({ scale: e.scale * memZoom })
+            matrix.scale = e.scale * transformation.scale
 
             if (e.type == "pinchend") {
-                memZoom = styles.scale.get()
+                transformation.scale = matrix.scale
             }
+            set({
+                matrix: getMatrix(matrix),
+            })
         })
-    }, [styles.x, styles.y, styles.scale, set])
+    }, [styles.matrix, styles.transformOrigin, set])
+
+    const [tab, setTab] = React.useState(0);
 
     return (
         <Article>
-            <Container ref={container} fixed sx={{
+            <Box>
+                <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
+                    <Tab label="Zemljevid" />
+                    <Tab label="Google zemljevid" />
+                </Tabs>
+            </Box>
+            <Container ref={container} sx={{
                 overflow: "hidden",
                 border: "1px solid black",
                 width: "100%",
+                padding: "0px!important",
             }}>
-                <animated.img
-                    ref={myRef}
-                    src={zemljevid.src}
-                    width={zemljevid.width}
-                    height={zemljevid.height}
-                    alt="zemljevid"
-                    style={{
-                        ...styles,
-                        transformOrigin: to([styles.transformOrigin], (origin) => `${origin.x}px ${origin.y}px`),
-                    }}
-                />
+                <TabPanel value={tab} index={0}>
+                    <animated.img
+                        ref={myRef}
+                        src={zemljevid.src}
+                        width={zemljevid.width}
+                        height={zemljevid.height}
+                        alt="zemljevid"
+                        style={{
+                            ...styles,
+                        }}
+                    />
+                </TabPanel>
+                <TabPanel value={tab} index={1}>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2783.6017215541597!2d15.050398516107313!3d45.75912997910566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4764ffc326c652d9%3A0xdfbeff8ab7f43ed1!2sArheolo%C5%A1ka%20pot%20CVINGER!5e0!3m2!1sen!2ssi!4v1645265552182!5m2!1sen!2ssi"
+                        width={container.current ? container.current.getBoundingClientRect().width : "600px"}
+                        height={container.current ? container.current.getBoundingClientRect().height : "600px"}
+                        style={{ border: "none" }}
+                        allowFullScreen
+                        loading="lazy">
+                    </iframe>
+                </TabPanel>
             </Container>
         </Article>
     )
 }
+
+
 
 export default Zemljevid

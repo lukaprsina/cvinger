@@ -10,6 +10,7 @@ import {
 import { push as Menu } from 'react-burger-menu'
 import useBreakpointMatch from '../components/useBreakpointMatch';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 type ArticleProps = {
     title?: string,
@@ -23,14 +24,57 @@ type ItemProps = {
 }
 
 function Item({ to, text }: ItemProps) {
+    const router = useRouter()
+    const isActive = router.pathname === to
+
     return (
         <Link href={to} prefetch={false}>
             <a style={{ textDecoration: "none" }}>
-                <Typography variant="h6" color="white">
-                    {text}
-                </Typography>
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "flex-start",
+                        margin: "30px 0"
+                    }}>
+                    <Box
+                        sx={{
+                            fontWeight: "bold",
+                            fontSize: "30px",
+                            backgroundColor: isActive ? "secondary.light" : "primary.main",
+                            borderRadius: "50%",
+                            border: isActive ? "3px solid" : "none",
+                            borderColor: "primary.main",
+                            width: "30px",
+                            height: "30px",
+                            color: "secondary.main",
+                            margin: "0px 10px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Typography
+                            component="span"
+                            color={isActive ? "primary.main" : "secondary.main"}
+                        >
+                            {text[0].toUpperCase()}
+                        </Typography>
+
+                    </Box>
+                    <Typography
+                        variant="body1"
+                        component="span"
+                        color="primary.main"
+                    >
+                        {text}
+                    </Typography>
+                </Box>
+
+
+
             </a>
-        </Link>
+        </Link >
     )
 }
 

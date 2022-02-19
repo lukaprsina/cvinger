@@ -6,7 +6,7 @@ import { Box } from "@mui/system"
 
 import Article from "../components/Article"
 
-import img0 from "/public/documents/output/Archäologisches Korrespondenzblatt 35, 2005, 191-204 copy.jpg"
+import img0 from "/public/documents/output/Archäologisches Korrespondenzblatt 35, 2005, 191-204.jpg"
 import img1 from "/public/documents/output/Arheo 34, 2017, 79-93.jpg"
 import img2 from "/public/documents/output/Arheo 35, 2018.jpg"
 import img3 from "/public/documents/output/Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.jpg"

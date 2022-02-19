@@ -10,12 +10,13 @@ type ArticleImageProps = {
     noGallery?: boolean,
     noBorder?: boolean,
     priority?: boolean,
+    maxHeight?: number,
     galleryCallback?: () => void
 }
 
 const extension_regex = /(?:\.([^.]+))?$/;
 
-const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryCallback, priority = false }: ArticleImageProps) => {
+const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryCallback, priority = false, maxHeight = 0 }: ArticleImageProps) => {
     let result = extension_regex.exec(src.src);
     let extension = result ? result[1] : "";
 
@@ -26,7 +27,7 @@ const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryC
             margin: "0",
             "& img": {
                 width: "100%",
-                maxHeight: "700px",
+                maxHeight: (maxHeight == 0) ? "1500px" : `${maxHeight}px!important`,
                 borderRadius: noBorder ? "0" : "7px",
             }
         }}>
@@ -34,7 +35,7 @@ const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryC
                 <NextjsImage
                     src={src}
                     alt={caption}
-                    layout="responsive"
+                    //layout="responsive"
                     placeholder={blur ? "blur" : "empty"}
                     priority={priority}
                     onClick={() => {

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Pagination, Scrollbar, A11y, Keyboard } from "swiper"
@@ -14,7 +14,6 @@ import useEventListener from "./useEventListener";
 import ArticleImage from "./ArticleImage";
 import { Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useRouter } from "next/router";
 
 type GalleryProps = {
     children: React.ReactElement;
@@ -77,13 +76,16 @@ function iterateChildren(children: JSX.Element, galleryCallback: (source: number
 }
 
 function Gallery({ children }: GalleryProps) {
-    const [showGallery, setShowGallery] = React.useState(false);
-    const [showSubtitles, setShowSubtitles] = React.useState(true);
-    const [slideIndex, setSlideIndex] = React.useState(0);
+    const [showGallery, setShowGallery] = useState(false);
+    const [showSubtitles, setShowSubtitles] = useState(true);
+    const [slideIndex, setSlideIndex] = useState(0);
+    const [galleryLocked, setGalleryLocked] = useState(false);
 
-    useEventListener('onorientationchange', (event) => {
-        console.log(event)
-    })
+    useEventListener('orientationchange',
+        () => {
+            setGalleryLocked(true)
+            setTimeout(() => setGalleryLocked(false), 1000)
+        })
 
     let sources: GalleryImage[] = []
     const galleryCallback = (index: number) => {
@@ -93,13 +95,16 @@ function Gallery({ children }: GalleryProps) {
     };
 
     useEventListener('keydown', (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
+        if (event.key === 'Escape')
             setShowGallery(false)
-        }
+
     });
 
     useEventListener('scroll', () => {
-        setShowGallery(false)
+        setTimeout(() => {
+            if (!galleryLocked)
+                setShowGallery(false)
+        })
     });
 
 

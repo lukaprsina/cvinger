@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from "../components/Header"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
@@ -79,32 +79,9 @@ function Item({ to, text }: ItemProps) {
     )
 }
 
-// type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 export default function Article({ title = "", noNavbar = false, children }: ArticleProps) {
-    let { matches } = useBreakpointMatch("mdUp");
-
-    /* const [state, setState] = React.useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false,
-    });
-
-    const toggleDrawer =
-        (anchor: Anchor, open: boolean) =>
-            (event: React.KeyboardEvent | React.MouseEvent) => {
-                if (
-                    event &&
-                    event.type === 'keydown' &&
-                    ((event as React.KeyboardEvent).key === 'Tab' ||
-                        (event as React.KeyboardEvent).key === 'Shift')
-                ) {
-                    return;
-                }
-
-                setState({ ...state, [anchor]: open });
-            }; */
+    const { matches } = useBreakpointMatch("mdUp", true);
 
     return <>
         {matches ? null : <Menu pageWrapId="page-wrap" outerContainerId="outer-container">
@@ -117,19 +94,6 @@ export default function Article({ title = "", noNavbar = false, children }: Arti
             <Item to="/zemljevid" text="Zemljevid" />
             <Item to="/literatura" text="Literatura" />
         </Menu>}
-
-        {/* {(['left', 'right'] as const).map((anchor) => (
-            <React.Fragment key={anchor}>
-                <SwipeableDrawer
-                    anchor={anchor}
-                    open={state[anchor]}
-                    onClose={toggleDrawer(anchor, false)}
-                    onOpen={toggleDrawer(anchor, true)}
-                >
-                    test
-                </SwipeableDrawer>
-            </React.Fragment>
-        ))} */}
 
         <Box id="page-wrap">
             <Header />

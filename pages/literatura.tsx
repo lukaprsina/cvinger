@@ -1,7 +1,8 @@
 import React from "react"
 import NextjsImage from "next/image"
 import Link from "next/link"
-import { Button, ButtonGroup, Typography } from "@mui/material"
+import { Button, ButtonGroup, Tab, Tabs, Typography } from "@mui/material"
+import SwipeableViews from 'react-swipeable-views';
 import { Box } from "@mui/system"
 
 import Article from "../components/Article"
@@ -35,6 +36,7 @@ import img25 from "/public/documents/output/Varstvo spomenikov 32, 1990.jpg"
 import img26 from "/public/documents/output/Varstvo spomenikov 33, 1991.jpg"
 import img27 from "/public/documents/output/Varstvo spomenikov 34, 1992.jpg"
 import img28 from "/public/documents/output/Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.jpg"
+import TabPanel from "../components/TabPanel"
 
 
 type PDFFile = {
@@ -144,34 +146,44 @@ function PdfList({ image }: PdfProps) {
     )
 }
 
+// TODO: tab swipe isn't smooth on the first switch
+
 function Literatura() {
-    const [icons, setIcons] = React.useState(true);
+    const [tab, setTab] = React.useState(0);
+
     return (
         <Article title="Literatura">
-            <ButtonGroup variant="outlined" sx={{ marginBottom: "20px" }}>
-                <Button
-                    variant={icons ? "outlined" : "text"}
-                    onClick={() => setIcons(true)}
-                >Ikone</Button>
-                <Button
-                    variant={!icons ? "outlined" : "text"}
-                    onClick={() => setIcons(false)}
-                >List</Button>
-            </ButtonGroup>
-            {icons ? (
-                <Box sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                }}>
-                    {arr.map((image, index) => <PdfIcon image={image} key={index} />)}
-                </Box>) : (
-                <>
+            <Box>
+                <Tabs
+                    value={tab}
+                    onChange={(e: React.SyntheticEvent, newValue: number) => setTab(newValue)}
+                    scrollButtons="auto"
+                    variant="scrollable"
+                >
+                    <Tab label="Ikone" />
+                    <Tab label="List" />
+                </Tabs>
+            </Box>
+            <SwipeableViews
+                axis='x'
+                index={tab}
+                onChangeIndex={(index: number) => setTab(index)}
+            >
+                <TabPanel value={tab} index={0}>
+                    <Box sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                    }}>
+                        {arr.map((image, index) => <PdfIcon image={image} key={index} />)}
+                    </Box>
+                </TabPanel>
+                <TabPanel value={tab} index={1}>
                     {arr.map((image, index) => <PdfList image={image} key={index} />)}
-                </>
-            )}
-        </Article>
+                </TabPanel>
+            </SwipeableViews>
+        </Article >
     )
 }
 

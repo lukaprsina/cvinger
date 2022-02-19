@@ -35,9 +35,9 @@ const getMQForVisiblityValues = (theme: Theme, visValues: BreakpointVisiblityVal
     return mqArray.join()
 }
 
-function useBreakpointMatch(breakpointValue: BreakpointValueProp = 'always') {
+function useBreakpointMatch(breakpointValue: BreakpointValueProp = 'always', defaultChoice: boolean) {
     const theme = useTheme<Theme>()
-    const [matches, setMatches] = useState(breakpointValue === 'always')
+    const [matches, setMatches] = useState(defaultChoice)
 
     useEffect(() => {
         const visibleArray =

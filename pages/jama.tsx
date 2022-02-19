@@ -12,9 +12,10 @@ import first from "/public/images/jama/1987.jpg"
 import second from "/public/images/jama/2017.jpg"
 import TabPanel from "../components/TabPanel"
 import { Box } from "@mui/system"
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import { ReactCompareSlider } from 'react-compare-slider';
 import Image from "next/image"
 import PdfButton from "../components/PdfButton"
+import SwipeableViews from "react-swipeable-views"
 
 const Jama = () => {
     const [tab, setTab] = React.useState(0);
@@ -90,6 +91,11 @@ const Jama = () => {
                     padding: "0px!important",
                 }}
             >
+                {/* <SwipeableViews
+                    axis='x'
+                    index={tab}
+                    onChangeIndex={(index: number) => setTab(index)}
+                > */}
                 <TabPanel value={tab} index={0}>
                     <iframe
                         width="100%"
@@ -120,6 +126,7 @@ const Jama = () => {
                         allow="autoplay; fullscreen; vr"
                     ></iframe>
                 </TabPanel>
+                {/* </SwipeableViews> */}
             </Container>
 
             <Typography variant="body1" paragraph>

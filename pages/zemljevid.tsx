@@ -59,6 +59,7 @@ const getMatrix = ({ scale, translateX, translateY }: MatrixProps) => (
 function Zemljevid() {
     const myRef = useRef<HTMLImageElement>(null)
     const container = useRef<HTMLImageElement>(null)
+    const [tab, setTab] = React.useState(0);
 
     const [styles, set] = useSpring(() => ({
         to: {
@@ -130,7 +131,9 @@ function Zemljevid() {
     })
 
     useEffect(() => {
-        if (typeof myRef.current == "undefined" || typeof container.current == "undefined")
+        if (typeof myRef.current == "undefined"
+            || typeof container.current == "undefined"
+            || tab == 1)
             return
 
         if (container.current) {
@@ -171,9 +174,11 @@ function Zemljevid() {
                 matrix: getMatrix(matrix),
             })
         })
-    }, [styles.matrix, styles.transformOrigin, set])
 
-    const [tab, setTab] = React.useState(0);
+        return () => {
+            mc.destroy()
+        }
+    }, [styles.matrix, styles.transformOrigin, set, tab])
 
     return (
         <Article>

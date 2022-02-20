@@ -1,10 +1,6 @@
-const {
-    createServer
-} = require("http");
-const {
-    parse
-} = require("url");
-const next = require("next");
+import { createServer } from "http";
+import { parse } from "url";
+import next from "next";
 
 const port = process.env.PORT || 3000;
 
@@ -25,10 +21,7 @@ app
             } = parsedUrl;
             handle(req, res, parsedUrl);
             console.log("pathname", pathname);
-        }).listen(port, (err) => {
-            if (err) throw err;
-            console.log(`> Ready on http://localhost:${port}`);
-        });
+        }).listen()
     })
     .catch((ex) => {
         console.error(ex.stack);

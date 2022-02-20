@@ -3,6 +3,7 @@ import NextjsImage from "next/image"
 import Link from "next/link"
 import { Button, ButtonGroup, Tab, Tabs, Typography } from "@mui/material"
 import SwipeableViews from 'react-swipeable-views';
+import TabPanel from "../components/TabPanel"
 import { Box } from "@mui/system"
 
 import Article from "../components/Article"
@@ -36,7 +37,6 @@ import img25 from "/public/documents/output/Varstvo spomenikov 32, 1990.jpg"
 import img26 from "/public/documents/output/Varstvo spomenikov 33, 1991.jpg"
 import img27 from "/public/documents/output/Varstvo spomenikov 34, 1992.jpg"
 import img28 from "/public/documents/output/Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.jpg"
-import TabPanel from "../components/TabPanel"
 
 
 type PDFFile = {

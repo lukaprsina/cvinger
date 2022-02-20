@@ -1,0 +1,33 @@
+/*
+24
+70
+79
+86
+101
+118−‒
+128–‒
+153 manjka
+*/
+/* page, year */
+{
+    "a": {
+        "file": "string",
+        "ignore": "boolean?",
+        "type": "number?",
+        "authors": "string?",
+        "full_authors": "string?",
+        "day": "string?",
+        "month": "string?",
+        "year": "number",
+        "quarter": "string?",
+        "name": "string?",
+        "secondary_author": "string?",
+        "translation": "string?",
+        "publication": "string",
+        "number": "string?",
+        "part": "array?: [number, number]",
+        "book": "string?",
+        "place": "string?",
+        "page": "array?: [string, string?]"
+    }
+}

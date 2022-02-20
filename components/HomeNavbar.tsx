@@ -17,7 +17,7 @@ import zemljevid from "/public/images/home/krogci/07_zemljevid.png"
 import literatura from "/public/images/home/krogci/08_literatura.png"
 
 const HomeNavbar = () => {
-    let { matches } = useBreakpointMatch("mdUp");
+    let { matches } = useBreakpointMatch("mdUp", true);
 
     return <>        {
         matches ? <Box

@@ -206,6 +206,7 @@ function Zemljevid() {
                         width={zemljevid.width}
                         height={zemljevid.height}
                         alt="zemljevid"
+                        // @ts-ignore
                         style={{
                             ...styles,
                         }}

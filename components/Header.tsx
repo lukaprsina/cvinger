@@ -8,7 +8,7 @@ import logo from "/public/images/logo/logo.svg"
 import useBreakpointMatch from "./useBreakpointMatch"
 
 const Header = () => {
-    let { matches } = useBreakpointMatch("mdUp");
+    let { matches } = useBreakpointMatch("mdUp", true);
 
     return (
         <Box

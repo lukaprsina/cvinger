@@ -1,7 +1,7 @@
 import { SxProps, Typography, Link, List, Tabs, Tab } from '@mui/material';
 import React from 'react';
 import NextjsLink from 'next/link';
-import NextjsImage from 'next/link';
+import NextjsImage from 'next/image';
 import data, { DataProps } from "../components/Data"
 import Article from '../components/Article'
 import { Box } from '@mui/system';
@@ -105,7 +105,7 @@ function Literatura() {
 
         return <List key={index}>
             {substance}
-            [<NextjsLink href={entry.file} passHref>
+            [<NextjsLink href={entry.path} prefetch={false} passHref>
                 <MyLink>{entry.size}</MyLink>
             </NextjsLink>]
         </List>
@@ -138,7 +138,7 @@ function Literatura() {
                     justifyContent: "space-evenly",
                     alignItems: "center",
                 }}>
-                    {/* {data.map((entry, index) => <PdfIcon entry={entry} key={index} />)} */}
+                    {data.map((entry, index) => <PdfIcon entry={entry} key={index} />)}
                 </Box>
             </TabPanel>
             <TabPanel value={tab} index={1}>
@@ -154,8 +154,7 @@ type PdfIconProps = {
 }
 
 function PdfIcon({ entry }: PdfIconProps) {
-    console.log(entry.path)
-    return <Box sx={{
+    return entry.image ? <Box sx={{
         width: "200px",
         height: "300px",
         textAlign: "center",
@@ -167,41 +166,48 @@ function PdfIcon({ entry }: PdfIconProps) {
             objectFit: "scale-down",
         },
     }}>
-        <NextjsLink href={entry.path} prefetch={false}>
-            <a style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-            }}
-                rel="noopener noreferrer"
-                target="_blank"
+        <NextjsLink href={entry.path} prefetch={false} passHref>
+            <MyLink
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                }}
             >
-                {entry.image && <NextjsImage
-                /* src={entry.image}
-                alt={entry.name} */
-                />}
+                <NextjsImage
+                    src={entry.image}
+                    alt={entry.file}
+                />
                 <Typography sx={{
                     width: "80%",
-                }} textAlign="center" paragraph variant="body2">{entry.name}</Typography>
-            </a>
+                }}
+                    textAlign="center"
+                    paragraph
+                    variant="body2"
+                >
+                    {entry.file}
+                </Typography>
+            </MyLink>
         </NextjsLink>
-    </Box>
+    </Box> : <></>
 }
 
 type MyLinkProps = {
     children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
     href: any,
     onClick: any,
+    style: React.CSSProperties
 }
 
 // eslint-disable-next-line react/display-name
-const MyLink = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, children }: MyLinkProps, ref) => {
+const MyLink = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, children, style }: MyLinkProps, ref) => {
     return (
         <Link
             onClick={onClick}
-            href={"documents/literatura/" + href + ".pdf"}
+            href={href}
             ref={ref}
+            style={style}
             target="_blank"
             rel="noopener noreferrer"
         >{children}</Link>

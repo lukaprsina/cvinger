@@ -9,6 +9,7 @@ import { useEffect } from "react"
 import { useWheel } from "@use-gesture/react"
 import { Box } from "@mui/system"
 import TabPanel from "../components/TabPanel"
+import SwipeableViews from "react-swipeable-views"
 
 const Hammer = typeof window !== 'undefined' ? require('hammerjs') : undefined;
 
@@ -180,6 +181,7 @@ function Zemljevid() {
         }
     }, [styles.matrix, styles.transformOrigin, set, tab])
 
+
     return (
         <Article>
             <Box>
@@ -199,29 +201,38 @@ function Zemljevid() {
                 width: "100%",
                 padding: "0px!important",
             }}>
-                <TabPanel value={tab} index={0}>
-                    <animated.img
-                        ref={myRef}
-                        src={zemljevid.src}
-                        width={zemljevid.width}
-                        height={zemljevid.height}
-                        alt="zemljevid"
-                        // @ts-ignore
-                        style={{
-                            ...styles,
-                        }}
-                    />
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2783.6017215541597!2d15.050398516107313!3d45.75912997910566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4764ffc326c652d9%3A0xdfbeff8ab7f43ed1!2sArheolo%C5%A1ka%20pot%20CVINGER!5e0!3m2!1sen!2ssi!4v1645265552182!5m2!1sen!2ssi"
-                        width={container.current ? container.current.getBoundingClientRect().width : "600px"}
-                        height={container.current ? container.current.getBoundingClientRect().height : "600px"}
-                        style={{ border: "none" }}
-                        allowFullScreen
-                        loading="lazy">
-                    </iframe>
-                </TabPanel>
+                <SwipeableViews
+                    axis='x'
+                    index={tab}
+                    onChangeIndex={(index: number) => setTab(index)}
+                    containerStyle={{
+                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s'
+                    }}
+                >
+                    <TabPanel value={tab} index={0}>
+                        <animated.img
+                            ref={myRef}
+                            src={zemljevid.src}
+                            width={zemljevid.width}
+                            height={zemljevid.height}
+                            alt="zemljevid"
+                            // @ts-ignore
+                            style={{
+                                ...styles,
+                            }}
+                        />
+                    </TabPanel>
+                    <TabPanel value={tab} index={1}>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2783.6017215541597!2d15.050398516107313!3d45.75912997910566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4764ffc326c652d9%3A0xdfbeff8ab7f43ed1!2sArheolo%C5%A1ka%20pot%20CVINGER!5e0!3m2!1sen!2ssi!4v1645265552182!5m2!1sen!2ssi"
+                            width={container.current ? container.current.getBoundingClientRect().width : "600px"}
+                            height={container.current ? container.current.getBoundingClientRect().height : "600px"}
+                            style={{ border: "none" }}
+                            allowFullScreen
+                            loading="lazy">
+                        </iframe>
+                    </TabPanel>
+                </SwipeableViews>
             </Container>
         </Article>
     )

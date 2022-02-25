@@ -47,7 +47,8 @@ export type DataProps = {
     page?: string[],
     output: string,
     path: string,
-    image: StaticImageData
+    image: StaticImageData,
+    size: string
 }
 
 const data: DataProps[] = [
@@ -64,7 +65,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Archäologisches Korrespondenzblatt 35, 2005, 191-204.jpg",
         "path": "/documents/literatura/Archäologisches Korrespondenzblatt 35, 2005, 191-204.pdf",
-        "image": img0
+        "image": img0,
+        "size": "PDF, 6 MB"
     },
     {
         "file": "Arheo 34, 2017, 79-93",
@@ -79,7 +81,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Arheo 34, 2017, 79-93.jpg",
         "path": "/documents/literatura/Arheo 34, 2017, 79-93.pdf",
-        "image": img1
+        "image": img1,
+        "size": "PDF, 8 MB"
     },
     {
         "file": "Arheo 35, 2018",
@@ -95,7 +98,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Arheo 35, 2018.jpg",
         "path": "/documents/literatura/Arheo 35, 2018.pdf",
-        "image": img2
+        "image": img2,
+        "size": "PDF, 28 MB"
     },
     {
         "file": "Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26",
@@ -111,7 +115,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.jpg",
         "path": "/documents/literatura/Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.pdf",
-        "image": img3
+        "image": img3,
+        "size": "PDF, 1 MB"
     },
     {
         "file": "Arheološki pregled 29, 1988, 88-89",
@@ -127,7 +132,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Arheološki pregled 29, 1988, 88-89.jpg",
         "path": "/documents/literatura/Arheološki pregled 29, 1988, 88-89.pdf",
-        "image": img4
+        "image": img4,
+        "size": "PDF, 1 MB"
     },
     {
         "file": "Arheološki vestnik 27, 1976, 317‒536",
@@ -142,7 +148,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Arheološki vestnik 27, 1976, 317‒536.jpg",
         "path": "/documents/literatura/Arheološki vestnik 27, 1976, 317‒536.pdf",
-        "image": img5
+        "image": img5,
+        "size": "PDF, 32 MB"
     },
     {
         "file": "Arheološki vestnik 49, 1998, 157−186",
@@ -157,7 +164,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Arheološki vestnik 49, 1998, 157−186.jpg",
         "path": "/documents/literatura/Arheološki vestnik 49, 1998, 157−186.pdf",
-        "image": img6
+        "image": img6,
+        "size": "PDF, 6 MB"
     },
     {
         "file": "Arheološki vestnik 55, 2004, 207–250",
@@ -172,7 +180,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Arheološki vestnik 55, 2004, 207–250.jpg",
         "path": "/documents/literatura/Arheološki vestnik 55, 2004, 207–250.pdf",
-        "image": img7
+        "image": img7,
+        "size": "PDF, 13 MB"
     },
     {
         "file": "Arheološki vestnik 71, 529‒554",
@@ -188,11 +197,12 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Arheološki vestnik 71, 529‒554.jpg",
         "path": "/documents/literatura/Arheološki vestnik 71, 529‒554.pdf",
-        "image": img8
+        "image": img8,
+        "size": "PDF, 17 MB"
     },
     {
         "file": "Cvinger in železnodobno železarstvo, Vitrina meseca 7, april 2018",
-        "type": 1,
+        "type": 2,
         "authors": "Basar, P. et al.",
         "month": "april",
         "year": 2018,
@@ -201,7 +211,8 @@ const data: DataProps[] = [
         "place": "Univerza v Ljubljani, Filozofska fakulteta, Knjižnica oddelka za arheologijo",
         "output": "/public/documents/output/Cvinger in železnodobno železarstvo, Vitrina meseca 7, april 2018.jpg",
         "path": "/documents/literatura/Cvinger in železnodobno železarstvo, Vitrina meseca 7, april 2018.pdf",
-        "image": img9
+        "image": img9,
+        "size": "PDF, 8 MB"
     },
     {
         "file": "Dolenjski kras 7, 2017, 105‒117",
@@ -216,7 +227,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Dolenjski kras 7, 2017, 105‒117.jpg",
         "path": "/documents/literatura/Dolenjski kras 7, 2017, 105‒117.pdf",
-        "image": img10
+        "image": img10,
+        "size": "PDF, 1 MB"
     },
     {
         "file": "Dular, J. 2003, Halštatske nekropole Dolenjske",
@@ -228,7 +240,8 @@ const data: DataProps[] = [
         "number": "6",
         "output": "/public/documents/output/Dular, J. 2003, Halštatske nekropole Dolenjske.jpg",
         "path": "/documents/literatura/Dular, J. 2003, Halštatske nekropole Dolenjske.pdf",
-        "image": img11
+        "image": img11,
+        "size": "PDF, 48 MB"
     },
     {
         "file": "Izvestja muzejskega društva za Kranjsko 14, 1904",
@@ -247,41 +260,44 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Izvestja muzejskega društva za Kranjsko 14, 1904.jpg",
         "path": "/documents/literatura/Izvestja muzejskega društva za Kranjsko 14, 1904.pdf",
-        "image": img12
+        "image": img12,
+        "size": "PDF, 5 MB"
     },
     {
         "file": "Izvestja muzejskega društva za Kranjsko 8, 1898",
         "authors": "Rutar, S.",
         "year": 1898,
         "name": "Prazgodovinske izkopine pri Toplicah na Dolenjskem",
-        "publication": "Izvestja Muzejskega društva za Kranjsko 8",
-        "number": "3",
+        "publication": "Izvestja Muzejskega društva za Kranjsko",
+        "number": "8, 3",
         "page": [
             "102",
             "103"
         ],
         "output": "/public/documents/output/Izvestja muzejskega društva za Kranjsko 8, 1898.jpg",
         "path": "/documents/literatura/Izvestja muzejskega društva za Kranjsko 8, 1898.pdf",
-        "image": img13
+        "image": img13,
+        "size": "PDF, 3 MB"
     },
     {
         "file": "Izvestja Muzejskega društva za Kranjsko 9, 1899",
         "authors": "Rutar, S.",
         "year": 1899,
         "name": "Prazgodovinske izkopine na Dolenjskem",
-        "publication": "Izvestja Muzejskega društva za Kranjsko 9",
-        "number": "1",
+        "publication": "Izvestja Muzejskega društva za Kranjsko",
+        "number": "9, 1",
         "page": [
             "36"
         ],
         "output": "/public/documents/output/Izvestja Muzejskega društva za Kranjsko 9, 1899.jpg",
         "path": "/documents/literatura/Izvestja Muzejskega društva za Kranjsko 9, 1899.pdf",
-        "image": img14
+        "image": img14,
+        "size": "PDF, 4 MB"
     },
     {
         "file": "Jutro, ponedeljska izdaja, 2. sept. 1935, št. 202a, 2",
         "type": 1,
-        "day": "2",
+        "day": "2.",
         "month": "sept.",
         "year": 1935,
         "name": "Jutro, ponedeljska izdaja",
@@ -291,7 +307,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Jutro, ponedeljska izdaja, 2. sept. 1935, št. 202a, 2.jpg",
         "path": "/documents/literatura/Jutro, ponedeljska izdaja, 2. sept. 1935, št. 202a, 2.pdf",
-        "image": img15
+        "image": img15,
+        "size": "PDF, 5 MB"
     },
     {
         "file": "Mlekuž. D., Črešnar M. 2019, Early Iron Age cultural landscapes, str. 221-240",
@@ -307,7 +324,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Mlekuž. D., Črešnar M. 2019, Early Iron Age cultural landscapes, str. 221-240.jpg",
         "path": "/documents/literatura/Mlekuž. D., Črešnar M. 2019, Early Iron Age cultural landscapes, str. 221-240.pdf",
-        "image": img16
+        "image": img16,
+        "size": "PDF, 1 MB"
     },
     {
         "file": "Muellner, A. 1909, Geschichte des Eisens, str. 71",
@@ -319,7 +337,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Muellner, A. 1909, Geschichte des Eisens, str. 71.jpg",
         "path": "/documents/literatura/Muellner, A. 1909, Geschichte des Eisens, str. 71.pdf",
-        "image": img17
+        "image": img17,
+        "size": "PDF, 15 MB"
     },
     {
         "file": "Naše jame 33, 1991",
@@ -334,7 +353,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Naše jame 33, 1991.jpg",
         "path": "/documents/literatura/Naše jame 33, 1991.pdf",
-        "image": img18
+        "image": img18,
+        "size": "PDF, 8 MB"
     },
     {
         "file": "Varstvo spomenikov 23, 1981",
@@ -348,7 +368,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Varstvo spomenikov 23, 1981.jpg",
         "path": "/documents/literatura/Varstvo spomenikov 23, 1981.pdf",
-        "image": img19
+        "image": img19,
+        "size": "PDF, 52 MB"
     },
     {
         "file": "Varstvo spomenikov 29, 1987",
@@ -363,7 +384,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Varstvo spomenikov 29, 1987.jpg",
         "path": "/documents/literatura/Varstvo spomenikov 29, 1987.pdf",
-        "image": img20
+        "image": img20,
+        "size": "PDF, 70 MB"
     },
     {
         "file": "Varstvo spomenikov 30, 1988",
@@ -379,7 +401,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Varstvo spomenikov 30, 1988.jpg",
         "path": "/documents/literatura/Varstvo spomenikov 30, 1988.pdf",
-        "image": img21
+        "image": img21,
+        "size": "PDF, 70 MB"
     },
     {
         "file": "Varstvo spomenikov 31, 1989",
@@ -393,7 +416,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Varstvo spomenikov 31, 1989.jpg",
         "path": "/documents/literatura/Varstvo spomenikov 31, 1989.pdf",
-        "image": img22
+        "image": img22,
+        "size": "PDF, 61 MB"
     },
     {
         "file": "Varstvo spomenikov 32, 1990",
@@ -408,7 +432,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Varstvo spomenikov 32, 1990.jpg",
         "path": "/documents/literatura/Varstvo spomenikov 32, 1990.pdf",
-        "image": img23
+        "image": img23,
+        "size": "PDF, 50 MB"
     },
     {
         "file": "Varstvo spomenikov 33, 1991",
@@ -423,7 +448,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Varstvo spomenikov 33, 1991.jpg",
         "path": "/documents/literatura/Varstvo spomenikov 33, 1991.pdf",
-        "image": img24
+        "image": img24,
+        "size": "PDF, 61 MB"
     },
     {
         "file": "Varstvo spomenikov 34, 1992",
@@ -438,7 +464,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Varstvo spomenikov 34, 1992.jpg",
         "path": "/documents/literatura/Varstvo spomenikov 34, 1992.pdf",
-        "image": img25
+        "image": img25,
+        "size": "PDF, 63 MB"
     },
     {
         "file": "Zhuber, P. 1900, Zdravišče Toplice na Kranjskem",
@@ -450,7 +477,8 @@ const data: DataProps[] = [
         ],
         "output": "/public/documents/output/Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.jpg",
         "path": "/documents/literatura/Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.pdf",
-        "image": img26
+        "image": img26,
+        "size": "PDF, 3 MB"
     }
 ]
 export default data

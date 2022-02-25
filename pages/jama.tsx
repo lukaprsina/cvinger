@@ -91,42 +91,45 @@ const Jama = () => {
                     padding: "0px!important",
                 }}
             >
-                {/* <SwipeableViews
+                <SwipeableViews
                     axis='x'
                     index={tab}
                     onChangeIndex={(index: number) => setTab(index)}
-                > */}
-                <TabPanel value={tab} index={0}>
-                    <iframe
-                        width="100%"
-                        height={sketchfabHeight}
-                        title="Model jame pred raziskavami"
-                        src="https://sketchfab.com/models/c31f716e4e404254a9a0de31b5131fcd/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
-                        frameBorder="0"
-                        allow="autoplay; fullscreen; vr"
-                    ></iframe>
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                    <iframe
-                        width="100%"
-                        height={sketchfabHeight}
-                        title="Vhod jame"
-                        src="https://sketchfab.com/models/371c41e033ab45c88be6f5da1660f163/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
-                        frameBorder="0"
-                        allow="autoplay; fullscreen; vr"
-                    ></iframe>
-                </TabPanel>
-                <TabPanel value={tab} index={2}>
-                    <iframe
-                        width="100%"
-                        height={sketchfabHeight}
-                        title="Notranjost jame"
-                        src="https://sketchfab.com/models/259166b8a4dd4eda9f7176d5fdb4f6d6/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
-                        frameBorder="0"
-                        allow="autoplay; fullscreen; vr"
-                    ></iframe>
-                </TabPanel>
-                {/* </SwipeableViews> */}
+                    containerStyle={{
+                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s'
+                    }}
+                >
+                    <TabPanel value={tab} index={0}>
+                        <iframe
+                            width="100%"
+                            height={sketchfabHeight}
+                            title="Model jame pred raziskavami"
+                            src="https://sketchfab.com/models/c31f716e4e404254a9a0de31b5131fcd/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
+                            frameBorder="0"
+                            allow="autoplay; fullscreen; vr"
+                        ></iframe>
+                    </TabPanel>
+                    <TabPanel value={tab} index={1}>
+                        <iframe
+                            width="100%"
+                            height={sketchfabHeight}
+                            title="Vhod jame"
+                            src="https://sketchfab.com/models/371c41e033ab45c88be6f5da1660f163/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
+                            frameBorder="0"
+                            allow="autoplay; fullscreen; vr"
+                        ></iframe>
+                    </TabPanel>
+                    <TabPanel value={tab} index={2}>
+                        <iframe
+                            width="100%"
+                            height={sketchfabHeight}
+                            title="Notranjost jame"
+                            src="https://sketchfab.com/models/259166b8a4dd4eda9f7176d5fdb4f6d6/embed?ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"
+                            frameBorder="0"
+                            allow="autoplay; fullscreen; vr"
+                        ></iframe>
+                    </TabPanel>
+                </SwipeableViews>
             </Container>
 
             <Typography variant="body1" paragraph>

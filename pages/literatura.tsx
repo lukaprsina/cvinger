@@ -1,87 +1,160 @@
-import React from "react"
-import NextjsImage from "next/image"
-import Link from "next/link"
-import { Button, ButtonGroup, Tab, Tabs, Typography } from "@mui/material"
+import { SxProps, Typography, Link, List, Tabs, Tab } from '@mui/material';
+import React from 'react';
+import NextjsLink from 'next/link';
+import NextjsImage from 'next/link';
+import data, { DataProps } from "../components/Data"
+import Article from '../components/Article'
+import { Box } from '@mui/system';
 import SwipeableViews from 'react-swipeable-views';
-import TabPanel from "../components/TabPanel"
-import { Box } from "@mui/system"
+import TabPanel from '../components/TabPanel';
 
-import Article from "../components/Article"
-
-import img0 from "/public/documents/output/Archäologisches Korrespondenzblatt 35, 2005, 191-204.jpg"
-import img1 from "/public/documents/output/Arheo 34, 2017, 79-93.jpg"
-import img2 from "/public/documents/output/Arheo 35, 2018.jpg"
-import img3 from "/public/documents/output/Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.jpg"
-import img4 from "/public/documents/output/Arheološki pregled 29, 1988, 88-89.jpg"
-import img5 from "/public/documents/output/Arheološki vestnik 27, 1976, 317‒536.jpg"
-import img6 from "/public/documents/output/Arheološki vestnik 49, 1998, 157−186.jpg"
-import img7 from "/public/documents/output/Arheološki vestnik 55, 2004, 207–250.jpg"
-import img8 from "/public/documents/output/Arheološki vestnik 71, 529‒554.jpg"
-import img9 from "/public/documents/output/Basar, P. 2018, Cvinger in železnodobno železarstvo, Vitrina meseca 7.jpg"
-import img10 from "/public/documents/output/Cvinger in železnodobno železarstvo, Vitrina meseca 7, april 2018.jpg"
-import img11 from "/public/documents/output/Dolenjski kras 7, 2017, 105‒117.jpg"
-import img12 from "/public/documents/output/Dular, J. 2003, Halštatske nekropole Dolenjske.jpg"
-import img13 from "/public/documents/output/Izvestja Muzejskega društva za Kranjsko 9, 1899.jpg"
-import img14 from "/public/documents/output/Izvestja muzejskega društva za Kranjsko 14, 1904.jpg"
-import img15 from "/public/documents/output/Izvestja muzejskega društva za Kranjsko 8, 1898.jpg"
-import img16 from "/public/documents/output/Jutro, ponedeljska izdaja, 2. sept. 1935, št. 202a, 2.jpg"
-import img17 from "/public/documents/output/Mlekuž. D., Črešnar M. 2019, Early Iron Age cultural landscapes, str. 221-240.jpg"
-import img18 from "/public/documents/output/Muellner, A. 1909, Geschichte des Eisens, str. 71.jpg"
-import img19 from "/public/documents/output/Naše jame 33, 1991.jpg"
-import img20 from "/public/documents/output/Odlok o razglasitvi kulturnih spomenikov Dolenjske Toplice.jpg"
-import img21 from "/public/documents/output/Varstvo spomenikov 23, 1981.jpg"
-import img22 from "/public/documents/output/Varstvo spomenikov 29, 1987.jpg"
-import img23 from "/public/documents/output/Varstvo spomenikov 30, 1988.jpg"
-import img24 from "/public/documents/output/Varstvo spomenikov 31, 1989.jpg"
-import img25 from "/public/documents/output/Varstvo spomenikov 32, 1990.jpg"
-import img26 from "/public/documents/output/Varstvo spomenikov 33, 1991.jpg"
-import img27 from "/public/documents/output/Varstvo spomenikov 34, 1992.jpg"
-import img28 from "/public/documents/output/Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.jpg"
-
-
-type PDFFile = {
-    image: StaticImageData,
-    text: string,
-    path: string
+function ToTypography(text: string, sx?: SxProps) {
+    return <>
+        <Typography sx={sx} component="span">
+            {text}
+        </Typography>
+    </>
 }
 
-type PdfProps = {
-    image: PDFFile,
+function Literatura() {
+    const [tab, setTab] = React.useState(0);
+
+    data.sort((a, b) => {
+        let first = a.authors ? a.authors : ""
+        let second = b.authors ? b.authors : ""
+
+        if (!first && a.name)
+            first += a.name
+
+        if (!second && b.name)
+            second += b.name
+
+        if (first) {
+            if (second) {
+                first += a.year
+                second += b.year
+
+                return (first.localeCompare(second))
+            }
+            else {
+                return 1
+            }
+        } else {
+            return -1
+        }
+    })
+
+    let literatura = data.map((entry: DataProps, index: number) => {
+        let beforePage = entry.number ? " " : ", "
+        let substance: JSX.Element
+        if (entry.type == 1)
+            substance = <>
+                {entry.name && ToTypography(entry.name + ", ")}
+                {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
+                {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
+                {entry.day && ToTypography(entry.day + " ")}
+                {entry.month && ToTypography(entry.month + " ")}
+                {entry.quarter ? ToTypography(String(entry.year) + entry.quarter + ", ") : ToTypography(entry.year + ", ")}
+                {entry.secondary_author && ToTypography(". - " + entry.secondary_author + ", ")}
+                {entry.translation && ToTypography(" = " + entry.translation + ". ")}
+                {entry.publication && ToTypography(((entry.translation || entry.secondary_author || !entry.name) ? "" : ". − ") + entry.publication, { fontStyle: "italic" })}
+                {entry.book && ToTypography(" " + entry.book)}
+                {entry.number && ToTypography(" " + entry.number + (entry.page ? ", " : "."))}
+                {entry.part && entry.part.length == 2 && ToTypography(entry.part[0] + "/" + entry.part[1] + ", ")}
+                {entry.place && ToTypography(". " + entry.place)}
+                {entry.page && entry.page[0] && (entry.page[1] ? ToTypography(beforePage + entry.page[0] + "‒" + entry.page[1] + ". ") : ToTypography(beforePage + entry.page[0] + ". "))}
+            </>
+
+        else if (entry.type == 2)
+            substance = <>
+                {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
+                {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
+                {entry.quarter ? ToTypography(String(entry.year) + entry.quarter + ", ") : ToTypography(entry.year + ", ")}
+                {entry.publication && ToTypography(entry.publication + ": ", { fontStyle: "italic" })}
+                {entry.name && ToTypography(entry.name + ", ")}
+                {entry.day && ToTypography(entry.day + " ")}
+                {entry.month && ToTypography(entry.month + " ")}
+                {entry.quarter ? ToTypography(String(entry.year) + entry.quarter) : ToTypography(String(entry.year))}
+                {entry.secondary_author && ToTypography(". - " + entry.secondary_author + ", ")}
+                {entry.translation && ToTypography(" = " + entry.translation + ". ")}
+                {entry.book && ToTypography(" " + entry.book)}
+                {entry.number && ToTypography(" " + entry.number + (entry.page ? ", " : "."))}
+                {entry.part && entry.part.length == 2 && ToTypography(entry.part[0] + "/" + entry.part[1] + ", ")}
+                {entry.place && ToTypography(". " + entry.place + ". ")}
+                {entry.page && entry.page[0] && (entry.page[1] ? ToTypography(beforePage + entry.page[0] + "‒" + entry.page[1] + ". ") : ToTypography(beforePage + entry.page[0] + ". "))}
+            </>
+
+        else
+            substance = <>
+                {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
+                {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
+                {entry.day && ToTypography(entry.day + " ")}
+                {entry.month && ToTypography(entry.month + " ")}
+                {entry.quarter ? ToTypography(String(entry.year) + entry.quarter + ", ") : ToTypography(entry.year + ", ")}
+                {entry.name && ToTypography(entry.name)}
+                {entry.secondary_author && ToTypography(". - " + entry.secondary_author + ", ")}
+                {entry.translation && ToTypography(" = " + entry.translation + ". ")}
+                {entry.publication && ToTypography(((entry.translation || entry.secondary_author || !entry.name) ? "" : ". − ") + entry.publication, { fontStyle: "italic" })}
+                {entry.book && ToTypography(" " + entry.book)}
+                {entry.number && ToTypography(" " + entry.number + (entry.page ? ", " : "."))}
+                {entry.part && entry.part.length == 2 && ToTypography(entry.part[0] + "/" + entry.part[1] + ", ")}
+                {entry.place && ToTypography(". " + entry.place)}
+                {entry.page && entry.page[0] && (entry.page[1] ? ToTypography(beforePage + entry.page[0] + "‒" + entry.page[1] + ". ") : ToTypography(beforePage + entry.page[0] + ". "))}
+
+            </>
+
+        return <List key={index}>
+            {substance}
+            [<NextjsLink href={entry.file} passHref>
+                <MyLink>{entry.size}</MyLink>
+            </NextjsLink>]
+        </List>
+    })
+
+    return <Article title="Literatura">
+        <Box>
+            <Tabs
+                value={tab}
+                onChange={(e: React.SyntheticEvent, newValue: number) => setTab(newValue)}
+                scrollButtons="auto"
+                variant="scrollable"
+            >
+                <Tab label="Ikone" />
+                <Tab label="Seznam" />
+            </Tabs>
+        </Box>
+        <SwipeableViews
+            axis='x'
+            index={tab}
+            onChangeIndex={(index: number) => setTab(index)}
+            containerStyle={{
+                transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s'
+            }}
+        >
+            <TabPanel value={tab} index={0}>
+                <Box sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                }}>
+                    {/* {data.map((entry, index) => <PdfIcon entry={entry} key={index} />)} */}
+                </Box>
+            </TabPanel>
+            <TabPanel value={tab} index={1}>
+                {literatura}
+            </TabPanel>
+        </SwipeableViews>
+    </Article>
+
 }
 
-const arr: PDFFile[] = [
-    { image: img0, text: "Archäologisches Korrespondenzblatt 35, 2005, 191-204.jpg", path: "/documents/literatura/Archäologisches Korrespondenzblatt 35, 2005, 191-204.pdf" },
-    { image: img1, text: "Arheo 34, 2017, 79-93.jpg", path: "/documents/literatura/Arheo 34, 2017, 79-93.pdf" },
-    { image: img2, text: "Arheo 35, 2018.jpg", path: "/documents/literatura/Arheo 35, 2018.pdf" },
-    { image: img3, text: "Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.jpg", path: "/documents/literatura/Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.pdf" },
-    { image: img4, text: "Arheološki pregled 29, 1988, 88-89.jpg", path: "/documents/literatura/Arheološki pregled 29, 1988, 88-89.pdf" },
-    { image: img5, text: "Arheološki vestnik 27, 1976, 317‒536.jpg", path: "/documents/literatura/Arheološki vestnik 27, 1976, 317‒536.pdf" },
-    { image: img6, text: "Arheološki vestnik 49, 1998, 157−186.jpg", path: "/documents/literatura/Arheološki vestnik 49, 1998, 157−186.pdf" },
-    { image: img7, text: "Arheološki vestnik 55, 2004, 207–250.jpg", path: "/documents/literatura/Arheološki vestnik 55, 2004, 207–250.pdf" },
-    { image: img8, text: "Arheološki vestnik 71, 529‒554.jpg", path: "/documents/literatura/Arheološki vestnik 71, 529‒554.pdf" },
-    { image: img9, text: "Basar, P. 2018, Cvinger in železnodobno železarstvo, Vitrina meseca 7.jpg", path: "/documents/literatura/Basar, P. 2018, Cvinger in železnodobno železarstvo, Vitrina meseca 7.pdf" },
-    { image: img10, text: "Cvinger in železnodobno železarstvo, Vitrina meseca 7, april 2018.jpg", path: "/documents/literatura/Cvinger in železnodobno železarstvo, Vitrina meseca 7, april 2018.pdf" },
-    { image: img11, text: "Dolenjski kras 7, 2017, 105‒117.jpg", path: "/documents/literatura/Dolenjski kras 7, 2017, 105‒117.pdf" },
-    { image: img12, text: "Dular, J. 2003, Halštatske nekropole Dolenjske.jpg", path: "/documents/literatura/Dular, J. 2003, Halštatske nekropole Dolenjske.pdf" },
-    { image: img13, text: "Izvestja Muzejskega društva za Kranjsko 9, 1899.jpg", path: "/documents/literatura/Izvestja muzejskega društva za Kranjsko 14, 1904.pdf" },
-    { image: img14, text: "Izvestja muzejskega društva za Kranjsko 14, 1904.jpg", path: "/documents/literatura/Izvestja muzejskega društva za Kranjsko 8, 1898.pdf" },
-    { image: img15, text: "Izvestja muzejskega društva za Kranjsko 8, 1898.jpg", path: "/documents/literatura/Izvestja Muzejskega društva za Kranjsko 9, 1899.pdf" },
-    { image: img16, text: "Jutro, ponedeljska izdaja, 2. sept. 1935, št. 202a, 2.jpg", path: "/documents/literatura/Jutro, ponedeljska izdaja, 2. sept. 1935, št. 202a, 2.pdf" },
-    { image: img17, text: "Mlekuž. D., Črešnar M. 2019, Early Iron Age cultural landscapes, str. 221-240.jpg", path: "/documents/literatura/Mlekuž. D., Črešnar M. 2019, Early Iron Age cultural landscapes, str. 221-240.pdf" },
-    { image: img18, text: "Muellner, A. 1909, Geschichte des Eisens, str. 71.jpg", path: "/documents/literatura/Muellner, A. 1909, Geschichte des Eisens, str. 71.pdf" },
-    { image: img19, text: "Naše jame 33, 1991.jpg", path: "/documents/literatura/Naše jame 33, 1991.pdf" },
-    { image: img20, text: "Odlok o razglasitvi kulturnih spomenikov Dolenjske Toplice.jpg", path: "/documents/literatura/Odlok o razglasitvi kulturnih spomenikov Dolenjske Toplice.pdf" },
-    { image: img21, text: "Varstvo spomenikov 23, 1981.jpg", path: "/documents/literatura/Varstvo spomenikov 23, 1981.pdf" },
-    { image: img22, text: "Varstvo spomenikov 29, 1987.jpg", path: "/documents/literatura/Varstvo spomenikov 29, 1987.pdf" },
-    { image: img23, text: "Varstvo spomenikov 30, 1988.jpg", path: "/documents/literatura/Varstvo spomenikov 30, 1988.pdf" },
-    { image: img24, text: "Varstvo spomenikov 31, 1989.jpg", path: "/documents/literatura/Varstvo spomenikov 31, 1989.pdf" },
-    { image: img25, text: "Varstvo spomenikov 32, 1990.jpg", path: "/documents/literatura/Varstvo spomenikov 32, 1990.pdf" },
-    { image: img26, text: "Varstvo spomenikov 33, 1991.jpg", path: "/documents/literatura/Varstvo spomenikov 33, 1991.pdf" },
-    { image: img27, text: "Varstvo spomenikov 34, 1992.jpg", path: "/documents/literatura/Varstvo spomenikov 34, 1992.pdf" },
-    { image: img28, text: "Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.jpg", path: "/documents/literatura/Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.pdf" },
-]
+type PdfIconProps = {
+    entry: DataProps
+}
 
-function PdfIcon({ image }: PdfProps) {
+function PdfIcon({ entry }: PdfIconProps) {
+    console.log(entry.path)
     return <Box sx={{
         width: "200px",
         height: "300px",
@@ -94,7 +167,7 @@ function PdfIcon({ image }: PdfProps) {
             objectFit: "scale-down",
         },
     }}>
-        <Link href={image.path} prefetch={false} >
+        <NextjsLink href={entry.path} prefetch={false}>
             <a style={{
                 display: "flex",
                 justifyContent: "center",
@@ -104,15 +177,15 @@ function PdfIcon({ image }: PdfProps) {
                 rel="noopener noreferrer"
                 target="_blank"
             >
-                <NextjsImage
-                    src={image.image}
-                    alt={image.text}
-                />
+                {entry.image && <NextjsImage
+                /* src={entry.image}
+                alt={entry.name} */
+                />}
                 <Typography sx={{
                     width: "80%",
-                }} textAlign="center" paragraph variant="body2">{image.text}</Typography>
+                }} textAlign="center" paragraph variant="body2">{entry.name}</Typography>
             </a>
-        </Link>
+        </NextjsLink>
     </Box>
 }
 
@@ -125,66 +198,14 @@ type MyLinkProps = {
 // eslint-disable-next-line react/display-name
 const MyLink = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, children }: MyLinkProps, ref) => {
     return (
-        <Typography
-            sx={{
-                "& a": {
-                    textDecoration: "none!important",
-                    color: "black",
-                },
-            }}
-        >
-            <a onClick={onClick} href={href} ref={ref}>{children}</a>
-        </Typography>
+        <Link
+            onClick={onClick}
+            href={"documents/literatura/" + href + ".pdf"}
+            ref={ref}
+            target="_blank"
+            rel="noopener noreferrer"
+        >{children}</Link>
     )
 })
 
-function PdfList({ image }: PdfProps) {
-    return (
-        <Link href={image.path} passHref>
-            <MyLink>{image.text}</MyLink>
-        </Link>
-    )
-}
-
-// TODO: tab swipe isn't smooth on the first switch
-
-function Literatura() {
-    const [tab, setTab] = React.useState(0);
-
-    return (
-        <Article title="Literatura">
-            <Box>
-                <Tabs
-                    value={tab}
-                    onChange={(e: React.SyntheticEvent, newValue: number) => setTab(newValue)}
-                    scrollButtons="auto"
-                    variant="scrollable"
-                >
-                    <Tab label="Ikone" />
-                    <Tab label="List" />
-                </Tabs>
-            </Box>
-            <SwipeableViews
-                axis='x'
-                index={tab}
-                onChangeIndex={(index: number) => setTab(index)}
-            >
-                <TabPanel value={tab} index={0}>
-                    <Box sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        justifyContent: "space-evenly",
-                        alignItems: "center",
-                    }}>
-                        {arr.map((image, index) => <PdfIcon image={image} key={index} />)}
-                    </Box>
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                    {arr.map((image, index) => <PdfList image={image} key={index} />)}
-                </TabPanel>
-            </SwipeableViews>
-        </Article >
-    )
-}
-
-export default Literatura
+export default Literatura;

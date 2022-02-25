@@ -113,7 +113,7 @@
     },
     {
         "file": "Cvinger in železnodobno železarstvo, Vitrina meseca 7, april 2018",
-        "type": 1,
+        "type": 2,
         "authors": "Basar, P. et al.",
         "month": "april",
         "year": 2018,
@@ -163,8 +163,8 @@
         "authors": "Rutar, S.",
         "year": 1898,
         "name": "Prazgodovinske izkopine pri Toplicah na Dolenjskem",
-        "publication": "Izvestja Muzejskega društva za Kranjsko 8",
-        "number": "3",
+        "publication": "Izvestja Muzejskega društva za Kranjsko",
+        "number": "8, 3",
         "page": [
             "102",
             "103"
@@ -175,8 +175,8 @@
         "authors": "Rutar, S.",
         "year": 1899,
         "name": "Prazgodovinske izkopine na Dolenjskem",
-        "publication": "Izvestja Muzejskega društva za Kranjsko 9",
-        "number": "1",
+        "publication": "Izvestja Muzejskega društva za Kranjsko",
+        "number": "9, 1",
         "page": [
             "36"
         ]
@@ -184,7 +184,7 @@
     {
         "file": "Jutro, ponedeljska izdaja, 2. sept. 1935, št. 202a, 2",
         "type": 1,
-        "day": "2",
+        "day": "2.",
         "month": "sept.",
         "year": 1935,
         "name": "Jutro, ponedeljska izdaja",

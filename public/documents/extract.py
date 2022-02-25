@@ -14,7 +14,7 @@ data = {}
 with open("names.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
-typescript = """type DataProps = {
+typescript = """export type DataProps = {
         file: string,
         ignore?: boolean,
         type?: number,
@@ -35,7 +35,8 @@ typescript = """type DataProps = {
         page?: string[],
         output: string,
         path: string,
-        image: StaticImageData
+        image: StaticImageData,
+        size: string
     }
 """
 
@@ -52,9 +53,12 @@ with open("Data.tsx", "w", encoding="utf-8") as f:
             print(f"File {path} not found")
             continue
 
+        size_in_bytes = round(path.stat().st_size / 1024 / 1024)
+
         entry["output"] = "/public/documents/output/" + entry["file"] + ".jpg"
         entry["path"] = "/documents/literatura/" + entry["file"] + ".pdf"
         entry["image"] = f"img{counter}"
+        entry["size"] = f"PDF, {size_in_bytes} MB"
 
         if save_pdf:
             doc = fitz.open(path_in_str)
@@ -68,51 +72,3 @@ with open("Data.tsx", "w", encoding="utf-8") as f:
     f.write("\n" + typescript + "\nconst data: DataProps[] = ")
     json.dump(data, f, ensure_ascii=False, indent=4)
     f.write("\nexport default data")
-
-'''
-raise Exception("Stopped")
-
-pathlist = Path("literatura").rglob('*.pdf')
-for path in pathlist:
-    path_in_str = str(path)
-    print("Working on " + path_in_str)
-
-    doc = fitz.open(path_in_str)
-    page = doc.loadPage(0)  # number of page
-    pix = page.get_pixmap()
-    output = path.stem + ".jpg"
-    pix.save(Path("output") / output)
-    paths.append(output)
-    urls.append(path_in_str)
-
-paths.sort()
-print("Writing paths.txt")
-i = 0
-# save paths to a text file
-with open("paths.txt", "w", encoding="utf-8") as f:
-    for path in paths:
-        try:
-            f.write(f"import img{i} from \"/public/documents/output/" +
-                    path.replace("\\", "/") + "\"\n")
-            i += 1
-
-        except:
-            f.write("// missing\n")
-            print("Could not write to file")
-
-    max = i
-    f.write("\n" * 3)
-
-    for i in range(0, max):
-        f.write("{image: img" + str(i) +
-                ", text: \"" + str(paths[i]) +
-                "\", path: \"/documents/" + str(urls[i]).replace("\\", "/") + "\"},\n")
-'''
-
-
-'''
-    {
-        "file": "Odlok o razglasitvi kulturnih spomenikov Dolenjske Toplice",
-        "ignore": true
-    },
-'''

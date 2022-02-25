@@ -3,6 +3,6 @@ module.exports = {
   /* typescript: {
     ignoreBuildErrors: true,
   }, */
-  basePath: '/nextjs'
+  // basePath: '/nextjs'
 }
 

@@ -95,7 +95,14 @@ export default function Article({ title = "", noNavbar = false, children }: Arti
             <Item to="/literatura" text="Literatura" />
         </Menu>}
 
-        <Box id="page-wrap">
+        <Box id="page-wrap" /* sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+        }} */>
+            {/* <Box sx={{
+                flex: "1 0 auto",
+            }}> */}
             <Header />
             {noNavbar ? null : <Navbar />}
             <Box
@@ -123,6 +130,7 @@ export default function Article({ title = "", noNavbar = false, children }: Arti
                 ) : null}
                 {children}
             </Box>
+            {/* </Box> */}
             <Footer />
         </Box>
     </>

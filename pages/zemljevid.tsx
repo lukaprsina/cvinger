@@ -37,6 +37,7 @@ type MarkerProps = {
     title: string;
     position: { x: number, y: number };
     mapRef: React.RefObject<HTMLDivElement>;
+    collectApi: (api: any) => void;
 }
 
 function MapButton({ onClick, icon, children }: MapButtonProps) {
@@ -58,34 +59,41 @@ function MapButton({ onClick, icon, children }: MapButtonProps) {
     </>
 }
 
-function Marker({ title, position, mapRef }: MarkerProps) {
+const AnimatedCircle = animated(Circle)
+
+function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
+    const [styles, api] = useSpring(() => ({
+        transform: "scale(1)",
+        // opacity: 1
+    }));
+
+    collectApi(api);
+
     if (!mapRef || !mapRef.current)
         return null;
 
     let { x, y } = position;
     const bounds = mapRef.current.getBoundingClientRect();
+
     return (
         <Tooltip title={title}>
-            <Circle style={{
+            <AnimatedCircle style={{
                 position: "absolute",
                 left: x * (bounds.width / zemljevid.width),
                 top: y * (bounds.height / zemljevid.height),
-
+                ...styles,
             }} />
         </Tooltip>
     )
 }
+
+let apis: any[] = []
 
 function Zemljevid() {
     const [tab, setTab] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null)
     const mapRef = useRef<HTMLDivElement>(null)
     const [markersJSX, setMarkersJSX] = useState<JSX.Element[]>([]);
-
-    const [styles, api] = useSpring(() => ({
-        transform: "scale(1)",
-        opacity: 1,
-    }));
 
     useEffect(() => {
         setMarkersJSX(markers.map(({ x, y, text }, index) => (
@@ -94,10 +102,9 @@ function Zemljevid() {
                 title={text}
                 position={{ x, y }}
                 mapRef={mapRef}
+                collectApi={api => apis.push(api)}
             />)))
     }, [setMarkersJSX])
-
-    const AnimatedBox = animated(Box);
 
     return (
         <Article title="Zemljevid" maxWidth>
@@ -129,8 +136,9 @@ function Zemljevid() {
                     <TabPanel value={tab} index={0}>
                         <TransformWrapper>
                             {(controls) => {
-                                api({ transform: `scale(${1 / controls.state.scale})` })
-                                api({ opacity: 1 / controls.state.scale })
+                                // api({ transform: `scale(${1 / controls.state.scale})` })
+                                apis.forEach(api => api({ transform: `scale(${1 / controls.state.scale})` }))
+                                // apis.forEach(api => api({ opacity: 1 / controls.state.scale }))
                                 return <>
                                     <ButtonGroup
                                         orientation='vertical'

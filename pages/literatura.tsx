@@ -118,7 +118,6 @@ const literatura = data.map((entry: DataProps, index: number) => {
             {entry.part && entry.part.length == 2 && ToTypography(entry.part[0] + "/" + entry.part[1] + ", ")}
             {entry.place && ToTypography(". " + entry.place)}
             {entry.page && entry.page[0] && (entry.page[1] ? ToTypography(beforePage + entry.page[0] + "‒" + entry.page[1] + ". ") : ToTypography(beforePage + entry.page[0] + ". "))}
-
         </>
 
     return <List key={index} component="li" sx={{

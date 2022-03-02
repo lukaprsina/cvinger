@@ -22,7 +22,10 @@ const Jama = () => {
     const [sketchfabHeight, setSketchfabHeight] = useState(600)
 
     useEffect(() => {
-        setSketchfabHeight(window.innerHeight * 0.7)
+        setTimeout(() => {
+            setSketchfabHeight(window.innerHeight * 0.7)
+        }, 0)
+
     }, [setSketchfabHeight])
 
     return <Gallery>
@@ -70,7 +73,6 @@ const Jama = () => {
                 in njenih skrivnostih krožile med domačini.
             </Typography>
 
-            <p>{sketchfabHeight}</p>
             <Box>
                 <Tabs
                     value={tab}

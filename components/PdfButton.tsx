@@ -21,10 +21,10 @@ const MyButton = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, chil
             sx={{
                 "& a": {
                     textDecoration: "none!important",
-                    color: "secondary.light",
+                    // color: "secondary.light",
                 },
             }}
-            variant="contained"
+            variant="outlined"
             rel='noopener noreferrer'
             target='_blank'
             href={href}

@@ -122,10 +122,10 @@ const Footer = () => {
                     </Logo>
                 </Box>
                 <Button
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
                     sx={{
-                        margin: "60px auto 0",
+                        margin: "90px auto 0",
                         maxWidth: "800px",
                         width: "100%",
                     }}

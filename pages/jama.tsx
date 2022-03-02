@@ -70,6 +70,7 @@ const Jama = () => {
                 in njenih skrivnostih krožile med domačini.
             </Typography>
 
+            <p>{sketchfabHeight}</p>
             <Box>
                 <Tabs
                     value={tab}

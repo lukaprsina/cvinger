@@ -7,9 +7,10 @@ import TabPanel from '../components/TabPanel';
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { Add, CenterFocusStrong, Circle, Close, Remove } from '@mui/icons-material';
+import { Add, Circle, Close, Remove } from '@mui/icons-material';
 import useBreakpointMatch from '../components/useBreakpointMatch';
 import { useEffect } from 'react';
+import { useSpring, animated, to } from 'react-spring';
 
 type MapButtonProps = {
     onClick: () => void;
@@ -38,24 +39,6 @@ type MarkerProps = {
     mapRef: React.RefObject<HTMLDivElement>;
 }
 
-function Marker({ title, position, mapRef }: MarkerProps) {
-    if (!mapRef || !mapRef.current)
-        return null;
-
-    let { x, y } = position;
-    const bounds = mapRef.current.getBoundingClientRect();
-    return (
-        <Tooltip title={title}>
-            <Circle style={{
-                position: "absolute",
-                left: x * (bounds.width / zemljevid.width),
-                top: y * (bounds.height / zemljevid.height),
-
-            }} />
-        </Tooltip>
-    )
-}
-
 function MapButton({ onClick, icon, children }: MapButtonProps) {
     const { matches } = useBreakpointMatch("mdUp", true);
 
@@ -75,11 +58,34 @@ function MapButton({ onClick, icon, children }: MapButtonProps) {
     </>
 }
 
+function Marker({ title, position, mapRef }: MarkerProps) {
+    if (!mapRef || !mapRef.current)
+        return null;
+
+    let { x, y } = position;
+    const bounds = mapRef.current.getBoundingClientRect();
+    return (
+        <Tooltip title={title}>
+            <Circle style={{
+                position: "absolute",
+                left: x * (bounds.width / zemljevid.width),
+                top: y * (bounds.height / zemljevid.height),
+
+            }} />
+        </Tooltip>
+    )
+}
+
 function Zemljevid() {
     const [tab, setTab] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null)
     const mapRef = useRef<HTMLDivElement>(null)
     const [markersJSX, setMarkersJSX] = useState<JSX.Element[]>([]);
+
+    const [styles, api] = useSpring(() => ({
+        transform: "scale(1)",
+        opacity: 1,
+    }));
 
     useEffect(() => {
         setMarkersJSX(markers.map(({ x, y, text }, index) => (
@@ -90,6 +96,8 @@ function Zemljevid() {
                 mapRef={mapRef}
             />)))
     }, [setMarkersJSX])
+
+    const AnimatedBox = animated(Box);
 
     return (
         <Article title="Zemljevid" maxWidth>
@@ -121,6 +129,8 @@ function Zemljevid() {
                     <TabPanel value={tab} index={0}>
                         <TransformWrapper>
                             {(controls) => {
+                                api({ transform: `scale(${1 / controls.state.scale})` })
+                                api({ opacity: 1 / controls.state.scale })
                                 return <>
                                     <ButtonGroup
                                         orientation='vertical'
@@ -146,18 +156,13 @@ function Zemljevid() {
                                             Zmanjšaj
                                         </MapButton>
                                         <MapButton
-                                            icon={<CenterFocusStrong />}
-                                            onClick={() => controls.centerView()}
-                                        >
-                                            Centriraj
-                                        </MapButton>
-                                        <MapButton
                                             icon={<Close />}
                                             onClick={() => controls.resetTransform()}
                                         >
                                             Ponastavi
                                         </MapButton>
                                     </ButtonGroup>
+
                                     <Box ref={mapRef}>
                                         <TransformComponent>
                                             <NextjsImage

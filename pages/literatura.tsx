@@ -16,100 +16,124 @@ function ToTypography(text: string, sx?: SxProps) {
     </>
 }
 
+type MyLinkProps = {
+    children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
+    href: any,
+    onClick: any,
+    style: React.CSSProperties
+}
+
+// eslint-disable-next-line react/display-name
+const MyLink = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, children, style }: MyLinkProps, ref) => {
+    return (
+        <Link
+            onClick={onClick}
+            href={href}
+            ref={ref}
+            style={style}
+            target="_blank"
+            rel="noopener noreferrer"
+        >{children}</Link>
+    )
+})
+
+data.sort((a, b) => {
+    let first = a.authors ? a.authors : ""
+    let second = b.authors ? b.authors : ""
+
+    if (!first && a.name)
+        first += a.name
+
+    if (!second && b.name)
+        second += b.name
+
+    if (first) {
+        if (second) {
+            first += a.year
+            second += b.year
+
+            return (first.localeCompare(second))
+        }
+        else {
+            return 1
+        }
+    } else {
+        return -1
+    }
+})
+
+const literatura = data.map((entry: DataProps, index: number) => {
+    let beforePage = entry.number ? " " : ", "
+    let substance: JSX.Element
+    if (entry.type == 1)
+        substance = <>
+            {entry.name && ToTypography(entry.name + ", ")}
+            {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
+            {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
+            {entry.day && ToTypography(entry.day + " ")}
+            {entry.month && ToTypography(entry.month + " ")}
+            {entry.quarter ? ToTypography(String(entry.year) + entry.quarter + ", ") : ToTypography(entry.year + ", ")}
+            {entry.secondary_author && ToTypography(". - " + entry.secondary_author + ", ")}
+            {entry.translation && ToTypography(" = " + entry.translation + ". ")}
+            {entry.publication && ToTypography(((entry.translation || entry.secondary_author || !entry.name) ? "" : ". − ") + entry.publication, { fontStyle: "italic" })}
+            {entry.book && ToTypography(" " + entry.book)}
+            {entry.number && ToTypography(" " + entry.number + (entry.page ? ", " : "."))}
+            {entry.part && entry.part.length == 2 && ToTypography(entry.part[0] + "/" + entry.part[1] + ", ")}
+            {entry.place && ToTypography(". " + entry.place)}
+            {entry.page && entry.page[0] && (entry.page[1] ? ToTypography(beforePage + entry.page[0] + "‒" + entry.page[1] + ". ") : ToTypography(beforePage + entry.page[0] + ". "))}
+        </>
+
+    else if (entry.type == 2)
+        substance = <>
+            {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
+            {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
+            {entry.quarter ? ToTypography(String(entry.year) + entry.quarter + ", ") : ToTypography(entry.year + ", ")}
+            {entry.publication && ToTypography(entry.publication + ": ", { fontStyle: "italic" })}
+            {entry.name && ToTypography(entry.name + ", ")}
+            {entry.day && ToTypography(entry.day + " ")}
+            {entry.month && ToTypography(entry.month + " ")}
+            {entry.quarter ? ToTypography(String(entry.year) + entry.quarter) : ToTypography(String(entry.year))}
+            {entry.secondary_author && ToTypography(". - " + entry.secondary_author + ", ")}
+            {entry.translation && ToTypography(" = " + entry.translation + ". ")}
+            {entry.book && ToTypography(" " + entry.book)}
+            {entry.number && ToTypography(" " + entry.number + (entry.page ? ", " : "."))}
+            {entry.part && entry.part.length == 2 && ToTypography(entry.part[0] + "/" + entry.part[1] + ", ")}
+            {entry.place && ToTypography(". " + entry.place + ". ")}
+            {entry.page && entry.page[0] && (entry.page[1] ? ToTypography(beforePage + entry.page[0] + "‒" + entry.page[1] + ". ") : ToTypography(beforePage + entry.page[0] + ". "))}
+        </>
+
+    else
+        substance = <>
+            {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
+            {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
+            {entry.day && ToTypography(entry.day + " ")}
+            {entry.month && ToTypography(entry.month + " ")}
+            {entry.quarter ? ToTypography(String(entry.year) + entry.quarter + ", ") : ToTypography(entry.year + ", ")}
+            {entry.name && ToTypography(entry.name)}
+            {entry.secondary_author && ToTypography(". - " + entry.secondary_author + ", ")}
+            {entry.translation && ToTypography(" = " + entry.translation + ". ")}
+            {entry.publication && ToTypography(((entry.translation || entry.secondary_author || !entry.name) ? "" : ". − ") + entry.publication, { fontStyle: "italic" })}
+            {entry.book && ToTypography(" " + entry.book)}
+            {entry.number && ToTypography(" " + entry.number + (entry.page ? ", " : "."))}
+            {entry.part && entry.part.length == 2 && ToTypography(entry.part[0] + "/" + entry.part[1] + ", ")}
+            {entry.place && ToTypography(". " + entry.place)}
+            {entry.page && entry.page[0] && (entry.page[1] ? ToTypography(beforePage + entry.page[0] + "‒" + entry.page[1] + ". ") : ToTypography(beforePage + entry.page[0] + ". "))}
+
+        </>
+
+    return <List key={index} component="li" sx={{
+        listStyleType: "disc!important",
+        listStylePosition: "outside!important",
+    }}>
+        {substance}
+        [<NextjsLink href={entry.path} prefetch={false} passHref>
+            <MyLink>{entry.size}</MyLink>
+        </NextjsLink>]
+    </List>
+})
+
 function Literatura() {
     const [tab, setTab] = React.useState(0);
-
-    data.sort((a, b) => {
-        let first = a.authors ? a.authors : ""
-        let second = b.authors ? b.authors : ""
-
-        if (!first && a.name)
-            first += a.name
-
-        if (!second && b.name)
-            second += b.name
-
-        if (first) {
-            if (second) {
-                first += a.year
-                second += b.year
-
-                return (first.localeCompare(second))
-            }
-            else {
-                return 1
-            }
-        } else {
-            return -1
-        }
-    })
-
-    let literatura = data.map((entry: DataProps, index: number) => {
-        let beforePage = entry.number ? " " : ", "
-        let substance: JSX.Element
-        if (entry.type == 1)
-            substance = <>
-                {entry.name && ToTypography(entry.name + ", ")}
-                {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
-                {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
-                {entry.day && ToTypography(entry.day + " ")}
-                {entry.month && ToTypography(entry.month + " ")}
-                {entry.quarter ? ToTypography(String(entry.year) + entry.quarter + ", ") : ToTypography(entry.year + ", ")}
-                {entry.secondary_author && ToTypography(". - " + entry.secondary_author + ", ")}
-                {entry.translation && ToTypography(" = " + entry.translation + ". ")}
-                {entry.publication && ToTypography(((entry.translation || entry.secondary_author || !entry.name) ? "" : ". − ") + entry.publication, { fontStyle: "italic" })}
-                {entry.book && ToTypography(" " + entry.book)}
-                {entry.number && ToTypography(" " + entry.number + (entry.page ? ", " : "."))}
-                {entry.part && entry.part.length == 2 && ToTypography(entry.part[0] + "/" + entry.part[1] + ", ")}
-                {entry.place && ToTypography(". " + entry.place)}
-                {entry.page && entry.page[0] && (entry.page[1] ? ToTypography(beforePage + entry.page[0] + "‒" + entry.page[1] + ". ") : ToTypography(beforePage + entry.page[0] + ". "))}
-            </>
-
-        else if (entry.type == 2)
-            substance = <>
-                {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
-                {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
-                {entry.quarter ? ToTypography(String(entry.year) + entry.quarter + ", ") : ToTypography(entry.year + ", ")}
-                {entry.publication && ToTypography(entry.publication + ": ", { fontStyle: "italic" })}
-                {entry.name && ToTypography(entry.name + ", ")}
-                {entry.day && ToTypography(entry.day + " ")}
-                {entry.month && ToTypography(entry.month + " ")}
-                {entry.quarter ? ToTypography(String(entry.year) + entry.quarter) : ToTypography(String(entry.year))}
-                {entry.secondary_author && ToTypography(". - " + entry.secondary_author + ", ")}
-                {entry.translation && ToTypography(" = " + entry.translation + ". ")}
-                {entry.book && ToTypography(" " + entry.book)}
-                {entry.number && ToTypography(" " + entry.number + (entry.page ? ", " : "."))}
-                {entry.part && entry.part.length == 2 && ToTypography(entry.part[0] + "/" + entry.part[1] + ", ")}
-                {entry.place && ToTypography(". " + entry.place + ". ")}
-                {entry.page && entry.page[0] && (entry.page[1] ? ToTypography(beforePage + entry.page[0] + "‒" + entry.page[1] + ". ") : ToTypography(beforePage + entry.page[0] + ". "))}
-            </>
-
-        else
-            substance = <>
-                {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
-                {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
-                {entry.day && ToTypography(entry.day + " ")}
-                {entry.month && ToTypography(entry.month + " ")}
-                {entry.quarter ? ToTypography(String(entry.year) + entry.quarter + ", ") : ToTypography(entry.year + ", ")}
-                {entry.name && ToTypography(entry.name)}
-                {entry.secondary_author && ToTypography(". - " + entry.secondary_author + ", ")}
-                {entry.translation && ToTypography(" = " + entry.translation + ". ")}
-                {entry.publication && ToTypography(((entry.translation || entry.secondary_author || !entry.name) ? "" : ". − ") + entry.publication, { fontStyle: "italic" })}
-                {entry.book && ToTypography(" " + entry.book)}
-                {entry.number && ToTypography(" " + entry.number + (entry.page ? ", " : "."))}
-                {entry.part && entry.part.length == 2 && ToTypography(entry.part[0] + "/" + entry.part[1] + ", ")}
-                {entry.place && ToTypography(". " + entry.place)}
-                {entry.page && entry.page[0] && (entry.page[1] ? ToTypography(beforePage + entry.page[0] + "‒" + entry.page[1] + ". ") : ToTypography(beforePage + entry.page[0] + ". "))}
-
-            </>
-
-        return <List key={index}>
-            {substance}
-            [<NextjsLink href={entry.path} prefetch={false} passHref>
-                <MyLink>{entry.size}</MyLink>
-            </NextjsLink>]
-        </List>
-    })
 
     return <Article title="Literatura">
         <Box>
@@ -128,7 +152,8 @@ function Literatura() {
             index={tab}
             onChangeIndex={(index: number) => setTab(index)}
             containerStyle={{
-                transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s'
+                transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+                marginTop: "10px"
             }}
         >
             <TabPanel value={tab} index={0}>
@@ -141,7 +166,7 @@ function Literatura() {
                     {data.map((entry, index) => <PdfIcon entry={entry} key={index} />)}
                 </Box>
             </TabPanel>
-            <TabPanel value={tab} index={1}>
+            <TabPanel value={tab} index={1} component="ul">
                 {literatura}
             </TabPanel>
         </SwipeableViews>
@@ -192,26 +217,5 @@ function PdfIcon({ entry }: PdfIconProps) {
         </NextjsLink>
     </Box> : <></>
 }
-
-type MyLinkProps = {
-    children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
-    href: any,
-    onClick: any,
-    style: React.CSSProperties
-}
-
-// eslint-disable-next-line react/display-name
-const MyLink = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, children, style }: MyLinkProps, ref) => {
-    return (
-        <Link
-            onClick={onClick}
-            href={href}
-            ref={ref}
-            style={style}
-            target="_blank"
-            rel="noopener noreferrer"
-        >{children}</Link>
-    )
-})
 
 export default Literatura;

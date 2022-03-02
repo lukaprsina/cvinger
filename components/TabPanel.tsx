@@ -5,18 +5,20 @@ interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
     value: number;
+    component?: React.ElementType;
 }
 
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-
+function TabPanel({ children, value, index, component }: TabPanelProps) {
     return (
         <Box
             hidden={value !== index}
-            {...other}
         >
             {value === index && (
-                <Box>{children}</Box>
+                <Box
+                    component={component}>
+                    {children}
+                </Box>
+
             )}
         </Box>
     );

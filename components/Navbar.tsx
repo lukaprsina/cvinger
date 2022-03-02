@@ -77,7 +77,7 @@ const Navbar = () => {
     return <>{
         matches ? <HideOnScroll threshold={400}>
             <AppBar position="sticky" color="primary">
-                <Toolbar sx={{
+                <Toolbar disableGutters sx={{
                     width: "100vw",
                     maxWidth: "1200px",
                     margin: "auto",

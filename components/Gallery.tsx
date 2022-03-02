@@ -14,6 +14,7 @@ import useEventListener from "./useEventListener";
 import ArticleImage from "./ArticleImage";
 import { Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { useRouter } from "next/router";
 
 type GalleryProps = {
     children: React.ReactElement;
@@ -75,21 +76,25 @@ function iterateChildren(children: JSX.Element, galleryCallback: (source: number
     return new_children;
 }
 
+const swiper_button_color = "black";
+let destroyedSwiper = true;
+
+/* Todo: break up components, beacuse it rerenders too many times */
+
 function Gallery({ children }: GalleryProps) {
     const [showGallery, setShowGallery] = useState(false);
     const [showSubtitles, setShowSubtitles] = useState(true);
     const [slideIndex, setSlideIndex] = useState(0);
     const [galleryLocked, setGalleryLocked] = useState(false);
 
-    useEventListener('orientationchange',
-        () => {
-            setGalleryLocked(true)
-            setTimeout(() => setGalleryLocked(false), 1000)
-        })
+    useEventListener('orientationchange', () => {
+        setGalleryLocked(true)
+        setTimeout(() => setGalleryLocked(false), 1000)
+    })
 
     let sources: GalleryImage[] = []
+    const router = useRouter()
     const galleryCallback = (index: number) => {
-        // router.push("", "?test", { shallow: true, scroll: false });
         setSlideIndex(index)
         setShowGallery(true)
     };
@@ -97,7 +102,6 @@ function Gallery({ children }: GalleryProps) {
     useEventListener('keydown', (event: KeyboardEvent) => {
         if (event.key === 'Escape')
             setShowGallery(false)
-
     });
 
     useEventListener('scroll', () => {
@@ -107,9 +111,24 @@ function Gallery({ children }: GalleryProps) {
         })
     });
 
-
     const new_children = iterateChildren(children, galleryCallback, sources);
-    const swiper_button_color = "black";
+
+    const image = router.query.image
+
+    if (image && destroyedSwiper) {
+        let index = sources.findIndex(source => source.src.src.split(".")[0].split("/").pop() === image)
+        destroyedSwiper = false;
+
+        setTimeout(() => {
+            setSlideIndex(index)
+            setShowGallery(true)
+        }, 100)
+    }
+
+    const changeSlide = (src: string) => {
+        const name = src.split(".")[0].split("/").pop()
+        router.push(`?image=${name}`, undefined, { shallow: true, scroll: false });
+    }
 
     return (
         <>
@@ -153,6 +172,12 @@ function Gallery({ children }: GalleryProps) {
                             keyboard={{ enabled: true, pageUpDown: true }}
                             autoHeight
                             initialSlide={slideIndex}
+                            onSlideChange={(swiper) => changeSlide(sources[swiper.activeIndex].src.src)}
+                            onSwiper={(swiper) => changeSlide(sources[swiper.activeIndex].src.src)}
+                            onDestroy={() => {
+                                router.push(``, undefined, { shallow: true, scroll: false });
+                                destroyedSwiper = true;
+                            }}
                         >
                             {sources.map((source) => (
                                 <SwiperSlide key={source.src.src}>

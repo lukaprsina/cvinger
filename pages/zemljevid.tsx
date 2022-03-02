@@ -8,8 +8,32 @@ import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, CenterFocusStrong, Close, Remove } from '@mui/icons-material';
+import useBreakpointMatch from '../components/useBreakpointMatch';
 
-/* TODO: zemljevid gumbi mobile */
+type MapButtonProps = {
+    onClick: () => void;
+    icon: JSX.Element;
+    children: React.ReactNode;
+}
+
+function MapButton({ onClick, icon, children }: MapButtonProps) {
+    const { matches } = useBreakpointMatch("mdUp", true);
+
+    return <>
+        {matches ? (
+            <Button
+                startIcon={icon}
+                onClick={onClick}
+            >
+                {children}
+            </Button>
+        ) : (
+            <IconButton onClick={onClick} color="secondary">
+                {icon}
+            </IconButton>
+        )}
+    </>
+}
 
 function Zemljevid() {
     const [tab, setTab] = React.useState(0);
@@ -30,7 +54,6 @@ function Zemljevid() {
             </Box>
             <Container ref={containerRef} sx={{
                 overflow: "hidden",
-                /* border: "1px solid black", */
                 boxSizing: "border-box",
                 width: "100%",
                 padding: "0px!important",
@@ -47,44 +70,42 @@ function Zemljevid() {
                         <TransformWrapper>
                             {(controls) => (
                                 <>
-                                    <Box
+                                    <ButtonGroup
+                                        orientation='vertical'
+                                        variant='contained'
                                         sx={{
                                             position: "absolute",
                                             zIndex: 2,
                                             top: "20px",
                                             left: "20px",
+                                            backgroundColor: "primary.main",
                                         }}
                                     >
-                                        <ButtonGroup
-                                            orientation='vertical'
-                                            variant='contained'
+                                        <MapButton
+                                            icon={<Add />}
+                                            onClick={() => controls.zoomIn()}
                                         >
-                                            <Button
-                                                startIcon={<Add />}
-                                                onClick={() => controls.zoomIn()}
-                                            >
-                                                Povečaj
-                                            </Button>
-                                            <Button
-                                                startIcon={<Remove />}
-                                                onClick={() => controls.zoomOut()}
-                                            >
-                                                Zmanjšaj
-                                            </Button>
-                                            <Button
-                                                startIcon={<CenterFocusStrong />}
-                                                onClick={() => controls.centerView()}
-                                            >
-                                                Centriraj
-                                            </Button>
-                                            <Button
-                                                startIcon={<Close />}
-                                                onClick={() => controls.resetTransform()}
-                                            >
-                                                Ponastavi
-                                            </Button>
-                                        </ButtonGroup>
-                                    </Box>
+                                            Povečaj
+                                        </MapButton>
+                                        <MapButton
+                                            icon={<Remove />}
+                                            onClick={() => controls.zoomOut()}
+                                        >
+                                            Zmanjšaj
+                                        </MapButton>
+                                        <MapButton
+                                            icon={<CenterFocusStrong />}
+                                            onClick={() => controls.centerView()}
+                                        >
+                                            Centriraj
+                                        </MapButton>
+                                        <MapButton
+                                            icon={<Close />}
+                                            onClick={() => controls.resetTransform()}
+                                        >
+                                            Ponastavi
+                                        </MapButton>
+                                    </ButtonGroup>
                                     <TransformComponent>
                                         <NextjsImage
                                             src={zemljevid}

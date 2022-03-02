@@ -17,6 +17,7 @@ type ArticleProps = {
     title?: string,
     noNavbar?: boolean,
     children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
+    maxWidth?: boolean,
 }
 
 type ItemProps = {
@@ -80,7 +81,7 @@ function Item({ to, text }: ItemProps) {
 }
 
 
-export default function Article({ title = "", noNavbar = false, children }: ArticleProps) {
+export default function Article({ title = "", noNavbar = false, children, maxWidth }: ArticleProps) {
     const { matches } = useBreakpointMatch("mdUp", true);
 
     return <>
@@ -107,7 +108,7 @@ export default function Article({ title = "", noNavbar = false, children }: Arti
             {noNavbar ? null : <Navbar />}
             <Box
                 sx={{
-                    maxWidth: "840px",
+                    maxWidth: maxWidth ? "100%" : "840px",
                     margin: "auto",
                     padding: "20px",
                 }}

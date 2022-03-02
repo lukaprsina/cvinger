@@ -12,7 +12,6 @@ function Test() {
     const [shallow, setShallow] = React.useState(false);
 
     const handleClick = (event) => {
-        console.log(url, asV, { shallow, scroll: shallow })
         router.push(url, asV, { shallow, scroll: shallow })
     }
 

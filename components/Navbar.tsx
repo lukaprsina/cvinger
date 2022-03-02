@@ -69,6 +69,8 @@ function Circle() {
 
 let path: string;
 
+/* Shows when reloading */
+
 const Navbar = () => {
     let { matches } = useBreakpointMatch("mdUp", true);
     const router = useRouter()

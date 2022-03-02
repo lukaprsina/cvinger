@@ -1,19 +1,59 @@
-import { Button, ButtonGroup, Container, IconButton, Tab, Tabs } from '@mui/material';
+import { Button, ButtonGroup, Container, IconButton, Tab, Tabs, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import Article from '../components/Article';
 import TabPanel from '../components/TabPanel';
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { Add, CenterFocusStrong, Close, Remove } from '@mui/icons-material';
+import { Add, CenterFocusStrong, Circle, Close, Remove } from '@mui/icons-material';
 import useBreakpointMatch from '../components/useBreakpointMatch';
+import { useEffect } from 'react';
 
 type MapButtonProps = {
     onClick: () => void;
     icon: JSX.Element;
     children: React.ReactNode;
+}
+
+const markers = [
+    { x: 282, y: 210, text: "Uvodna tabla Meniška vas" },
+    { x: 525, y: 224, text: "Vmesna tabla Meniška vas" },
+    { x: 813, y: 233, text: "Uvodna tabla osnovna šola" },
+    { x: 585, y: 276, text: "Vmesna tabla osnovna šola" },
+    { x: 468, y: 294, text: "Informativna tabla prazgodovinsko gradišče" },
+    { x: 520, y: 285, text: "Informativna tabla apnenice" },
+    { x: 510, y: 310, text: "Informativna tabla Cvingerska jama" },
+    { x: 525, y: 383, text: "Vmesna tabla utrjen vhod" },
+    { x: 520, y: 411, text: "Informativna tabla utrjen vhod" },
+    { x: 522, y: 501, text: "Informativna tabla talilniško območje" },
+    { x: 643, y: 633, text: "Informativna tabla gomilno grobišče" },
+    { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
+];
+
+type MarkerProps = {
+    title: string;
+    position: { x: number, y: number };
+    mapRef: React.RefObject<HTMLDivElement>;
+}
+
+function Marker({ title, position, mapRef }: MarkerProps) {
+    if (!mapRef || !mapRef.current)
+        return null;
+
+    let { x, y } = position;
+    const bounds = mapRef.current.getBoundingClientRect();
+    return (
+        <Tooltip title={title}>
+            <Circle style={{
+                position: "absolute",
+                left: x * (bounds.width / zemljevid.width),
+                top: y * (bounds.height / zemljevid.height),
+
+            }} />
+        </Tooltip>
+    )
 }
 
 function MapButton({ onClick, icon, children }: MapButtonProps) {
@@ -36,11 +76,23 @@ function MapButton({ onClick, icon, children }: MapButtonProps) {
 }
 
 function Zemljevid() {
-    const [tab, setTab] = React.useState(0);
+    const [tab, setTab] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null)
+    const mapRef = useRef<HTMLDivElement>(null)
+    const [markersJSX, setMarkersJSX] = useState<JSX.Element[]>([]);
+
+    useEffect(() => {
+        setMarkersJSX(markers.map(({ x, y, text }, index) => (
+            <Marker
+                key={index}
+                title={text}
+                position={{ x, y }}
+                mapRef={mapRef}
+            />)))
+    }, [setMarkersJSX])
 
     return (
-        <Article>
+        <Article title="Zemljevid" maxWidth>
             <Box>
                 <Tabs
                     value={tab}
@@ -68,8 +120,8 @@ function Zemljevid() {
                 >
                     <TabPanel value={tab} index={0}>
                         <TransformWrapper>
-                            {(controls) => (
-                                <>
+                            {(controls) => {
+                                return <>
                                     <ButtonGroup
                                         orientation='vertical'
                                         variant='contained'
@@ -106,14 +158,17 @@ function Zemljevid() {
                                             Ponastavi
                                         </MapButton>
                                     </ButtonGroup>
-                                    <TransformComponent>
-                                        <NextjsImage
-                                            src={zemljevid}
-                                            priority
-                                        />
-                                    </TransformComponent>
+                                    <Box ref={mapRef}>
+                                        <TransformComponent>
+                                            <NextjsImage
+                                                src={zemljevid}
+                                                priority
+                                            />
+                                            {markersJSX}
+                                        </TransformComponent>
+                                    </Box>
                                 </>
-                            )}
+                            }}
                         </TransformWrapper>
                     </TabPanel>
                     <TabPanel value={tab} index={1}>

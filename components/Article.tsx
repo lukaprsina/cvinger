@@ -12,6 +12,7 @@ import { push as Menu } from 'react-burger-menu'
 import useBreakpointMatch from '../components/useBreakpointMatch';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Gallery from './Gallery';
 
 type ArticleProps = {
     title?: string,
@@ -104,6 +105,7 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
             {/* <Box sx={{
                 flex: "1 0 auto",
             }}> */}
+            <Gallery site={children}></Gallery>
             <Header />
             {noNavbar ? null : <Navbar />}
             <Box

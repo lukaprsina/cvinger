@@ -2,6 +2,7 @@ import React from "react"
 
 import { Typography, Box } from "@mui/material"
 import NextjsImage from "next/image"
+import Link from "next/link"
 
 type ArticleImageProps = {
     src: StaticImageData,
@@ -11,16 +12,17 @@ type ArticleImageProps = {
     noBorder?: boolean,
     priority?: boolean,
     maxHeight?: number,
-    galleryCallback?: () => void
 }
 
 const extension_regex = /(?:\.([^.]+))?$/;
 
-const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryCallback, priority = false, maxHeight = 0 }: ArticleImageProps) => {
-    let result = extension_regex.exec(src.src);
-    let extension = result ? result[1] : "";
+function ArticleImage({ src, caption, center = false, noBorder = false, priority = false, maxHeight = 0 }: ArticleImageProps) {
+    const result = extension_regex.exec(src.src);
+    const extension = result ? result[1] : "";
 
-    let blur = extension === "jpg" || extension === "png" || extension === "webp" || extension === "avif";
+    const name = src.src.split(".")[0].split("/").pop()
+
+    const blur = extension === "jpg" || extension === "png" || extension === "webp" || extension === "avif";
 
     return (
         <Box sx={{
@@ -31,18 +33,22 @@ const ArticleImage = ({ src, caption, center = false, noBorder = false, galleryC
                 borderRadius: noBorder ? "0" : "7px",
             }
         }}>
-            <Box sx={{ textAlign: "center" }}>
-                <NextjsImage
-                    src={src}
-                    alt={caption}
-                    placeholder={blur ? "blur" : "empty"}
-                    priority={priority}
-                    lazyBoundary="900px"
-                    onClick={() => {
-                        galleryCallback ? galleryCallback() : null
-                    }}
-                />
-            </Box>
+            <Link
+                href={`?image=${name}`}
+                passHref
+                shallow={true}
+                scroll={false}
+            >
+                <Box sx={{ textAlign: "center" }} component="a">
+                    <NextjsImage
+                        src={src}
+                        alt={caption}
+                        placeholder={blur ? "blur" : "empty"}
+                        priority={priority}
+                        lazyBoundary="900px"
+                    />
+                </Box>
+            </Link>
             <Typography
                 variant="caption"
                 paragraph

@@ -5,11 +5,9 @@ import Article from "../components/Article"
 
 const FourOFour = () => {
     return (
-        <>
-            <Article title="404">
-                <Typography variant="body1">Ta stran ne obstaja.</Typography>
-            </Article>
-        </>
+        <Article title="404">
+            <Typography variant="body1">Ta stran ne obstaja.</Typography>
+        </Article>
     )
 }
 

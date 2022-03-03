@@ -170,7 +170,6 @@ function Literatura() {
             </TabPanel>
         </SwipeableViews>
     </Article>
-
 }
 
 type PdfIconProps = {

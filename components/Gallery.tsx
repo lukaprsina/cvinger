@@ -109,10 +109,17 @@ function Gallery({ site }: GalleryProps) {
         }, 100)
     }
 
-    const changeSlide = (sources: GalleryImage[], index: number) => {
+    if (!image && showGallery) {
+        setShowGallery(false)
+    }
+
+    const changeSlide = (sources: GalleryImage[], index: number, change: boolean) => {
         const src = sources[index].src.src
         const name = src.split(".")[0].split("/").pop()
-        router.push(`?image=${name}`, undefined, { shallow: true, scroll: false });
+        if (change)
+            router.replace(`?image=${name}`, undefined, { shallow: true, scroll: false });
+        else
+            router.push(`?image=${name}`, undefined, { shallow: true, scroll: false });
     }
 
 
@@ -158,10 +165,10 @@ function Gallery({ site }: GalleryProps) {
                         autoHeight
                         initialSlide={slideIndex}
                         onSlideChange={(swiper) => {
-                            changeSlide(sources, swiper.activeIndex)
+                            changeSlide(sources, swiper.activeIndex, true)
                         }}
                         onSwiper={(swiper) => {
-                            changeSlide(sources, swiper.activeIndex)
+                            changeSlide(sources, swiper.activeIndex, false)
                         }}
                         onDestroy={() => {
                             router.push(``, undefined, { shallow: true, scroll: false });

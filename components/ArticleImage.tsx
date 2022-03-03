@@ -16,7 +16,7 @@ type ArticleImageProps = {
 
 const extension_regex = /(?:\.([^.]+))?$/;
 
-function ArticleImage({ src, caption, center = false, noBorder = false, priority = false, maxHeight = 0 }: ArticleImageProps) {
+function ArticleImage({ src, caption, center = false, noBorder = false, priority = false, maxHeight = 0, noGallery }: ArticleImageProps) {
     const result = extension_regex.exec(src.src);
     const extension = result ? result[1] : "";
 
@@ -33,12 +33,7 @@ function ArticleImage({ src, caption, center = false, noBorder = false, priority
                 borderRadius: noBorder ? "0" : "7px",
             }
         }}>
-            <Link
-                href={`?image=${name}`}
-                passHref
-                shallow={true}
-                scroll={false}
-            >
+            {noGallery ? (
                 <Box sx={{ textAlign: "center" }} component="a">
                     <NextjsImage
                         src={src}
@@ -48,7 +43,24 @@ function ArticleImage({ src, caption, center = false, noBorder = false, priority
                         lazyBoundary="900px"
                     />
                 </Box>
-            </Link>
+            ) : (
+                <Link
+                    href={`?image=${name}`}
+                    passHref
+                    shallow={true}
+                    scroll={false}
+                >
+                    <Box sx={{ textAlign: "center" }} component="a">
+                        <NextjsImage
+                            src={src}
+                            alt={caption}
+                            placeholder={blur ? "blur" : "empty"}
+                            priority={priority}
+                            lazyBoundary="900px"
+                        />
+                    </Box>
+                </Link>
+            )}
             <Typography
                 variant="caption"
                 paragraph

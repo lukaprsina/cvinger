@@ -25,8 +25,8 @@ const Footer = () => {
     const [avtorstvo, setAvtorstvo] = useState(false)
     const zasluge = avtorstvo && (
         <Box sx={{
-            color: "white",
-            backgroundColor: "primary.main",
+            // color: "white",
+            // backgroundColor: "primary.main",
             textAlign: "center",
             padding: "20px",
             paddingTop: "30px",
@@ -129,7 +129,12 @@ const Footer = () => {
                         maxWidth: "800px",
                         width: "100%",
                     }}
-                    onClick={() => setAvtorstvo(!avtorstvo)}
+                    onClick={() => {
+                        setAvtorstvo(!avtorstvo)
+                        setTimeout(() => {
+                            window.scrollTo(0, 10000)
+                        })
+                    }}
                 >
                     Avtorstvo
                 </Button>

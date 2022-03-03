@@ -1,8 +1,7 @@
-module.exports = {
-  reactStrictMode: true,
-  /* typescript: {
-    ignoreBuildErrors: true,
-  }, */
-  // basePath: '/nextjs'
-}
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+
+module.exports = withBundleAnalyzer({ reactStrictMode: true, })
 

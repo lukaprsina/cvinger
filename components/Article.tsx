@@ -81,6 +81,13 @@ function Item({ to, text }: ItemProps) {
 export default function Article({ title = "", noNavbar = false, children, maxWidth }: ArticleProps) {
     const { matches } = useBreakpointMatch("mdUp", true);
 
+    const center = maxWidth ? {
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+    } : {}
+
     return <>
         {matches ? null : <Menu pageWrapId="page-wrap" outerContainerId="outer-container">
             <Item to="/pot" text="Arheološka pot" />
@@ -102,6 +109,7 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
                     maxWidth: maxWidth ? "100%" : "840px",
                     margin: "auto",
                     padding: "20px",
+                    ...center
                 }}
                 id="page-wrap"
             >

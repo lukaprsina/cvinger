@@ -19,22 +19,17 @@ const MyButton = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, chil
     return (
         <Button
             sx={{
-                "& a": {
-                    textDecoration: "none!important",
-                    textTransform: "initial!important",
-                    // color: "secondary.light",
-                },
+                textDecoration: "none!important",
+                textTransform: "initial!important",
             }}
             variant="outlined"
             rel='noopener noreferrer'
             target='_blank'
             href={href}
-            LinkComponent="p"
             onClick={onClick}
+            ref={ref}
         >
-            <a ref={ref}>
-                {children}
-            </a>
+            {children}
         </Button>
     )
 })

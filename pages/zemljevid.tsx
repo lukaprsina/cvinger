@@ -53,7 +53,9 @@ function MapButton({ onClick, icon, children }: MapButtonProps) {
                 {children}
             </Button>
         ) : (
-            <IconButton onClick={onClick} color="secondary">
+            <IconButton
+                onClick={onClick}
+            >
                 {icon}
             </IconButton>
         )}
@@ -133,6 +135,7 @@ function MyMap({ mapRef }: MyMapProps) {
                         zIndex: 2,
                         bottom: "20px",
                         right: "20px",
+                        backgroundColor: "secondary.main",
                     }}
                 >
                     <MapButton

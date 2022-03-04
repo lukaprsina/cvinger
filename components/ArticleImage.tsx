@@ -21,7 +21,6 @@ function ArticleImage({ src, caption, center = false, noBorder = false, priority
     const extension = result ? result[1] : "";
 
     const name = src.src.split(".")[0].split("/").pop()
-
     const blur = extension === "jpg" || extension === "png" || extension === "webp" || extension === "avif";
 
     return (
@@ -50,7 +49,13 @@ function ArticleImage({ src, caption, center = false, noBorder = false, priority
                     shallow={true}
                     scroll={false}
                 >
-                    <Box sx={{ textAlign: "center" }} component="a">
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                        component="a"
+                    >
                         <NextjsImage
                             src={src}
                             alt={caption}

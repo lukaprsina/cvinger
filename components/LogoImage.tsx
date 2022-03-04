@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Typography, Box } from "@mui/material"
+import { Box } from "@mui/material"
 import NextjsImage from "next/image"
 
 type LogoImageProps = {
@@ -9,7 +9,6 @@ type LogoImageProps = {
     center?: boolean,
     noGallery?: boolean,
     priority?: boolean,
-    // TODO: very hacky
     logo_dt?: boolean
 }
 

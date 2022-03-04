@@ -6,7 +6,6 @@ import {
     Toolbar,
     useScrollTrigger,
     Slide,
-    Typography,
 } from "@mui/material"
 import useBreakpointMatch from "./useBreakpointMatch"
 import { Box } from "@mui/system"
@@ -71,7 +70,7 @@ let path: string;
 
 /* Shows when reloading */
 
-const Navbar = () => {
+function Navbar() {
     let { matches } = useBreakpointMatch("mdUp", true);
     const router = useRouter()
     path = router.pathname

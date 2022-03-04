@@ -16,35 +16,6 @@ import gomile from "/public/images/home/krogci/06_gomile.png"
 import zemljevid from "/public/images/home/krogci/07_zemljevid.png"
 import literatura from "/public/images/home/krogci/08_literatura.png"
 
-const HomeNavbar = () => {
-    let { matches } = useBreakpointMatch("mdUp", true);
-
-    return <>        {
-        matches ? <Box
-            sx={{
-                display: "flex",
-                flexFlow: "row wrap",
-                margin: "50px 0",
-                justifyContent: "space-between",
-            }}
-        >
-            <Item image={pot} text="Arheološka pot" to="/pot" />
-            <Item
-                image={gradisce}
-                text="Prazgodovinsko gradišče"
-                to="/gradisce"
-            />
-            <Item image={vhod} text="Utrjen vhod" to="/vhod" />
-            <Item image={jama} text="Cvingerska jama" to="/jama" />
-
-            <Item image={talilnice} text="Talilniško obmčje" to="/talilnice" />
-            <Item image={gomile} text="Gomilno grobišče" to="/gomile" />
-            <Item image={zemljevid} text="Zemljevid" to="/zemljevid" />
-            <Item image={literatura} text="Literatura" to="/literatura" />
-        </Box > : null
-    }</>
-}
-
 type ItemProps = {
     image: StaticImageData,
     text: string,
@@ -110,6 +81,35 @@ function Item({ image, text, to }: ItemProps) {
             </Link>
         </Box >
     )
+}
+
+const HomeNavbar = () => {
+    let { matches } = useBreakpointMatch("mdUp", true);
+
+    return <>        {
+        matches ? <Box
+            sx={{
+                display: "flex",
+                flexFlow: "row wrap",
+                margin: "50px 0",
+                justifyContent: "space-between",
+            }}
+        >
+            <Item image={pot} text="Arheološka pot" to="/pot" />
+            <Item
+                image={gradisce}
+                text="Prazgodovinsko gradišče"
+                to="/gradisce"
+            />
+            <Item image={vhod} text="Utrjen vhod" to="/vhod" />
+            <Item image={jama} text="Cvingerska jama" to="/jama" />
+
+            <Item image={talilnice} text="Talilniško obmčje" to="/talilnice" />
+            <Item image={gomile} text="Gomilno grobišče" to="/gomile" />
+            <Item image={zemljevid} text="Zemljevid" to="/zemljevid" />
+            <Item image={literatura} text="Literatura" to="/literatura" />
+        </Box > : null
+    }</>
 }
 
 export default HomeNavbar

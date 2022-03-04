@@ -25,8 +25,6 @@ const Footer = () => {
     const [avtorstvo, setAvtorstvo] = useState(false)
     const zasluge = avtorstvo && (
         <Box sx={{
-            // color: "white",
-            // backgroundColor: "primary.main",
             textAlign: "center",
             padding: "20px",
             paddingTop: "30px",
@@ -47,7 +45,9 @@ const Footer = () => {
                 Marko Pršina
             </Typography>
             <Typography><b>Spletna postavitev:</b> Luka Pršina</Typography>
-        </Box >)
+        </Box >
+    )
+
     return (
         <Box
             sx={{
@@ -128,6 +128,7 @@ const Footer = () => {
                         margin: "90px auto 0",
                         maxWidth: "800px",
                         width: "100%",
+                        textTransform: "initial!important",
                     }}
                     onClick={() => {
                         setAvtorstvo(!avtorstvo)

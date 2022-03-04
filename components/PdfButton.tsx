@@ -1,7 +1,7 @@
-import { Button, Container } from '@mui/material';
+import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 import Link from 'next/link';
-import * as React from 'react';
+import React from 'react';
 
 type PdfButtonProps = {
     href: string,
@@ -21,6 +21,7 @@ const MyButton = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, chil
             sx={{
                 "& a": {
                     textDecoration: "none!important",
+                    textTransform: "initial!important",
                     // color: "secondary.light",
                 },
             }}

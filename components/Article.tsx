@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from "../components/Header"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 
-import {
-    Typography,
-    Box,
-    /* SwipeableDrawer, */
-} from "@mui/material"
+import { Typography, Box, } from "@mui/material"
 import { push as Menu } from 'react-burger-menu'
 import useBreakpointMatch from '../components/useBreakpointMatch';
 import Link from 'next/link';

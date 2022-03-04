@@ -48,6 +48,7 @@ function MapButton({ onClick, icon, children }: MapButtonProps) {
             <Button
                 startIcon={icon}
                 onClick={onClick}
+                color="secondary"
             >
                 {children}
             </Button>
@@ -62,13 +63,12 @@ function MapButton({ onClick, icon, children }: MapButtonProps) {
 const AnimatedCircle = animated(Circle)
 
 function toPDF(title: string): string {
-    return title.toLowerCase().replace(/ /g, "-");
+    return "/documents/table/" + title.replace(/ /g, "_") + ".pdf";
 }
 
 function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
     const [styles, api] = useSpring(() => ({
         transform: "scale(1)",
-        // opacity: 1
     }));
 
     collectApi(api);
@@ -76,11 +76,17 @@ function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
     if (!mapRef || !mapRef.current)
         return null;
 
-    let { x, y } = position;
+    const { x, y } = position;
     const bounds = mapRef.current.getBoundingClientRect();
+    const link = toPDF(title);
 
     return (
-        <Tooltip onClick={() => console.log(toPDF(title))} title={title}>
+        <Tooltip
+            onClick={() => {
+                window.open(link, "_blank");
+            }}
+            title={title}
+        >
             <AnimatedCircle style={{
                 position: "absolute",
                 left: x * (bounds.width / zemljevid.width),
@@ -94,7 +100,6 @@ function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
 let apis: any[] = []
 
 type MyMapProps = {
-    // markersJSX: JSX.Element[];
     mapRef: React.RefObject<HTMLDivElement>;
 }
 
@@ -128,7 +133,6 @@ function MyMap({ mapRef }: MyMapProps) {
                         zIndex: 2,
                         bottom: "20px",
                         right: "20px",
-                        backgroundColor: "primary.main",
                     }}
                 >
                     <MapButton
@@ -215,7 +219,7 @@ function Zemljevid() {
                 }}
             >
                 <TabPanel value={tab} index={0}>
-                    <MyMap mapRef={mapRef} /* markersJSX={markersJSX} */ />
+                    <MyMap mapRef={mapRef} />
                 </TabPanel>
                 <TabPanel value={tab} index={1}>
                     <GoogleMap mapRef={containerRef} />

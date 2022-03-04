@@ -124,8 +124,10 @@ function Gallery({ site }: GalleryProps) {
 
 
     return <>
-        {showGallery && <>
-            <Container disableGutters maxWidth={false} sx={{
+        {showGallery && <Container
+            disableGutters
+            maxWidth={false}
+            sx={{
                 position: "fixed",
                 zIndex: "1997",
                 display: "flex",
@@ -134,86 +136,89 @@ function Gallery({ site }: GalleryProps) {
                 height: "100vh",
                 width: "100vw",
             }}>
-                <Container disableGutters maxWidth={false} sx={{
+            <Container
+                disableGutters
+                maxWidth={false}
+                sx={{
                     position: "fixed",
                     zIndex: "1998",
                     height: "100vh",
                     width: "100vw",
                     backgroundColor: "rgba(0,0,0,0.4)"
                 }} onClick={() => setShowGallery(false)}>
-                </Container>
-
-                <Box sx={{
-                    width: "100%",
-                    "& .swiper-button-prev": {
-                        color: swiper_button_color,
-                    },
-                    "& .swiper-button-next": {
-                        color: swiper_button_color,
-                    },
-                    "& .swiper-pagination-bullet-active": {
-                        backgroundColor: swiper_button_color,
-                    }
-                }}>
-                    <Swiper
-                        modules={[Navigation, Pagination, Scrollbar, A11y, Keyboard]}
-                        centeredSlides={true}
-                        style={{ zIndex: "2000" }}
-                        pagination={showSubtitles ? { clickable: true } : false}
-                        navigation={true}
-                        keyboard={{ enabled: true, pageUpDown: true }}
-                        autoHeight
-                        initialSlide={slideIndex}
-                        onSlideChange={(swiper) => {
-                            changeSlide(sources, swiper.activeIndex, true)
-                        }}
-                        onSwiper={(swiper) => {
-                            changeSlide(sources, swiper.activeIndex, false)
-                        }}
-                        onDestroy={() => {
-                            router.push(``, undefined, { shallow: true, scroll: false });
-                            destroyedSwiper = true;
-                        }}
-                    >
-                        {sources.map((source) => (
-                            <SwiperSlide key={source.src.src}>
-                                <Box
-                                    onClick={() => setShowSubtitles(!showSubtitles)}
-                                    sx={{
-                                        zIndex: "1999",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        maxWidth: "100%",
-                                        maxHeight: "100vh",
-                                        "& img": {
-                                            borderRadius: "17px",
-                                            objectFit: "scale-down",
-                                        }
-                                    }}>
-                                    <NextjsImage
-                                        src={source.src}
-                                        alt={source.caption}
-                                        priority
-                                    />
-                                    {showSubtitles ? <Container sx={{
-                                        backgroundColor: "white",
-                                        padding: "20px",
-                                        borderRadius: "7px",
-                                        marginTop: "5px",
-                                        paddingBottom: "40px",
-                                    }}>
-                                        <Typography variant="caption" component="p" align="center">
-                                            {source.caption}
-                                        </Typography>
-                                    </Container> : null}
-                                </Box>
-                            </SwiperSlide>))}
-                    </Swiper>
-                </Box>
             </Container>
-        </>}
+
+            <Box sx={{
+                width: "100%",
+                "& .swiper-button-prev": {
+                    color: swiper_button_color,
+                },
+                "& .swiper-button-next": {
+                    color: swiper_button_color,
+                },
+                "& .swiper-pagination-bullet-active": {
+                    backgroundColor: swiper_button_color,
+                }
+            }}>
+                <Swiper
+                    modules={[Navigation, Pagination, Scrollbar, A11y, Keyboard]}
+                    centeredSlides={true}
+                    style={{ zIndex: "2000" }}
+                    pagination={showSubtitles ? { clickable: true } : false}
+                    navigation={true}
+                    keyboard={{ enabled: true, pageUpDown: true }}
+                    autoHeight
+                    initialSlide={slideIndex}
+                    onSlideChange={(swiper) => {
+                        changeSlide(sources, swiper.activeIndex, true)
+                    }}
+                    onSwiper={(swiper) => {
+                        changeSlide(sources, swiper.activeIndex, false)
+                    }}
+                    onDestroy={() => {
+                        router.push(``, undefined, { shallow: true, scroll: false });
+                        destroyedSwiper = true;
+                    }}
+                >
+                    {sources.map((source) => (
+                        <SwiperSlide key={source.src.src}>
+                            <Box
+                                onClick={() => setShowSubtitles(!showSubtitles)}
+                                sx={{
+                                    zIndex: "1999",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    maxWidth: "100%",
+                                    maxHeight: "100vh",
+                                    "& img": {
+                                        borderRadius: "17px",
+                                        objectFit: "scale-down",
+                                    }
+                                }}>
+                                <NextjsImage
+                                    src={source.src}
+                                    alt={source.caption}
+                                    priority
+                                />
+                                {showSubtitles ? <Container sx={{
+                                    backgroundColor: "white",
+                                    padding: "20px",
+                                    borderRadius: "7px",
+                                    marginTop: "5px",
+                                    paddingBottom: "40px",
+                                }}>
+                                    <Typography variant="caption" component="p" align="center">
+                                        {source.caption}
+                                    </Typography>
+                                </Container> : null}
+                            </Box>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </Box>
+        </Container>}
     </>
 }
 

@@ -11,7 +11,7 @@ import PdfButton from "../components/PdfButton"
 
 function Vhod() {
     return <Article title="Utrjen vhod">
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Gradišče je imelo dva vhoda, severnega in južnega, vsi drugi
             današnji prehodi skozi okop so nastali kasneje. Glavno vlogo je
             imel južni vhod, pred katerim je bilo na rezultatih zračnega
@@ -40,7 +40,7 @@ function Vhod() {
             caption="Digitalni model ostalin več kot 3 m širokega prečnega utrdbenega zidu."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Utrjena pot je prebivalcem Cvingerja zagotavljala dodatno
             varnost in nadzor nad prišleki. Treba jo je razumeti skupaj z
             drugimi deli najdišča, ki je premišljeno organizirano. Šele z

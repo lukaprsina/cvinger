@@ -65,7 +65,7 @@ function Item({ to, text }: ItemProps) {
 
                     </Box>
                     <Typography
-                        variant="body1"
+
                         component="span"
                         color="primary.main"
                     >

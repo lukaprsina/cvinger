@@ -21,9 +21,8 @@ function Logo({ children, href, style = {} }: LogoProps) {
     )
 }
 
-const Footer = () => {
-    const [avtorstvo, setAvtorstvo] = useState(false)
-    const zasluge = avtorstvo && (
+function Avtorstvo() {
+    return (
         <Box sx={{
             textAlign: "center",
             padding: "20px",
@@ -47,6 +46,10 @@ const Footer = () => {
             <Typography><b>Spletna postavitev:</b> Luka Pršina</Typography>
         </Box >
     )
+}
+
+const Footer = () => {
+    const [avtorstvo, setAvtorstvo] = useState(false)
 
     return (
         <Box
@@ -122,7 +125,7 @@ const Footer = () => {
                     </Logo>
                 </Box>
                 <Button
-                    variant="outlined"
+                    variant="contained"
                     color="primary"
                     sx={{
                         margin: "90px auto 0",
@@ -139,7 +142,7 @@ const Footer = () => {
                 >
                     Avtorstvo
                 </Button>
-                {zasluge}
+                {avtorstvo && <Avtorstvo />}
             </Box >
         </Box >
     )

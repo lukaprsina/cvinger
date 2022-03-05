@@ -15,7 +15,15 @@ function TabPanel({ children, value, index, component }: TabPanelProps) {
         >
             {value === index && (
                 <Box
-                    component={component}>
+                    component={component}
+                    sx={{
+                        "& li": {
+
+                            paddingTop: "0!important",
+                            paddingBottom: "0!important",
+                        }
+                    }}
+                >
                     {children}
                 </Box>
 

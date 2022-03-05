@@ -28,7 +28,7 @@ function Jama() {
     }, [setSketchfabHeight])
 
     return <Article title="Cvingerska jama">
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Dolenjski griči in hribi so na široko posejani s
             prazgodovinskimi gradišči. Cvingersko med vsemi izstopa po tem,
             da se na najvišji točki, ki je skorajda v središču gradišča,
@@ -43,7 +43,7 @@ function Jama() {
             caption="Zaščitna ograja okoli vhodnega brezna Cvingerske jame."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Verjetno je prav lega jame v bližini obljudenih krajev
             spodbudila domišljijo nekaterih piscev iz začetka 20. stoletja,
             da so jami namenili vsak po nekaj vrstic. Najstarejši znani
@@ -77,6 +77,11 @@ function Jama() {
                 onChange={(e, newValue) => setTab(newValue)}
                 scrollButtons="auto"
                 variant="scrollable"
+                sx={{
+                    "& button": {
+                        textTransform: "initial!important"
+                    },
+                }}
             >
                 <Tab label="Model jame pred raziskavami" />
                 <Tab label="Vhod jame" />
@@ -133,7 +138,7 @@ function Jama() {
             </SwipeableViews>
         </Container>
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Cvingersko jamo so uradno prvi obiskali topliški jamarji, sicer
             člani Jamarskega kluba Novo mesto (1982). Za trikotnim vhodom (2
             × 2,5 m) so izmerili 6 m globoko in 10 m dolgo vhodno brezno, v
@@ -168,7 +173,7 @@ function Jama() {
                 />
             )}
         />
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Delo v jami je zastalo za natanko tri desetletja, dokler niso
             jamarji dobili vnovičnega povabila arheološke raziskovalne ekipe
             pod vodstvom dr. Matije Črešnarja (Oddelek za arheologijo,
@@ -196,7 +201,7 @@ function Jama() {
             maxHeight={1000}
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Po zaključenih raziskavah se je pokazalo, da v arheološkem
             pogledu jama ni izpolnila pričakovanj. Med izkopanim nasutjem je
             v množici novodobnih predmetov izstopal le zajeten kos

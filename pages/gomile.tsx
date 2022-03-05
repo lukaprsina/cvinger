@@ -12,7 +12,7 @@ import PdfButton from "../components/PdfButton"
 
 function Gomile() {
     return <Article title="Gomilno grobišče">
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Cvingersko gomilno grobišče Branževec sodi med klasična
             starejšeželeznodobna najdišča Dolenjske, ki so s svojimi
             bogatimi najdbami v arheološkem svetu že ob koncu 19. stoletja
@@ -38,7 +38,7 @@ function Gomile() {
             caption="Prostorska razporeditev gomil - prikaz na digitalnem modelu terena."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Med izkopanimi predmeti prevladujejo keramične posode, ki so v
             veliki meri verjetno vsebovale hrano in pijačo kot popotnico
             umrlim za pot v onostranstvo. Praviloma so vse posode okrašene s
@@ -69,7 +69,7 @@ function Gomile() {
             caption="Ena od bolj prepoznavnih gomil na gomilnem grobišču Branževec."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Posebno kategorijo pokojnikov predstavljajo pokopi, kjer se kot
             grobni pridatki pojavljajo bronaste čelade, konjska oprema ter
             bronasto posodje. V teh grobovih lahko prepoznamo vodilni sloj
@@ -97,7 +97,7 @@ function Gomile() {
             caption="Informativni tabli pri gomilnem grobišču."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Posebnost predstavlja tudi grob 23 v gomili II. V tem, po
             pridatkih sodeč moškem grobu, sta ležali dve železni sulični
             osti, železen nož, dve bronasti certoški fibuli, bronasti pasni
@@ -131,7 +131,7 @@ function Gomile() {
             noGallery
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Na območju Cvingerja posebnost predstavlja keramična posoda, ki
             je bila vkopana v prazgodovinsko gomilo in se po obliki,
             izdelavi in okrasju bistveno loči od ostalih keramičnih posod,

@@ -11,7 +11,7 @@ import PdfButton from "../components/PdfButton"
 
 function Gradisce() {
     return <Article title="Prazgodovinsko gradišče">
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             V vseh obdobjih človekove prisotnosti na naših tleh so osnovne
             komunikacije ter obenem ugoden prostor za poselitev in bivanje
             predstavljale rečne doline. Pritoki in sotočja so bili še
@@ -37,7 +37,7 @@ function Gradisce() {
             kamene dobe do zgodnjega srednjega veka.
         </Typography>
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Utrjeno prazgodovinsko gradišče dominira na zakraselem in z
             gozdom poraslem kopastem hribu Cvinger z najvišjo točko 265 m
             n.m. Na njegovem severu teče reka Krka, na zahodu in vzhodu ga
@@ -63,7 +63,7 @@ function Gradisce() {
             caption="Delno zasuta arheološka sonda razkriva sestavo prazgodovinskega obzidja."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             V literaturo je arheološko najdišče na Cvingerju vstopilo
             relativno zgodaj. V svoji obsežni knjigi o zgodovini železa na
             Kranjskem, Goriškem in Istri je leta 1909 Alfons Müllner
@@ -97,7 +97,7 @@ function Gradisce() {
             notranjosti pa nakazale način gradnje stanovanjskih stavb.
         </Typography>
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Najstarejše obzidje, ki je obdajalo Cvinger, je bilo zgrajeno iz
             lesa in zemlje. Med dvojni opaž iz lesenih desk s širino dobrega
             metra so njegovi graditelji nasuli ilovico. Ker je to obzidje
@@ -124,7 +124,7 @@ function Gradisce() {
             caption="Idealiziran prikaz kamnitega obzidja, ki je obdajalo gradišče."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Na notranji strani so tik ob obzidju stale stavbe. Zgrajene so
             bile iz brun, ki so bila premazana z glinenim ometom. Stavbe,
             narejene na način predalčja ali kot brunarice, so bile
@@ -142,7 +142,7 @@ function Gradisce() {
             caption="Pojasnjevalni tabli pri delno rekonstruiranem obzidju iz leta 1990."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Drobne najdbe iz notranjosti naselja so bili predvsem predmeti,
             povezani z vsakdanjim življenjem: odlomki keramičnih posod,
             prežgan stenski omet, keramična vretenca kot uteži in vztrajniki

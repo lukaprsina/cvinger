@@ -11,7 +11,7 @@ import pot1 from "/public/images/home/pot1.jpg"
 function Home() {
     return <Article noNavbar>
         <HomeNavbar />
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Cvinger pri Dolenjskih Toplicah je eno najpomembnejših
             starejšeželeznodobnih središč v Sloveniji in širšem jugovzhodnem
             predalpskem prostoru. Najdišče, ki leži na odlični strateški
@@ -37,7 +37,7 @@ function Home() {
             caption="Cvinger s prazgodovinskim gradiščem (v sredini) se dviguje nad sotočjem Krke in Radeščice."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Najstarejši deli najdišča sodijo v pozno bronasto dobo oziroma v
             začetek starejše železne dobe (10.–8. stoletje pr. n. št.). Njej
             sledi prekinitev poselitve, ki je trajala več stoletij vse do
@@ -54,7 +54,7 @@ function Home() {
             caption="Steze, po katerih poteka arheološka pot, se vijejo po mešanem gozdu."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Najdišče je kot enota kulturne dediščine Dolenjske Toplice ‒
             Arheološko najdišče Cvinger (EŠD 110) vpisano v register
             kulturne dediščine. Status kulturnega spomenika je z občinskim
@@ -64,7 +64,7 @@ function Home() {
             Dolenjske Toplice iz leta 2018.
         </Typography>
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Zaradi svojega regionalnega pomena je bil Cvinger kot železarsko
             središče vključen v več mednarodnih raziskovalnih in
             promocijskih projektov. V sklopu projekta Iron Age Danube je

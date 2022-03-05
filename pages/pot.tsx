@@ -11,7 +11,7 @@ import PdfButton from "../components/PdfButton"
 
 function Pot() {
     return <Article title="Arheološka pot">
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Prve raziskovalce je Cvinger pritegnil že v sedemdesetih letih
             19. stoletja, prva izkopavanja na gomilnem grobišču in tudi v
             naselju pa so potekala zadnja leta navedenega stoletja. Sledila
@@ -39,7 +39,7 @@ function Pot() {
             caption="Pot je označena z markacijo stilizirane situle in smerokazi."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Izhodišča pešpoti so v gozdu blizu osnovne šole (na križišču pri
             odcepu ceste za Dolenje Polje), ob parkirišču v bližini
             topliškega pokopališča ter sredi Meniške vasi. Speljana je po

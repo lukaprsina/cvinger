@@ -152,9 +152,11 @@ function Gallery({ site }: GalleryProps) {
                 width: "100%",
                 "& .swiper-button-prev": {
                     color: swiper_button_color,
+                    left: "calc(50% - 600px - 44px)",
                 },
                 "& .swiper-button-next": {
                     color: swiper_button_color,
+                    right: "calc(50% - 600px - 44px)",
                 },
                 "& .swiper-pagination-bullet-active": {
                     backgroundColor: swiper_button_color,
@@ -165,9 +167,10 @@ function Gallery({ site }: GalleryProps) {
                     centeredSlides={true}
                     style={{ zIndex: "2000" }}
                     pagination={showSubtitles ? { clickable: true } : false}
-                    navigation={true}
+                    navigation
                     keyboard={{ enabled: true, pageUpDown: true }}
                     autoHeight
+                    grabCursor
                     initialSlide={slideIndex}
                     onSlideChange={(swiper) => {
                         changeSlide(sources, swiper.activeIndex, true)
@@ -176,14 +179,13 @@ function Gallery({ site }: GalleryProps) {
                         changeSlide(sources, swiper.activeIndex, false)
                     }}
                     onDestroy={() => {
-                        router.push(``, undefined, { shallow: true, scroll: false });
+                        router.push("", undefined, { shallow: true, scroll: false });
                         destroyedSwiper = true;
                     }}
                 >
                     {sources.map((source) => (
                         <SwiperSlide key={source.src.src}>
                             <Box
-                                onClick={() => setShowSubtitles(!showSubtitles)}
                                 sx={{
                                     zIndex: "1999",
                                     display: "flex",
@@ -201,15 +203,20 @@ function Gallery({ site }: GalleryProps) {
                                     src={source.src}
                                     alt={source.caption}
                                     priority
+                                    onClick={() => setShowSubtitles(!showSubtitles)}
                                 />
                                 {showSubtitles ? <Container sx={{
                                     backgroundColor: "white",
                                     padding: "20px",
-                                    borderRadius: "7px",
+                                    borderRadius: "17px",
                                     marginTop: "5px",
                                     paddingBottom: "40px",
                                 }}>
-                                    <Typography variant="caption" component="p" align="center">
+                                    <Typography
+                                        variant="caption"
+                                        component="p"
+                                        align="center"
+                                    >
                                         {source.caption}
                                     </Typography>
                                 </Container> : null}

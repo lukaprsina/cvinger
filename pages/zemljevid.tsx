@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, Container, IconButton, Tab, Tabs, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import Article from '../components/Article';
 import TabPanel from '../components/TabPanel';
@@ -69,11 +69,21 @@ function toPDF(title: string): string {
 }
 
 function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
+    const [hovered, setHovered] = useState(false);
     const [styles, api] = useSpring(() => ({
         transform: "scale(1)",
+        opacity: 0.8,
     }));
 
-    collectApi(api);
+    const scale = parseFloat(styles.transform.get().replace("scale(", "").replace(")", ""));
+    const test = hovered ? `scale(${scale * 1.5})` : `scale(${scale / 1.5})`
+    console.log(scale)
+    api({
+        opacity: hovered ? 1 : 0.8,
+        transform: test,
+    });
+
+    useMemo(() => collectApi(api), [api, collectApi]);
 
     if (!mapRef || !mapRef.current)
         return null;
@@ -84,17 +94,20 @@ function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
 
     return (
         <Tooltip
-            onClick={() => {
-                window.open(link, "_blank");
-            }}
+            onClick={() => { window.open(link, "_blank") }}
             title={title}
+            onMouseEnter={() => { setHovered(true) }}
+            onMouseLeave={() => { setHovered(false) }}
         >
-            <AnimatedCircle style={{
-                position: "absolute",
-                left: x * (bounds.width / zemljevid.width),
-                top: y * (bounds.height / zemljevid.height),
-                ...styles,
-            }} />
+            <AnimatedCircle
+                color='info'
+                style={{
+                    position: "absolute",
+                    left: x * (bounds.width / zemljevid.width),
+                    top: y * (bounds.height / zemljevid.height),
+                    ...styles,
+                }}
+            />
         </Tooltip>
     )
 }
@@ -116,7 +129,10 @@ function MyMap({ mapRef }: MyMapProps) {
                     title={text}
                     position={{ x, y }}
                     mapRef={mapRef}
-                    collectApi={api => apis.push(api)}
+                    collectApi={api => {
+                        console.log("pushed")
+                        apis.push(api)
+                    }}
                 />
             }))
         })
@@ -201,6 +217,11 @@ function Zemljevid() {
                 onChange={(e, newValue) => setTab(newValue)}
                 scrollButtons="auto"
                 variant="scrollable"
+                sx={{
+                    "& button": {
+                        textTransform: "initial!important"
+                    },
+                }}
             >
                 <Tab label="Zemljevid" />
                 <Tab label="Google zemljevid" />

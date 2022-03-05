@@ -11,7 +11,7 @@ import PdfButton from "../components/PdfButton"
 
 function Talilnice() {
     return <Article title="Talilniško območje">
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Med najpomembnejše dejavnosti tukajšnjih prazgodovinskih
             prebivalcev štejemo taljenje železa in kovaštvo. Sledovi teh
             dejavnosti so prisotni tako znotraj naselja, kjer lahko na tleh
@@ -24,7 +24,7 @@ function Talilnice() {
             talilnih peči.
         </Typography>
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Domnevo so takrat preverili z manjšim izkopom (3 × 4 m) na
             sredini prostora, kjer je bila koncentracija najdb na površini
             največja. Sondiranje je domneve potrdilo, saj se je tik pod
@@ -47,7 +47,7 @@ function Talilnice() {
             caption="Oblikovni in utežnostni prikaz različnih oblik železa."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Arheološko sondiranje na Branževcu je torej potrdilo domnevo, da
             je tu v železni dobi stal talilniški obrat. Sledile so prve
             nedestruktivne geofizikalne raziskave (magnetna metoda, 1997),
@@ -63,7 +63,7 @@ function Talilnice() {
             caption="Prerez skozi naloženo in dogorelo jaškasto talilno peč z jamo za žlindro."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Od leta 2013 do 2018 so na Branževcu potekale dodatne arheološke
             raziskave, kjer so bile uporabljene najsodobnejše geofizikalne
             metode. Na podlagi njihovih rezultatov je bila narejen še en
@@ -79,7 +79,7 @@ function Talilnice() {
             caption="Raziskave v arheološkem izkopu (sondi) na talilniškem območju. Foto Matija Črešnar."
         />
 
-        <Typography variant="body1" paragraph>
+        <Typography paragraph>
             Ena od peči je bila ob tem uspešno datirana z magnetno
             datacijsko metodo (prvič uporabljena pri nas). Njen rezultat je
             v skladu z arheološkimi dokazi in kaže na zadnjo uporabo peči v

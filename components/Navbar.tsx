@@ -32,7 +32,7 @@ function NavbarButton({ to, children }: NavbarButtonType) {
                         textTransform: "none",
                         fontSize: "typography.fontSize",
                     }}
-                    color={clicked ? "info" : "primary"}
+                    color={clicked ? "success" : "primary"}
                     size="small"
                 >
                     {children}
@@ -77,14 +77,20 @@ function Navbar() {
 
     return <>{
         matches ? <HideOnScroll threshold={400}>
-            <AppBar position="sticky" color="primary">
-                <Toolbar disableGutters sx={{
-                    width: "100vw",
-                    maxWidth: "1200px",
-                    margin: "auto",
-                    display: "flex",
-                    justifyContent: "space-between",
-                }}>
+            <AppBar
+                position="sticky"
+                color="primary"
+            >
+                <Toolbar
+                    disableGutters
+                    variant="dense"
+                    sx={{
+                        width: "100vw",
+                        maxWidth: "1200px",
+                        margin: "auto",
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}>
                     <NavbarButton to="/pot">Arheološka pot</NavbarButton>
                     <Circle />
                     <NavbarButton to="/gradisce">

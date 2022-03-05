@@ -70,6 +70,9 @@ function ArticleImage({ src, caption, center = false, noBorder = false, priority
                 variant="caption"
                 paragraph
                 align={center ? "center" : "left"}
+                sx={{
+                    mt: "10px",
+                }}
             >
                 {caption}
             </Typography>

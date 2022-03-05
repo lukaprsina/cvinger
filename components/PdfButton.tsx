@@ -22,7 +22,7 @@ const MyButton = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, chil
                 textDecoration: "none!important",
                 textTransform: "initial!important",
             }}
-            variant="outlined"
+            variant="contained"
             rel='noopener noreferrer'
             target='_blank'
             href={href}

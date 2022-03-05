@@ -17,17 +17,24 @@ const theme = createTheme({
             main: "#fcf4e0",
             light: "#fefcf6"
         },
-        info: {
+
+        success: {
             main: "rgba(254, 252, 246, 0.3)",
-        },
+        }
     },
     typography: {
         fontFamily: "Calibri, sans-serif",
         fontSize: 16,
+        allVariants: {
+            lineHeight: "normal",
+        },
+        body1: {
+            fontSize: 16,
+        },
         caption: {
             fontSize: 14,
             fontVariant: "small-caps",
-        }
+        },
     },
     breakpoints: {
         values: {

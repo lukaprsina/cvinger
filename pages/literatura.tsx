@@ -1,5 +1,5 @@
 import { SxProps, Typography, Link, List, Tabs, Tab } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import NextjsLink from 'next/link';
 import NextjsImage from 'next/image';
 import data, { DataProps } from "../components/Data"
@@ -7,6 +7,7 @@ import Article from '../components/Article'
 import { Box } from '@mui/system';
 import SwipeableViews from 'react-swipeable-views';
 import TabPanel from '../components/TabPanel';
+import useWindowSize from '../components/useWindowSize';
 
 function ToTypography(text: string, sx?: SxProps) {
     return <>
@@ -136,6 +137,20 @@ const literatura = data.map((entry: DataProps, index: number) => {
 
 function Literatura() {
     const [tab, setTab] = React.useState(0);
+    const [pixelStart, setPixelStart] = useState(0);
+    const myRef = useRef<HTMLDivElement>(null);
+    const windowSize = useWindowSize()
+
+    useEffect(() => {
+        if (tab != 3 || !myRef.current)
+            return;
+
+        prevY = 0;
+        counter = 0;
+        offset = 0;
+
+        setPixelStart(myRef.current.getBoundingClientRect().y);
+    }, [myRef, pixelStart, tab, windowSize]);
 
     return <Article title="Literatura">
         <Box>
@@ -148,6 +163,7 @@ function Literatura() {
                 <Tab label="Ikone" />
                 <Tab label="Seznam" />
                 <Tab label="Obroba" />
+                <Tab label="Šahovnica" />
             </Tabs>
         </Box>
         <SwipeableViews
@@ -181,6 +197,20 @@ function Literatura() {
                     {data.map((entry, index) => <PdfIcon border entry={entry} key={index} />)}
                 </Box>
             </TabPanel>
+            <TabPanel value={tab} index={3}>
+                <Box
+                    ref={myRef}
+                    sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                        border: "1px solid",
+                    }}
+                >
+                    {data.map((entry, index) => <PdfIcon coloured entry={entry} index={index} key={index} pixelStart={pixelStart} />)}
+                </Box>
+            </TabPanel>
         </SwipeableViews>
     </Article>
 }
@@ -189,19 +219,65 @@ type PdfIconProps = {
     entry: DataProps;
     border?: boolean;
     coloured?: boolean;
+    index?: number;
+    pixelStart?: number;
 }
 
-function PdfIcon({ entry, border, coloured }: PdfIconProps) {
+let prevY = 0;
+let counter = 0;
+let offset = 0;
+
+function PdfIcon({ entry, border, coloured, index, pixelStart }: PdfIconProps) {
+    const iconRef = useRef<HTMLDivElement>(null);
+    const [color, setColor] = useState("initial");
+    const windowSize = useWindowSize()
+
+
+    useEffect(() => {
+        if (typeof index == "undefined" ||
+            windowSize.width == 0 ||
+            !pixelStart ||
+            !coloured ||
+            !iconRef.current)
+            return;
+
+        pixelStart++
+
+        const boundsY = iconRef.current.getBoundingClientRect().y
+        const y = (boundsY - pixelStart) / 298
+
+        console.log(index, pixelStart, boundsY);
+        if (prevY != y) {
+            offset = counter;
+            counter = 0
+        }
+
+        prevY = y;
+        counter++;
+
+        const x = index - (y * offset)
+
+        // console.log(x, y)
+
+        if ((x + y) % 2 == 0)
+            setColor("#initial")
+        else
+            setColor("#fcf4e0")
+    }, [iconRef, index, coloured, pixelStart, windowSize]);
+
+    const colorSX = coloured ? { backgroundColor: color } : {};
+
     return entry.image ? <Box
-        className="tile"
+        ref={iconRef}
         sx={{
-            width: "200px",
+            width: "198px",
             display: "flex",
-            height: "300px",
+            height: "298px",
             alignContent: "center",
             justifyContent: "center",
             overflowWrap: "break-word",
             border: border ? "1px solid #ccc" : "none",
+            ...colorSX,
             "& img": {
                 width: "100px!important",
                 height: "100px!important",

@@ -130,7 +130,6 @@ function MyMap({ mapRef }: MyMapProps) {
                     position={{ x, y }}
                     mapRef={mapRef}
                     collectApi={api => {
-                        console.log("pushed")
                         apis.push(api)
                     }}
                 />

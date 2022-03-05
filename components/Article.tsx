@@ -109,7 +109,7 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
                     maxWidth: maxWidth ? "100%" : "840px",
                     margin: "auto",
                     padding: "20px",
-                    boxSizing: "border-box",
+                    // boxSizing: "border-box",
                     ...center
                 }}
                 id="page-wrap"

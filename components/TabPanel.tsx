@@ -17,6 +17,7 @@ function TabPanel({ children, value, index, component }: TabPanelProps) {
                 <Box
                     component={component}
                     sx={{
+                        marginTop: "10px",
                         "& li": {
                             paddingTop: "0!important",
                             paddingBottom: "0!important",

@@ -195,7 +195,7 @@ function Gallery({ site }: GalleryProps) {
                                     maxWidth: "100%",
                                     maxHeight: "100vh",
                                     "& img": {
-                                        borderRadius: "17px",
+                                        borderRadius: "7px",
                                         objectFit: "scale-down",
                                     }
                                 }}>
@@ -208,7 +208,7 @@ function Gallery({ site }: GalleryProps) {
                                 {showSubtitles ? <Container sx={{
                                     backgroundColor: "white",
                                     padding: "20px",
-                                    borderRadius: "17px",
+                                    borderRadius: "7px",
                                     marginTop: "5px",
                                     paddingBottom: "40px",
                                 }}>

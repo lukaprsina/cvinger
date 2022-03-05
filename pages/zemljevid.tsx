@@ -77,7 +77,6 @@ function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
 
     const scale = parseFloat(styles.transform.get().replace("scale(", "").replace(")", ""));
     const test = hovered ? `scale(${scale * 1.5})` : `scale(${scale / 1.5})`
-    console.log(scale)
     api({
         opacity: hovered ? 1 : 0.8,
         transform: test,
@@ -88,7 +87,8 @@ function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
     if (!mapRef || !mapRef.current)
         return null;
 
-    const { x, y } = position;
+    const x = position.x - 8
+    const y = position.y - 7
     const bounds = mapRef.current.getBoundingClientRect();
     const link = toPDF(title);
 

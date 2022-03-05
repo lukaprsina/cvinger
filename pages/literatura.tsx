@@ -33,6 +33,9 @@ const MyLink = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, childr
             style={style}
             target="_blank"
             rel="noopener noreferrer"
+            sx={{
+                width: "100%",
+            }}
         >{children}</Link>
     )
 })
@@ -68,7 +71,7 @@ const literatura = data.map((entry: DataProps, index: number) => {
     if (entry.type == 1)
         substance = <>
             {entry.name && ToTypography(entry.name + ", ")}
-            {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
+            {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps", fontWeight: "bold" })}
             {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
             {entry.day && ToTypography(entry.day + " ")}
             {entry.month && ToTypography(entry.month + " ")}
@@ -85,7 +88,7 @@ const literatura = data.map((entry: DataProps, index: number) => {
 
     else if (entry.type == 2)
         substance = <>
-            {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
+            {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps", fontWeight: "bold" })}
             {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
             {entry.quarter ? ToTypography(String(entry.year) + entry.quarter + ", ") : ToTypography(entry.year + ", ")}
             {entry.publication && ToTypography(entry.publication + ": ", { fontStyle: "italic" })}
@@ -104,7 +107,7 @@ const literatura = data.map((entry: DataProps, index: number) => {
 
     else
         substance = <>
-            {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps" })}
+            {entry.authors && ToTypography(entry.authors + " ", { fontVariant: "small-caps", fontWeight: "bold" })}
             {entry.full_authors && ToTypography(String(entry.year) + " = " + entry.full_authors + " ", { fontVariant: "small-caps" })}
             {entry.day && ToTypography(entry.day + " ")}
             {entry.month && ToTypography(entry.month + " ")}
@@ -144,6 +147,7 @@ function Literatura() {
             >
                 <Tab label="Ikone" />
                 <Tab label="Seznam" />
+                <Tab label="Obroba" />
             </Tabs>
         </Box>
         <SwipeableViews
@@ -152,7 +156,6 @@ function Literatura() {
             onChangeIndex={(index: number) => setTab(index)}
             containerStyle={{
                 transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-                marginTop: "10px"
             }}
         >
             <TabPanel value={tab} index={0}>
@@ -168,27 +171,43 @@ function Literatura() {
             <TabPanel value={tab} index={1} component="ul">
                 {literatura}
             </TabPanel>
+            <TabPanel value={tab} index={2}>
+                <Box sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                }}>
+                    {data.map((entry, index) => <PdfIcon border entry={entry} key={index} />)}
+                </Box>
+            </TabPanel>
         </SwipeableViews>
     </Article>
 }
 
 type PdfIconProps = {
-    entry: DataProps
+    entry: DataProps;
+    border?: boolean;
+    coloured?: boolean;
 }
 
-function PdfIcon({ entry }: PdfIconProps) {
-    return entry.image ? <Box sx={{
-        width: "200px",
-        height: "300px",
-        textAlign: "center",
-        alignItems: "flex-start",
-        overflowWrap: "break-word",
-        "& img": {
-            width: "100px!important",
-            height: "100px!important",
-            objectFit: "scale-down",
-        },
-    }}>
+function PdfIcon({ entry, border, coloured }: PdfIconProps) {
+    return entry.image ? <Box
+        className="tile"
+        sx={{
+            width: "200px",
+            display: "flex",
+            height: "300px",
+            alignContent: "center",
+            justifyContent: "center",
+            overflowWrap: "break-word",
+            border: border ? "1px solid #ccc" : "none",
+            "& img": {
+                width: "100px!important",
+                height: "100px!important",
+                objectFit: "scale-down",
+            },
+        }}>
         <NextjsLink href={entry.path} prefetch={false} passHref>
             <MyLink
                 style={{

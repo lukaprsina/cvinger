@@ -86,7 +86,7 @@ function Navbar() {
                     variant="dense"
                     sx={{
                         width: "100vw",
-                        maxWidth: "1200px",
+                        maxWidth: "1100px",
                         margin: "auto",
                         display: "flex",
                         justifyContent: "space-between",

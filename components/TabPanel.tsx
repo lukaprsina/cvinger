@@ -18,7 +18,6 @@ function TabPanel({ children, value, index, component }: TabPanelProps) {
                     component={component}
                     sx={{
                         "& li": {
-
                             paddingTop: "0!important",
                             paddingBottom: "0!important",
                         }

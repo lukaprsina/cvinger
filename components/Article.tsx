@@ -108,6 +108,7 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
                 sx={{
                     maxWidth: maxWidth ? "100%" : "840px",
                     margin: "auto",
+                    marginTop: "50px",
                     padding: "20px",
                     paddingTop: "0",
                     // boxSizing: "border-box",

@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Typography, Box } from "@mui/material"
-import NextjsImage from "next/image"
+import NextjsImage, { StaticImageData } from "next/image"
 import Link from "next/link"
 
 type ArticleImageProps = {

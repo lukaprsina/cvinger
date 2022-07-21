@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { Typography } from "@mui/material"
-import { useSpring, animated, config } from "react-spring"
+import { useSpring, animated } from "react-spring"
 
 import Link from "next/link"
 import { Box } from "@mui/system"
-import NextjsImage from "next/image"
+import { StaticImageData } from "next/image"
 import useBreakpointMatch from "./useBreakpointMatch"
 
 import pot from "/public/images/home/krogci/01_pot.png"
@@ -68,7 +68,7 @@ function Item({ image, text, to }: ItemProps) {
                             }} />
                     </Box>
                     <Typography
-                        variant="caption"
+                        // variant="caption"
                         sx={{
                             margin: "15px 0",
                             textAlign: "center",
@@ -104,7 +104,7 @@ const HomeNavbar = () => {
             <Item image={vhod} text="Utrjen vhod" to="/vhod" />
             <Item image={jama} text="Cvingerska jama" to="/jama" />
 
-            <Item image={talilnice} text="Talilniško obmčje" to="/talilnice" />
+            <Item image={talilnice} text="Talilniško območje" to="/talilnice" />
             <Item image={gomile} text="Gomilno grobišče" to="/gomile" />
             <Item image={zemljevid} text="Zemljevid" to="/zemljevid" />
             <Item image={literatura} text="Literatura" to="/literatura" />

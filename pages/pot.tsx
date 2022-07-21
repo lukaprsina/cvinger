@@ -64,7 +64,7 @@ function Pot() {
 
         <PdfButton
             href="Uvodna_tabla_osnovna_šola.pdf"
-            text="Uvodna tabla osnovne šole"
+            text="Uvodna tabla"
         />
     </Article>
 }

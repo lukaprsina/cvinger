@@ -24,11 +24,8 @@ const theme = createTheme({
     },
     typography: {
         fontFamily: "Calibri, sans-serif",
-        fontSize: 16,
         allVariants: {
             lineHeight: "normal",
-        },
-        body1: {
             fontSize: 16,
         },
         caption: {

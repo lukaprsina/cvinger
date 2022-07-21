@@ -15,7 +15,15 @@ type LogoProps = {
 
 function Logo({ children, href, style = {} }: LogoProps) {
     return (
-        <a href={href} style={style} target="_blank" rel="noopener noreferrer">
+        <a
+            href={href}
+            style={{
+                margin: "10px",
+                ...style
+            }}
+            target="_blank"
+            rel="noopener noreferrer"
+        >
             {children}
         </a>
     )
@@ -57,6 +65,8 @@ const Footer = () => {
                 margin: "20px auto auto auto",
                 backgroundColor: "secondary.main",
                 padding: "20px",
+                boxShadow: "0 -3px 3px rgb(0 0 0 / 50%)",
+                borderTop: "1px solid rgb(135, 23, 31)",
             }}
         >
             <Box
@@ -68,8 +78,10 @@ const Footer = () => {
                 <Box
                     sx={{
                         display: "flex",
-                        flexFlow: "row nowrap",
+                        flexFlow: "row wrap",
+                        boxSizing: "border-box",
                         justifyContent: "space-between",
+                        alignContent: "flex-end",
                         "& a": { textDecoration: "none", color: "inherit", width: "200px", height: "100px" }
                     }}
                 >
@@ -82,7 +94,7 @@ const Footer = () => {
                             alt="Univerza v Ljubljani: Filozofska fakulteta"
                         />
                     </Logo>
-                    <Logo href="https://www.zvkds.si">
+                    <Logo href="https://www.zvkds.si" style={{ transform: "translateY(14px)" }}>
                         <LogoImage
                             src={ZVKDS}
                             alt="Zavod za varstvo kulturne dediščine Slovenije"
@@ -90,7 +102,7 @@ const Footer = () => {
                     </Logo>
                     <Logo
                         href="https://www.dolenjskimuzej.si/"
-                        style={{ transform: "translateY(18px)" }}
+                        style={{ transform: "translateY(55px)" }}
                     >
                         <LogoImage src={dolenjski_muzej} alt="Dolenjski muzej" />
                     </Logo>
@@ -114,7 +126,8 @@ const Footer = () => {
                             />
                             <Typography
                                 sx={{
-                                    margin: "5px 0"
+                                    margin: "5px 0",
+                                    fontSize: 12
                                 }}
                                 align="center"
                                 variant="subtitle2"
@@ -128,7 +141,7 @@ const Footer = () => {
                     variant="contained"
                     color="primary"
                     sx={{
-                        margin: "90px auto 0",
+                        margin: "20px auto 0",
                         maxWidth: "800px",
                         width: "100%",
                         textTransform: "initial!important",

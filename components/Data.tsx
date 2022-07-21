@@ -1,3 +1,4 @@
+import { StaticImageData } from "next/image"
 import img0 from "/public/documents/output/Archäologisches Korrespondenzblatt 35, 2005, 191-204.jpg"
 import img1 from "/public/documents/output/Arheo 34, 2017, 79-93.jpg"
 import img2 from "/public/documents/output/Arheo 35, 2018.jpg"

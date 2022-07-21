@@ -31,8 +31,6 @@ type GalleryImage = {
 const swiper_button_color = "black";
 let destroyedSwiper = true;
 
-/* Todo: break up components, beacuse it rerenders too many times */
-
 function getSources(site: JSX.Element): GalleryImage[] {
     const sources: GalleryImage[] = [];
 

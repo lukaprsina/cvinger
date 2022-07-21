@@ -109,6 +109,7 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
                     maxWidth: maxWidth ? "100%" : "840px",
                     margin: "auto",
                     padding: "20px",
+                    paddingTop: "0",
                     // boxSizing: "border-box",
                     ...center
                 }}
@@ -118,7 +119,7 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
                     <Typography
                         variant="h2"
                         sx={{
-                            marginTop: "28px",
+                            marginTop: "48px",
                             marginBottom: "32px",
                             color: "primary.main",
                             fontWeight: "bold",

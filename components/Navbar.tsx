@@ -30,10 +30,8 @@ function NavbarButton({ to, children }: NavbarButtonType) {
                     sx={{
                         color: "secondary.light",
                         textTransform: "none",
-                        fontSize: "typography.fontSize",
                     }}
                     color={clicked ? "success" : "primary"}
-                    size="small"
                 >
                     {children}
                 </Button>
@@ -80,6 +78,9 @@ function Navbar() {
             <AppBar
                 position="sticky"
                 color="primary"
+                sx={{
+                    boxShadow: "0 3px 3px rgb(0 0 0 / 50%)"
+                }}
             >
                 <Toolbar
                     disableGutters

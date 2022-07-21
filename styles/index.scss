@@ -1,11 +1,48 @@
 html,
 body {
- height: 100%;
+  height: 100%;
 }
 
-.gallery-open {    
-    overflow-y: hidden;
-    width: 100%;
+.gallery-open {
+  overflow-y: hidden;
+  width: 100%;
+}
+
+@font-face {
+  font-family: "Calibri";
+  src: url("../assets/Calibri/Calibri Regular.ttf");
+}
+
+@font-face {
+  font-family: "Calibri";
+  src: url("../assets/Calibri/Calibri Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Calibri";
+  src: url("../assets/Calibri/Calibri Italic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Calibri";
+  src: url("../assets/Calibri/Calibri Bold Italic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Calibri";
+  src: url("../assets/Calibri/Calibri Italic.ttf");
+  font-style: oblique;
+}
+
+@font-face {
+  font-family: "Calibri";
+  src: url("../assets/Calibri/Calibri Bold Italic.ttf");
+  font-weight: bold;
+  font-style: oblique;
 }
 
 /* .bm-item {
@@ -54,7 +91,7 @@ body {
   background: #fefcf6;
   padding: 1.5em 0.5em 0;
   font-size: 1.15em;
-  overflow: hidden!important;
+  overflow: hidden !important;
 }
 
 /* Morph shape necessary with bubble or elastic */

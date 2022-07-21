@@ -4,7 +4,7 @@ import NextjsLink from 'next/link';
 import NextjsImage from 'next/image';
 import data, { DataProps } from "../components/Data"
 import Article from '../components/Article'
-import { Box } from '@mui/system';
+import { Box, minHeight } from '@mui/system';
 import SwipeableViews from 'react-swipeable-views';
 import TabPanel from '../components/TabPanel';
 
@@ -181,49 +181,48 @@ function PdfIcon({ entry }: PdfIconProps) {
     return entry.image ? <Box
         sx={{
             width: "200px",
-            display: "flex",
             height: "300px",
-            alignContent: "center",
-            justifyContent: "center",
+            textAlign: "center",
             overflowWrap: "break-word",
-            "& span": {
-
+            "& img": {
                 objectFit: "scale-down",
+                maxHeight: "200px",
+                maxWidth: "200px",
                 border: "1px solid black!important",
             },
         }}>
-        <Box
-            sx={{
-                width: "100px",
-                height: "100px"
-            }}
+        <NextjsLink
+            href={entry.path}
+            prefetch={false}
+            passHref
         >
-            <NextjsLink href={entry.path} prefetch={false} passHref>
-                <MyLink
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                        alignContent: "center",
-                    }}
-                >
-                    <NextjsImage
-                        src={entry.image}
-                        alt={entry.file}
-                    />
-                    <Typography sx={{
-                        width: "80%",
-                    }}
-                        textAlign="center"
-                        paragraph
-                        variant="body2"
-                    >
-                        {entry.file}
-                    </Typography>
-                </MyLink>
-            </NextjsLink>
-        </Box>
+            <MyLink
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    alignContent: "center",
+                }}
+            >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                    src={entry.image.src}
+                    alt={entry.file}
+                />
+            </MyLink>
+        </NextjsLink>
+
+        <Typography sx={{
+            width: "100%",
+            marginTop: "10px"
+        }}
+            textAlign="center"
+            paragraph
+            variant="body2"
+        >
+            {entry.file}
+        </Typography>
     </Box> : null
 }
 

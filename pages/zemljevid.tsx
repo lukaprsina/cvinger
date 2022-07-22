@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Container, IconButton, Tab, Tabs, Tooltip } from '@mui/material';
+import { AppBar, Button, ButtonGroup, Container, IconButton, Tab, Tabs, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useMemo, useRef, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
@@ -12,6 +12,7 @@ import useBreakpointMatch from '../components/useBreakpointMatch';
 import { useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 import useWindowSize from '../components/useWindowSize';
+import FilledTabs from '../components/FilledTabs';
 
 type MapButtonProps = {
     onClick: () => void;
@@ -198,22 +199,15 @@ function Zemljevid() {
     const mapRef = useRef<HTMLDivElement>(null)
 
     return <Article maxWidth>
-        <Box>
-            <Tabs
-                value={tab}
-                onChange={(e, newValue) => setTab(newValue)}
-                scrollButtons="auto"
-                variant="scrollable"
-                sx={{
-                    "& button": {
-                        textTransform: "initial!important"
-                    },
-                }}
-            >
-                <Tab label="Zemljevid" />
-                <Tab label="Google zemljevid" />
-            </Tabs>
-        </Box>
+        <FilledTabs
+            value={tab}
+            onChange={(e, newValue) => setTab(newValue)}
+            scrollButtons="auto"
+            variant="scrollable"
+        >
+            <Tab label="Zemljevid" />
+            <Tab label="Google zemljevid" />
+        </FilledTabs>
         <Container ref={containerRef} sx={{
             overflow: "hidden",
             boxSizing: "border-box",

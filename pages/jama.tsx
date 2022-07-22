@@ -15,6 +15,7 @@ import { ReactCompareSlider } from 'react-compare-slider';
 import Image from "next/image"
 import PdfButton from "../components/PdfButton"
 import SwipeableViews from "react-swipeable-views"
+import FilledTabs from "../components/FilledTabs"
 
 function Jama() {
     const [tab, setTab] = React.useState(0);
@@ -72,21 +73,16 @@ function Jama() {
         </Typography>
 
         <Box>
-            <Tabs
+            <FilledTabs
                 value={tab}
                 onChange={(e, newValue) => setTab(newValue)}
                 scrollButtons="auto"
                 variant="scrollable"
-                sx={{
-                    "& button": {
-                        textTransform: "initial!important"
-                    },
-                }}
             >
                 <Tab label="Model jame pred raziskavami" />
                 <Tab label="Vhod jame" />
                 <Tab label="Notranjost jame" />
-            </Tabs>
+            </FilledTabs>
         </Box>
         <Container
             sx={{

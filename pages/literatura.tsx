@@ -7,6 +7,7 @@ import Article from '../components/Article'
 import { Box, minHeight } from '@mui/system';
 import SwipeableViews from 'react-swipeable-views';
 import TabPanel from '../components/TabPanel';
+import FilledTabs from '../components/FilledTabs';
 
 function ToTypography(text: string, sx?: SxProps) {
     return <>
@@ -122,7 +123,7 @@ function Literatura() {
 
     return <Article title="Literatura">
         <Box>
-            <Tabs
+            <FilledTabs
                 value={tab}
                 onChange={(e: React.SyntheticEvent, newValue: number) => setTab(newValue)}
                 scrollButtons="auto"
@@ -130,7 +131,7 @@ function Literatura() {
             >
                 <Tab label="Ikone" />
                 <Tab label="Seznam" />
-            </Tabs>
+            </FilledTabs>
         </Box>
         <SwipeableViews
             axis='x'

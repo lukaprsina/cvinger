@@ -11,6 +11,7 @@ import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import useBreakpointMatch from '../components/useBreakpointMatch';
 import { useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
+import useWindowSize from '../components/useWindowSize';
 
 type MapButtonProps = {
     onClick: () => void;
@@ -32,13 +33,6 @@ const markers = [
     { x: 643, y: 633, text: "Informativna tabla gomilno grobišče" },
     { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
 ];
-
-type MarkerProps = {
-    title: string;
-    position: { x: number, y: number };
-    mapRef: React.RefObject<HTMLDivElement>;
-    mapScale: number;
-}
 
 function MapButton({ onClick, icon, children }: MapButtonProps) {
     const { matches } = useBreakpointMatch("mdUp", true);
@@ -68,7 +62,15 @@ function toPDF(title: string): string {
     return "/documents/table/" + title.replace(/ /g, "_") + ".pdf";
 }
 
+type MarkerProps = {
+    title: string;
+    position: { x: number, y: number };
+    mapRef: React.RefObject<HTMLDivElement>;
+    mapScale: number;
+}
+
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
+    const windowSize = useWindowSize();
     const [hovered, setHovered] = useState(false);
     const [styles, api] = useSpring(() => ({
         scale: mapScale,

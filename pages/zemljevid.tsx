@@ -118,10 +118,18 @@ type MyMapProps = {
 }
 
 function MyMap({ mapRef }: MyMapProps) {
+    const [built, setBuilt] = useState(false)
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setTimeout(() => {
+                setBuilt(true)
+            }, 100)
+        }
+    }, [])
 
     return <TransformWrapper>
         {(controls) => (
-
             <>
                 <ButtonGroup
                     orientation='vertical'
@@ -160,7 +168,7 @@ function MyMap({ mapRef }: MyMapProps) {
                             src={zemljevid}
                             priority
                         />
-                        {markers.map(({ x, y, text }, index) => {
+                        {built && markers.map(({ x, y, text }, index) => {
                             return <Marker
                                 key={index}
                                 title={text}

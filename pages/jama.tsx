@@ -87,10 +87,16 @@ function Jama() {
         <Container
             sx={{
                 overflow: "hidden",
-                border: "1px solid black",
                 width: "100%",
                 height: `${sketchfabHeight}px`,
                 padding: "0px!important",
+                mb: "5px",
+                "& div": {
+                    mt: "0",
+                },
+                "& iframe": {
+                    borderRadius: "0 0 7px 7px",
+                }
             }}
         >
             <SwipeableViews
@@ -156,6 +162,7 @@ function Jama() {
             tudi po zaključenih raziskavah ostal neznanka.
         </Typography>
         <ReactCompareSlider
+            id="jamaCompare"
             itemOne={(
                 <Image
                     src={first}

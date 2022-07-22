@@ -7,7 +7,7 @@ const FilledTabs = styled(Tabs)({
         textTransform: "initial!important",
         backgroundColor: "#fefcf6",
         color: "black",
-        borderRadius: "7px 7px 0 0"
+        borderRadius: "7px 7px 0 0",
     },
     "& button:hover": {
         backgroundColor: "lightgray",

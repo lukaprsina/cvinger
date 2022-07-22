@@ -23,20 +23,6 @@ type MyLinkProps = {
     style: React.CSSProperties
 }
 
-// eslint-disable-next-line react/display-name
-const MyLink = React.forwardRef<HTMLAnchorElement, any>(({ onClick, href, children, style }: MyLinkProps, ref) => {
-    return (
-        <Link
-            onClick={onClick}
-            href={href}
-            ref={ref}
-            style={style}
-            target="_blank"
-            rel="noopener noreferrer"
-        >{children}</Link>
-    )
-})
-
 data.sort((a, b) => {
     let first = a.authors ? a.authors : ""
     let second = b.authors ? b.authors : ""
@@ -125,8 +111,8 @@ const literatura = data.map((entry: DataProps, index: number) => {
         listStylePosition: "outside!important",
     }}>
         {substance}
-        [<NextjsLink href={entry.path} prefetch={false} passHref>
-            <MyLink>{entry.size}</MyLink>
+        [<NextjsLink href={entry.path} prefetch={false}>
+            {entry.size}
         </NextjsLink>]
     </List>
 })
@@ -191,38 +177,39 @@ function PdfIcon({ entry }: PdfIconProps) {
                 border: "1px solid black!important",
             },
         }}>
-        <NextjsLink
+        <a
             href={entry.path}
-            prefetch={false}
-            passHref
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                alignContent: "center",
+                textDecoration: "none",
+                color: "initial"
+            }}
         >
-            <MyLink
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    alignContent: "center",
-                }}
-            >
+            <Box sx={{ maxWidth: "150px" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src={entry.image.src}
                     alt={entry.file}
                 />
-            </MyLink>
-        </NextjsLink>
 
-        <Typography sx={{
-            width: "100%",
-            marginTop: "10px"
-        }}
-            textAlign="center"
-            paragraph
-            variant="body2"
-        >
-            {entry.file}
-        </Typography>
+                <Typography sx={{
+                    width: "100%",
+                    marginTop: "10px"
+                }}
+                    textAlign="center"
+                    paragraph
+                    variant="body2"
+                >
+                    {entry.file}
+                </Typography>
+            </Box>
+        </a>
     </Box> : null
 }
 

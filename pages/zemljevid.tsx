@@ -7,7 +7,7 @@ import TabPanel from '../components/TabPanel';
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { Add, Circle, Close, Remove } from '@mui/icons-material';
+import { Add, Circle, Close, LocationOn, Remove } from '@mui/icons-material';
 import useBreakpointMatch from '../components/useBreakpointMatch';
 import { useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
@@ -62,7 +62,7 @@ function MapButton({ onClick, icon, children }: MapButtonProps) {
     </>
 }
 
-const AnimatedCircle = animated(Circle)
+const AnimatedCircle = animated(LocationOn)
 
 function toPDF(title: string): string {
     return "/documents/table/" + title.replace(/ /g, "_") + ".pdf";
@@ -71,15 +71,13 @@ function toPDF(title: string): string {
 function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
     const [styles, api] = useSpring(() => ({
-        transform: "scale(1)",
+        scale: 1,
         opacity: 0.8,
     }));
 
-    const scale = parseFloat(styles.transform.get().replace("scale(", "").replace(")", ""));
-    const hoverScale = hovered ? `scale(${scale * 1.5})` : `scale(1)`
     api({
         opacity: hovered ? 1 : 0.8,
-        transform: hoverScale,
+        scale: hovered ? 2.75 : 2
     });
 
     useMemo(() => collectApi(api), [api, collectApi]);

@@ -111,7 +111,7 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
                     marginTop: "50px",
                     padding: "20px",
                     paddingTop: "0",
-                    // boxSizing: "border-box",
+                    boxSizing: "border-box",
                     ...center
                 }}
                 id="page-wrap"
@@ -131,7 +131,9 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
                         {title}
                     </Typography>
                 ) : null}
-                {children}
+                <Box sx={{ textAlign: 'justify' }}>
+                    {children}
+                </Box>
             </Box>
             <Footer />
         </Box>

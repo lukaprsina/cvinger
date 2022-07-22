@@ -76,7 +76,7 @@ function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
     }));
 
     const scale = parseFloat(styles.transform.get().replace("scale(", "").replace(")", ""));
-    const hoverScale = hovered ? `scale(${scale * 1.5})` : `scale(${scale / 1.5})`
+    const hoverScale = hovered ? `scale(${scale * 1.5})` : `scale(1)`
     api({
         opacity: hovered ? 1 : 0.8,
         transform: hoverScale,
@@ -209,7 +209,7 @@ function Zemljevid() {
     const containerRef = useRef<HTMLDivElement>(null)
     const mapRef = useRef<HTMLDivElement>(null)
 
-    return <Article title="Zemljevid" maxWidth>
+    return <Article maxWidth>
         <Box>
             <Tabs
                 value={tab}

@@ -68,9 +68,9 @@ function Item({ image, text, to }: ItemProps) {
                             }} />
                     </Box>
                     <Typography
-                        // variant="caption"
                         sx={{
                             margin: "15px 0",
+                            mb: "16px",
                             textAlign: "center",
                             color: "rgb(135, 23, 31)",
                         }}
@@ -92,6 +92,7 @@ const HomeNavbar = () => {
                 display: "flex",
                 flexFlow: "row wrap",
                 margin: "50px 0",
+                marginBottom: "31px",
                 justifyContent: "space-between",
             }}
         >

@@ -30,6 +30,9 @@ function NavbarButton({ to, children }: NavbarButtonType) {
                     sx={{
                         color: "secondary.light",
                         textTransform: "none",
+                        ":hover": {
+                            backgroundColor: "primary.light"
+                        }
                     }}
                     color={clicked ? "success" : "primary"}
                 >
@@ -79,6 +82,7 @@ function Navbar() {
                 position="sticky"
                 color="primary"
                 sx={{
+                    height: "50px",
                     boxShadow: "0 3px 3px rgb(0 0 0 / 50%)"
                 }}
             >

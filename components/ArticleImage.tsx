@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Typography, Box } from "@mui/material"
-import NextjsImage, { StaticImageData } from "next/image"
+import NextjsImage from "next/image"
 import Link from "next/link"
 
 type ArticleImageProps = {
@@ -71,7 +71,7 @@ function ArticleImage({ src, caption, center = false, noBorder = false, priority
                 paragraph
                 align={center ? "center" : "left"}
                 sx={{
-                    mt: "10px",
+                    mt: "5px",
                 }}
             >
                 {caption}

@@ -171,10 +171,11 @@ function PdfIcon({ entry }: PdfIconProps) {
             height: "300px",
             textAlign: "center",
             overflowWrap: "break-word",
+            overflow: "hidden",
             "& img": {
                 objectFit: "scale-down",
                 maxHeight: "200px",
-                maxWidth: "200px",
+                maxWidth: "150px",
                 border: "1px solid black!important",
             },
         }}>
@@ -192,7 +193,9 @@ function PdfIcon({ entry }: PdfIconProps) {
                 color: "initial"
             }}
         >
-            <Box sx={{ maxWidth: "150px" }}>
+            <Box sx={{
+                maxWidth: "150px",
+            }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src={entry.image.src}

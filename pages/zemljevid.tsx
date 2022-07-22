@@ -118,10 +118,13 @@ type MyMapProps = {
 }
 
 function MyMap({ mapRef }: MyMapProps) {
+    const [built, setBuilt] = useState(false)
 
+    useEffect(() => {
+        setBuilt(true)
+    }, [])
     return <TransformWrapper>
         {(controls) => (
-
             <>
                 <ButtonGroup
                     orientation='vertical'

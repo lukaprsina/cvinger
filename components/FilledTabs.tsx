@@ -15,7 +15,7 @@ const FilledTabs = styled(Tabs)({
     },
     "& .Mui-selected": {
         backgroundColor: "#87171f",
-        color: "white"
+        color: "white!important"
     }
 })
 

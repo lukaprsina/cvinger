@@ -7,7 +7,7 @@ import TabPanel from '../components/TabPanel';
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { Add, Circle, Close, LocationOn, Remove } from '@mui/icons-material';
+import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import useBreakpointMatch from '../components/useBreakpointMatch';
 import { useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
@@ -74,6 +74,13 @@ function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
         scale: 2,
         opacity: 0.8,
     }));
+    const [isItTimeYet, setIsItTimeYet] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsItTimeYet(true)
+        }, 1000)
+    }, [])
 
     api({
         opacity: hovered ? 1 : 0.8,
@@ -94,8 +101,8 @@ function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
         <Tooltip
             onClick={() => { window.open(link, "_blank") }}
             title={title}
-            onMouseEnter={() => { setHovered(true) }}
-            onMouseLeave={() => { setHovered(false) }}
+            onMouseEnter={isItTimeYet ? () => { setHovered(true) } : undefined}
+            onMouseLeave={isItTimeYet ? () => { setHovered(false) } : undefined}
         >
             <AnimatedCircle
                 color='info'
@@ -132,7 +139,7 @@ function MyMap({ mapRef }: MyMapProps) {
                     }}
                 />
             }))
-        }, 100)
+        }, 1000)
     }, [setMarkersJSX, mapRef])
 
     return <TransformWrapper>

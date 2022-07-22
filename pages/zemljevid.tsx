@@ -37,7 +37,7 @@ type MarkerProps = {
     title: string;
     position: { x: number, y: number };
     mapRef: React.RefObject<HTMLDivElement>;
-    collectApi: (api: any) => void;
+    mapScale: number;
 }
 
 function MapButton({ onClick, icon, children }: MapButtonProps) {
@@ -68,26 +68,17 @@ function toPDF(title: string): string {
     return "/documents/table/" + title.replace(/ /g, "_") + ".pdf";
 }
 
-function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
+function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
     const [styles, api] = useSpring(() => ({
-        scale: 2,
+        scale: mapScale,
         opacity: 0.8,
     }));
-    const [isItTimeYet, setIsItTimeYet] = useState(true);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setIsItTimeYet(true)
-        }, 1000)
-    }, [])
 
     api({
         opacity: hovered ? 1 : 0.8,
-        scale: hovered ? 2.5 : 2
+        scale: hovered ? mapScale * 1.5 : mapScale
     });
-
-    useMemo(() => collectApi(api), [api, collectApi]);
 
     if (!mapRef || !mapRef.current)
         return null;
@@ -101,8 +92,8 @@ function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
         <Tooltip
             onClick={() => { window.open(link, "_blank") }}
             title={title}
-            onMouseEnter={isItTimeYet ? () => { setHovered(true) } : undefined}
-            onMouseLeave={isItTimeYet ? () => { setHovered(false) } : undefined}
+            onMouseEnter={() => { setHovered(true) }}
+            onMouseLeave={() => { setHovered(false) }}
         >
             <AnimatedCircle
                 color='info'
@@ -124,31 +115,11 @@ type MyMapProps = {
 }
 
 function MyMap({ mapRef }: MyMapProps) {
-    const [markersJSX, setMarkersJSX] = useState<JSX.Element[]>([]);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setMarkersJSX(markers.map(({ x, y, text }, index) => {
-                return <Marker
-                    key={index}
-                    title={text}
-                    position={{ x, y }}
-                    mapRef={mapRef}
-                    collectApi={api => {
-                        apis.push(api)
-                    }}
-                />
-            }))
-        }, 1000)
-    }, [setMarkersJSX, mapRef])
 
     return <TransformWrapper>
-        {(controls) => {
-            const scale = 1 / controls.state.scale
-            if (Number.isFinite(scale)) {
-                apis.forEach(api => api({ transform: `scale(${scale})` }))
-            }
-            return <>
+        {(controls) => (
+
+            <>
                 <ButtonGroup
                     orientation='vertical'
                     variant='contained'
@@ -186,11 +157,19 @@ function MyMap({ mapRef }: MyMapProps) {
                             src={zemljevid}
                             priority
                         />
-                        {markersJSX}
+                        {markers.map(({ x, y, text }, index) => {
+                            return <Marker
+                                key={index}
+                                title={text}
+                                position={{ x, y }}
+                                mapRef={mapRef}
+                                mapScale={2 / controls.state.scale}
+                            />
+                        })}
                     </TransformComponent>
                 </Box>
             </>
-        }}
+        )}
     </TransformWrapper>
 }
 

@@ -145,7 +145,9 @@ function MyMap({ mapRef }: MyMapProps) {
     return <TransformWrapper>
         {(controls) => {
             const scale = 1 / controls.state.scale
-            apis.forEach(api => api({ transform: `scale(${scale})` }))
+            if (Number.isFinite(scale)) {
+                apis.forEach(api => api({ transform: `scale(${scale})` }))
+            }
             return <>
                 <ButtonGroup
                     orientation='vertical'

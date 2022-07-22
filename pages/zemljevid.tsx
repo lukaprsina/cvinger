@@ -67,14 +67,14 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
 
     api({
         opacity: hovered ? 1 : 0.8,
-        scale: hovered ? mapScale * 1.5 : mapScale
+        scale: hovered ? mapScale * 1.2 : mapScale
     });
 
     if (!mapRef || !mapRef.current)
         return null;
 
-    const x = position.x //- 6//- 8
-    const y = position.y - 8//- 17//- 7
+    const x = position.x
+    const y = position.y - 8
     const bounds = mapRef.current.getBoundingClientRect();
     const link = toPDF(title);
 
@@ -156,7 +156,7 @@ function MyMap({ mapRef }: MyMapProps) {
                                 title={text}
                                 position={{ x, y }}
                                 mapRef={mapRef}
-                                mapScale={2 / controls.state.scale}
+                                mapScale={1.5 / controls.state.scale}
                             />
                         })}
                     </TransformComponent>

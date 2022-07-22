@@ -27,6 +27,7 @@ const theme = createTheme({
         allVariants: {
             lineHeight: "normal",
             fontSize: 16,
+            color: "black"
         },
         caption: {
             fontSize: 14,

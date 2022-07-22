@@ -17,7 +17,6 @@ import FilledTabs from '../components/FilledTabs';
 type MapButtonProps = {
     onClick: () => void;
     icon: JSX.Element;
-    children: React.ReactNode;
 }
 
 const markers = [
@@ -35,26 +34,14 @@ const markers = [
     { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
 ];
 
-function MapButton({ onClick, icon, children }: MapButtonProps) {
-    const { matches } = useBreakpointMatch("mdUp", true);
-
-    return <>
-        {matches ? (
-            <Button
-                startIcon={icon}
-                onClick={onClick}
-                color="secondary"
-            >
-                {children}
-            </Button>
-        ) : (
-            <IconButton
-                onClick={onClick}
-            >
-                {icon}
-            </IconButton>
-        )}
-    </>
+function MapButton({ onClick, icon }: MapButtonProps) {
+    return (
+        <IconButton
+            onClick={onClick}
+        >
+            {icon}
+        </IconButton>
+    )
 }
 
 const AnimatedCircle = animated(LocationOn)
@@ -86,8 +73,8 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     if (!mapRef || !mapRef.current)
         return null;
 
-    const x = position.x - 8
-    const y = position.y - 7
+    const x = position.x //- 6//- 8
+    const y = position.y - 8//- 17//- 7
     const bounds = mapRef.current.getBoundingClientRect();
     const link = toPDF(title);
 
@@ -104,6 +91,7 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
                     position: "absolute",
                     left: x * (bounds.width / zemljevid.width),
                     top: y * (bounds.height / zemljevid.height),
+                    transformOrigin: "center bottom",
                     ...styles,
                 }}
             />
@@ -137,7 +125,7 @@ function MyMap({ mapRef }: MyMapProps) {
                     sx={{
                         position: "absolute",
                         zIndex: 2,
-                        bottom: "20px",
+                        bottom: "100px",
                         right: "20px",
                         backgroundColor: "secondary.main",
                     }}
@@ -145,21 +133,15 @@ function MyMap({ mapRef }: MyMapProps) {
                     <MapButton
                         icon={<Add />}
                         onClick={() => controls.zoomIn()}
-                    >
-                        Povečaj
-                    </MapButton>
+                    />
                     <MapButton
                         icon={<Remove />}
                         onClick={() => controls.zoomOut()}
-                    >
-                        Zmanjšaj
-                    </MapButton>
+                    />
                     <MapButton
                         icon={<Close />}
                         onClick={() => controls.resetTransform()}
-                    >
-                        Ponastavi
-                    </MapButton>
+                    />
                 </ButtonGroup>
 
                 <Box ref={mapRef}>
@@ -229,6 +211,7 @@ function Zemljevid() {
                 onChangeIndex={(index: number) => setTab(index)}
                 containerStyle={{
                     transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+                    marginTop: "-10px"
                 }}
             >
                 <TabPanel value={tab} index={0}>

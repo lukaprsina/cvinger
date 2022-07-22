@@ -71,13 +71,13 @@ function toPDF(title: string): string {
 function Marker({ title, position, mapRef, collectApi }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
     const [styles, api] = useSpring(() => ({
-        scale: 1,
+        scale: 2,
         opacity: 0.8,
     }));
 
     api({
         opacity: hovered ? 1 : 0.8,
-        scale: hovered ? 2.75 : 2
+        scale: hovered ? 2.5 : 2
     });
 
     useMemo(() => collectApi(api), [api, collectApi]);

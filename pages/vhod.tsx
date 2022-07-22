@@ -27,7 +27,7 @@ function Vhod() {
             zunanje in notranje lice, grajeno iz večjih kamnov. Zid je imel
             še dve liniji večjih kamnov v notranjosti. Vmesni prostori so
             bili, podobno kot je bilo to pri obzidju okoli gradišča,
-            zapolnjeni z manj šimi kamni in drobirjem.
+            zapolnjeni z manjšimi kamni in drobirjem.
         </Typography>
 
         <ArticleImage

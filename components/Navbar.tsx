@@ -27,12 +27,13 @@ function NavbarButton({ to, children }: NavbarButtonType) {
                 <Button
                     fullWidth={false}
                     variant={clicked ? "contained" : "text"}
+                    className={clicked ? "navbar-button" : ""}
                     sx={{
                         color: "secondary.light",
                         textTransform: "none",
                         ":hover": {
                             backgroundColor: "primary.light"
-                        }
+                        },
                     }}
                     color={clicked ? "success" : "primary"}
                 >
@@ -68,8 +69,6 @@ function Circle() {
 }
 
 let path: string;
-
-/* Shows when reloading */
 
 function Navbar() {
     let { matches } = useBreakpointMatch("mdUp", true);

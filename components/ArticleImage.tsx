@@ -71,7 +71,7 @@ function ArticleImage({ src, caption, center = false, noBorder = false, priority
                 paragraph
                 align={center ? "center" : "left"}
                 sx={{
-                    mt: "5px",
+                    mt: "3px",
                 }}
             >
                 {caption}

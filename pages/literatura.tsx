@@ -1,10 +1,9 @@
-import { SxProps, Typography, Link, List, Tabs, Tab } from '@mui/material';
+import { SxProps, Typography, List, Tab } from '@mui/material';
 import React from 'react';
 import NextjsLink from 'next/link';
-import NextjsImage from 'next/image';
 import data, { DataProps } from "../components/Data"
 import Article from '../components/Article'
-import { Box, minHeight } from '@mui/system';
+import { Box } from '@mui/system';
 import SwipeableViews from 'react-swipeable-views';
 import TabPanel from '../components/TabPanel';
 import FilledTabs from '../components/FilledTabs';

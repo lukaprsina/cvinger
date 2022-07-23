@@ -18,7 +18,7 @@ const theme = createTheme({
             light: "#fefcf6"
         },
         info: {
-            main: "rgba(21, 101, 192, 0.87)"
+            main: "#303880"
         },
         success: {
             main: "rgba(254, 252, 246, 0.3)",

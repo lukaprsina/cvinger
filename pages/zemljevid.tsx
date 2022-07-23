@@ -1,6 +1,6 @@
-import { AppBar, Button, ButtonGroup, Container, IconButton, Tab, Tabs, Tooltip } from '@mui/material';
+import { ButtonGroup, Container, IconButton, Tab, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import Article from '../components/Article';
 import TabPanel from '../components/TabPanel';
@@ -8,7 +8,6 @@ import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
-import useBreakpointMatch from '../components/useBreakpointMatch';
 import { useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 import useWindowSize from '../components/useWindowSize';
@@ -62,11 +61,9 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
     const [styles, api] = useSpring(() => ({
         scale: mapScale,
-        opacity: 0.8,
     }));
 
     api({
-        opacity: hovered ? 1 : 0.8,
         scale: hovered ? mapScale * 1.2 : mapScale
     });
 
@@ -98,8 +95,6 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
         </Tooltip>
     )
 }
-
-let apis: any[] = []
 
 type MyMapProps = {
     mapRef: React.RefObject<HTMLDivElement>;

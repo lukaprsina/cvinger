@@ -1,5 +1,4 @@
 // https://gist.github.com/xiel/9c8e58bb5854eeec8de779f9da7f85b6
-import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { Theme, useTheme, Breakpoint } from '@mui/material'
 

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 
 // https://stackoverflow.com/a/57926311/14393392
 function useEventListener(eventName: string, handler: any, element: EventTarget | null = null) {

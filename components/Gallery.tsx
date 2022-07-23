@@ -1,4 +1,4 @@
-import React, { JSXElementConstructor, ReactElement, useEffect, useMemo, useRef, useState } from "react"
+import React, { JSXElementConstructor, ReactElement, useEffect, useState } from "react"
 
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Pagination, Scrollbar, A11y, Keyboard } from "swiper"

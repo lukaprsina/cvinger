@@ -7,7 +7,6 @@ import HomeNavbar from "../components/HomeNavbar"
 
 import panorama from "/public/images/home/panorama.jpg"
 import pot1 from "/public/images/home/pot1.jpg"
-import Link from "next/link"
 
 function Home() {
     return <Article noNavbar>
@@ -79,7 +78,7 @@ function Home() {
             Dolenjske Toplice iz leta 2018.
         </Typography>
 
-        <Typography paragraph>
+        <Typography>
             Zaradi svojega regionalnega pomena je bil Cvinger kot železarsko
             središče vključen v več mednarodnih raziskovalnih in
             promocijskih projektov. V sklopu projekta{' '}

@@ -16,13 +16,6 @@ function ToTypography(text: string, sx?: SxProps) {
     </>
 }
 
-type MyLinkProps = {
-    children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
-    href: any,
-    onClick: any,
-    style: React.CSSProperties
-}
-
 data.sort((a, b) => {
     let first = a.authors ? a.authors : ""
     let second = b.authors ? b.authors : ""
@@ -111,9 +104,9 @@ const literatura = data.map((entry: DataProps, index: number) => {
         listStylePosition: "outside!important",
     }}>
         {substance}
-        [<NextjsLink href={entry.path} prefetch={false}>
+        [<a href={entry.path} target="_blank" rel="noopener noreferrer">
             {entry.size}
-        </NextjsLink>]
+        </a>]
     </List>
 })
 

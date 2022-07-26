@@ -69,7 +69,7 @@ function Home() {
             kulturnemu spomeniku zagotavlja{' '}
             <a
                 target="_blank"
-                href="documents/Odlok o razglasitvi kulturnih spomenikov Dolenjske Toplice.pdf"
+                href="https://lukaprsina.github.io/cvinger.net/documents/Odlok o razglasitvi kulturnih spomenikov Dolenjske Toplice.pdf"
                 rel="noopener noreferrer"
             >
                 Odlok o razglasitvi

@@ -56,7 +56,8 @@ with open("Data.tsx", "w", encoding="utf-8") as f:
         size_in_bytes = round(path.stat().st_size / 1024 / 1024)
 
         entry["output"] = "/public/documents/output/" + entry["file"] + ".jpg"
-        entry["path"] = "/documents/literatura/" + entry["file"] + ".pdf"
+        entry["path"] = "https://lukaprsina.github.io/cvinger.net/documents/literatura/" + \
+            entry["file"] + ".pdf"
         entry["image"] = f"img{counter}"
         entry["size"] = f"PDF, {size_in_bytes} MB"
 

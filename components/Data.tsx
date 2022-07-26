@@ -65,7 +65,7 @@ const data: DataProps[] = [
             "204"
         ],
         "output": "/public/documents/output/Archäologisches Korrespondenzblatt 35, 2005, 191-204.jpg",
-        "path": "/documents/literatura/Archäologisches Korrespondenzblatt 35, 2005, 191-204.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Archäologisches Korrespondenzblatt 35, 2005, 191-204.pdf",
         "image": img0,
         "size": "PDF, 6 MB"
     },
@@ -81,7 +81,7 @@ const data: DataProps[] = [
             "93"
         ],
         "output": "/public/documents/output/Arheo 34, 2017, 79-93.jpg",
-        "path": "/documents/literatura/Arheo 34, 2017, 79-93.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Arheo 34, 2017, 79-93.pdf",
         "image": img1,
         "size": "PDF, 8 MB"
     },
@@ -98,7 +98,7 @@ const data: DataProps[] = [
             "31"
         ],
         "output": "/public/documents/output/Arheo 35, 2018.jpg",
-        "path": "/documents/literatura/Arheo 35, 2018.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Arheo 35, 2018.pdf",
         "image": img2,
         "size": "PDF, 28 MB"
     },
@@ -115,7 +115,7 @@ const data: DataProps[] = [
             "26"
         ],
         "output": "/public/documents/output/Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.jpg",
-        "path": "/documents/literatura/Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Arheološka najdišča Dolenjske, Arheo, posebna številka, 1990, 23-26.pdf",
         "image": img3,
         "size": "PDF, 1 MB"
     },
@@ -132,7 +132,7 @@ const data: DataProps[] = [
             "89"
         ],
         "output": "/public/documents/output/Arheološki pregled 29, 1988, 88-89.jpg",
-        "path": "/documents/literatura/Arheološki pregled 29, 1988, 88-89.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Arheološki pregled 29, 1988, 88-89.pdf",
         "image": img4,
         "size": "PDF, 1 MB"
     },
@@ -148,7 +148,7 @@ const data: DataProps[] = [
             "536"
         ],
         "output": "/public/documents/output/Arheološki vestnik 27, 1976, 317‒536.jpg",
-        "path": "/documents/literatura/Arheološki vestnik 27, 1976, 317‒536.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Arheološki vestnik 27, 1976, 317‒536.pdf",
         "image": img5,
         "size": "PDF, 32 MB"
     },
@@ -164,7 +164,7 @@ const data: DataProps[] = [
             "186"
         ],
         "output": "/public/documents/output/Arheološki vestnik 49, 1998, 157−186.jpg",
-        "path": "/documents/literatura/Arheološki vestnik 49, 1998, 157−186.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Arheološki vestnik 49, 1998, 157−186.pdf",
         "image": img6,
         "size": "PDF, 6 MB"
     },
@@ -180,7 +180,7 @@ const data: DataProps[] = [
             "255"
         ],
         "output": "/public/documents/output/Arheološki vestnik 55, 2004, 207–250.jpg",
-        "path": "/documents/literatura/Arheološki vestnik 55, 2004, 207–250.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Arheološki vestnik 55, 2004, 207–250.pdf",
         "image": img7,
         "size": "PDF, 13 MB"
     },
@@ -197,7 +197,7 @@ const data: DataProps[] = [
             "554"
         ],
         "output": "/public/documents/output/Arheološki vestnik 71, 529‒554.jpg",
-        "path": "/documents/literatura/Arheološki vestnik 71, 529‒554.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Arheološki vestnik 71, 529‒554.pdf",
         "image": img8,
         "size": "PDF, 17 MB"
     },
@@ -211,7 +211,7 @@ const data: DataProps[] = [
         "publication": "Cvinger in železnodobno železarstvo",
         "place": "Univerza v Ljubljani, Filozofska fakulteta, Knjižnica oddelka za arheologijo",
         "output": "/public/documents/output/Cvinger in železnodobno železarstvo, Vitrina meseca 7, april 2018.jpg",
-        "path": "/documents/literatura/Cvinger in železnodobno železarstvo, Vitrina meseca 7, april 2018.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Cvinger in železnodobno železarstvo, Vitrina meseca 7, april 2018.pdf",
         "image": img9,
         "size": "PDF, 8 MB"
     },
@@ -227,7 +227,7 @@ const data: DataProps[] = [
             "117"
         ],
         "output": "/public/documents/output/Dolenjski kras 7, 2017, 105‒117.jpg",
-        "path": "/documents/literatura/Dolenjski kras 7, 2017, 105‒117.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Dolenjski kras 7, 2017, 105‒117.pdf",
         "image": img10,
         "size": "PDF, 1 MB"
     },
@@ -240,7 +240,7 @@ const data: DataProps[] = [
         "publication": "Opera Instituti archaeologici Sloveniae",
         "number": "6",
         "output": "/public/documents/output/Dular, J. 2003, Halštatske nekropole Dolenjske.jpg",
-        "path": "/documents/literatura/Dular, J. 2003, Halštatske nekropole Dolenjske.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Dular, J. 2003, Halštatske nekropole Dolenjske.pdf",
         "image": img11,
         "size": "PDF, 48 MB"
     },
@@ -260,7 +260,7 @@ const data: DataProps[] = [
             "35"
         ],
         "output": "/public/documents/output/Izvestja muzejskega društva za Kranjsko 14, 1904.jpg",
-        "path": "/documents/literatura/Izvestja muzejskega društva za Kranjsko 14, 1904.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Izvestja muzejskega društva za Kranjsko 14, 1904.pdf",
         "image": img12,
         "size": "PDF, 5 MB"
     },
@@ -276,7 +276,7 @@ const data: DataProps[] = [
             "103"
         ],
         "output": "/public/documents/output/Izvestja muzejskega društva za Kranjsko 8, 1898.jpg",
-        "path": "/documents/literatura/Izvestja muzejskega društva za Kranjsko 8, 1898.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Izvestja muzejskega društva za Kranjsko 8, 1898.pdf",
         "image": img13,
         "size": "PDF, 3 MB"
     },
@@ -291,7 +291,7 @@ const data: DataProps[] = [
             "36"
         ],
         "output": "/public/documents/output/Izvestja Muzejskega društva za Kranjsko 9, 1899.jpg",
-        "path": "/documents/literatura/Izvestja Muzejskega društva za Kranjsko 9, 1899.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Izvestja Muzejskega društva za Kranjsko 9, 1899.pdf",
         "image": img14,
         "size": "PDF, 4 MB"
     },
@@ -307,7 +307,7 @@ const data: DataProps[] = [
             "2"
         ],
         "output": "/public/documents/output/Jutro, ponedeljska izdaja, 2. sept. 1935, št. 202a, 2.jpg",
-        "path": "/documents/literatura/Jutro, ponedeljska izdaja, 2. sept. 1935, št. 202a, 2.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Jutro, ponedeljska izdaja, 2. sept. 1935, št. 202a, 2.pdf",
         "image": img15,
         "size": "PDF, 5 MB"
     },
@@ -324,7 +324,7 @@ const data: DataProps[] = [
             "240"
         ],
         "output": "/public/documents/output/Mlekuž. D., Črešnar M. 2019, Early Iron Age cultural landscapes, str. 221-240.jpg",
-        "path": "/documents/literatura/Mlekuž. D., Črešnar M. 2019, Early Iron Age cultural landscapes, str. 221-240.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Mlekuž. D., Črešnar M. 2019, Early Iron Age cultural landscapes, str. 221-240.pdf",
         "image": img16,
         "size": "PDF, 1 MB"
     },
@@ -337,7 +337,7 @@ const data: DataProps[] = [
             "str. 71"
         ],
         "output": "/public/documents/output/Muellner, A. 1909, Geschichte des Eisens, str. 71.jpg",
-        "path": "/documents/literatura/Muellner, A. 1909, Geschichte des Eisens, str. 71.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Muellner, A. 1909, Geschichte des Eisens, str. 71.pdf",
         "image": img17,
         "size": "PDF, 15 MB"
     },
@@ -353,7 +353,7 @@ const data: DataProps[] = [
             "109"
         ],
         "output": "/public/documents/output/Naše jame 33, 1991.jpg",
-        "path": "/documents/literatura/Naše jame 33, 1991.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Naše jame 33, 1991.pdf",
         "image": img18,
         "size": "PDF, 8 MB"
     },
@@ -368,7 +368,7 @@ const data: DataProps[] = [
             "214"
         ],
         "output": "/public/documents/output/Varstvo spomenikov 23, 1981.jpg",
-        "path": "/documents/literatura/Varstvo spomenikov 23, 1981.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Varstvo spomenikov 23, 1981.pdf",
         "image": img19,
         "size": "PDF, 52 MB"
     },
@@ -384,7 +384,7 @@ const data: DataProps[] = [
             "241"
         ],
         "output": "/public/documents/output/Varstvo spomenikov 29, 1987.jpg",
-        "path": "/documents/literatura/Varstvo spomenikov 29, 1987.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Varstvo spomenikov 29, 1987.pdf",
         "image": img20,
         "size": "PDF, 70 MB"
     },
@@ -401,7 +401,7 @@ const data: DataProps[] = [
             "213"
         ],
         "output": "/public/documents/output/Varstvo spomenikov 30, 1988.jpg",
-        "path": "/documents/literatura/Varstvo spomenikov 30, 1988.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Varstvo spomenikov 30, 1988.pdf",
         "image": img21,
         "size": "PDF, 70 MB"
     },
@@ -416,7 +416,7 @@ const data: DataProps[] = [
             "210"
         ],
         "output": "/public/documents/output/Varstvo spomenikov 31, 1989.jpg",
-        "path": "/documents/literatura/Varstvo spomenikov 31, 1989.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Varstvo spomenikov 31, 1989.pdf",
         "image": img22,
         "size": "PDF, 61 MB"
     },
@@ -432,7 +432,7 @@ const data: DataProps[] = [
             "152"
         ],
         "output": "/public/documents/output/Varstvo spomenikov 32, 1990.jpg",
-        "path": "/documents/literatura/Varstvo spomenikov 32, 1990.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Varstvo spomenikov 32, 1990.pdf",
         "image": img23,
         "size": "PDF, 50 MB"
     },
@@ -448,7 +448,7 @@ const data: DataProps[] = [
             "205"
         ],
         "output": "/public/documents/output/Varstvo spomenikov 33, 1991.jpg",
-        "path": "/documents/literatura/Varstvo spomenikov 33, 1991.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Varstvo spomenikov 33, 1991.pdf",
         "image": img24,
         "size": "PDF, 61 MB"
     },
@@ -464,7 +464,7 @@ const data: DataProps[] = [
             "90"
         ],
         "output": "/public/documents/output/Varstvo spomenikov 34, 1992.jpg",
-        "path": "/documents/literatura/Varstvo spomenikov 34, 1992.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Varstvo spomenikov 34, 1992.pdf",
         "image": img25,
         "size": "PDF, 63 MB"
     },
@@ -477,7 +477,7 @@ const data: DataProps[] = [
             "str. 8"
         ],
         "output": "/public/documents/output/Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.jpg",
-        "path": "/documents/literatura/Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.pdf",
+        "path": "https://lukaprsina.github.io/cvinger.net/documents/literatura/Zhuber, P. 1900, Zdravišče Toplice na Kranjskem.pdf",
         "image": img26,
         "size": "PDF, 3 MB"
     }

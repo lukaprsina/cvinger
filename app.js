@@ -1,6 +1,10 @@
-import { createServer } from "http";
-import { parse } from "url";
-import next from "next";
+const {
+    createServer
+} = require("http");
+const {
+    parse
+} = require("url");
+const next = require("next");
 
 const port = process.env.PORT || 3000;
 
@@ -15,13 +19,10 @@ app
     .then(() => {
         createServer((req, res) => {
             const parsedUrl = parse(req.url, true);
-            const {
-                pathname,
-                query
-            } = parsedUrl;
             handle(req, res, parsedUrl);
-            console.log("pathname", pathname);
-        }).listen()
+        }).listen(port, (err) => {
+            if (err) throw err;
+        });
     })
     .catch((ex) => {
         console.error(ex.stack);

@@ -41,7 +41,7 @@ function PdfButton({ href, text }: PdfButtonProps) {
                 textAlign: "center",
             }}
         >
-            <Link href={`/documents/table/${href}`} passHref>
+            <Link href={`https://lukaprsina.github.io/cvinger.net/documents/table/${href}`} passHref>
                 <MyButton>
                     {text}
                 </MyButton>

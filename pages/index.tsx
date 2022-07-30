@@ -17,19 +17,7 @@ function Home() {
     return <Article noNavbar>
         <HomeNavbar />
         <Typography paragraph>
-            {(lang == Lang.En) ? <>
-                Cvinger near Dolenjske Toplice is the site of one of the most prominent Early Iron centres in
-                Slovenia and wider in the south-eastern Alpine area. It is a site of an excellent strategic location
-                that is presented to the public as an archaeological trail, connected its main features and
-                displaying the prehistoric heritage in its original setting. The site comprises several archaeological
-                areas. The central component is the <b>prehistoric hillfort</b> enclosed within a once mighty rampart,
-                partially reconstructed in a short section. Extending on the south slope of the hill is the iron-
-                <b>smelting area</b>, where the ancient inhabitants built several hundreds of smelting furnaces to
-                produce iron. The metal would then be forged into tools, weapons, jewellery and other products
-                to supply their own community, but also trade them across wide areas. The hillfort is associated
-                with burial grounds, in this case <b>barrow cemeteries</b> consisting of burial mounds where the local
-                prehistoric community buried their dead with a wealth of grave goods.
-            </> : <>
+            {(lang == Lang.Si) ? <>
                 Cvinger pri Dolenjskih Toplicah je eno najpomembnejših
                 starejšeželeznodobnih središč v Sloveniji in širšem jugovzhodnem
                 predalpskem prostoru. Najdišče, ki leži na odlični strateški
@@ -48,60 +36,95 @@ function Home() {
                     grobišča</b>, kjer so v številnih zemljenih gomilah skupaj z
                 grobnimi pridatki pokopani nekdanji pripadniki tukajšnje
                 dolenjske prazgodovinske skupnosti.
-            </>
-            }
+            </> : <>
+                Cvinger near Dolenjske Toplice is the site of one of the most prominent Early Iron centres in
+                Slovenia and wider in the south-eastern Alpine area. It is a site of an excellent strategic location
+                that is presented to the public as an archaeological trail, connected its main features and
+                displaying the prehistoric heritage in its original setting. The site comprises several archaeological
+                areas. The central component is the <b>prehistoric hillfort</b> enclosed within a once mighty rampart,
+                partially reconstructed in a short section. Extending on the south slope of the hill is the iron-
+                <b>smelting area</b>, where the ancient inhabitants built several hundreds of smelting furnaces to
+                produce iron. The metal would then be forged into tools, weapons, jewellery and other products
+                to supply their own community, but also trade them across wide areas. The hillfort is associated
+                with burial grounds, in this case <b>barrow cemeteries</b> consisting of burial mounds where the local
+                prehistoric community buried their dead with a wealth of grave goods.
+            </>}
         </Typography>
 
         <ArticleImage
             src={panorama}
-            caption="Cvinger s prazgodovinskim gradiščem (v sredini) se dviguje nad sotočjem Krke in Radeščice."
+            caption={(lang == Lang.Si) ?
+                "Cvinger s prazgodovinskim gradiščem (v sredini) se dviguje nad sotočjem Krke in Radeščice." :
+                "Cvinger with its prehistoric hillfort (centre) rises above the confluence of the Krka river and Radeščica stream."
+            }
         />
 
         <Typography paragraph>
-            Najstarejši deli najdišča sodijo v pozno bronasto dobo oziroma v
-            začetek starejše železne dobe (10.–8. stoletje pr. n. št.). Njej
-            sledi prekinitev poselitve, ki je trajala več stoletij vse do
-            mladohalštatskega obdobja (6.–4. stoletje pr. n. št.), ko je
-            Cvinger dosegel višek svoje moči. Ohranjeni materialni ostanki
-            in izjemne arheološke najdbe nam zgovorno pričajo o pomenu in
-            gospodarski moči skupnosti, ki je pred poltretjim tisočletjem
-            sooblikovala evropski kulturni prostor in neizbrisno obogatila
-            zakladnico evropske kulturne dediščine.
+            {(lang == Lang.Si) ? <>
+                Najstarejši deli najdišča sodijo v pozno bronasto dobo oziroma v
+                začetek starejše železne dobe (10.–8. stoletje pr. n. št.). Njej
+                sledi prekinitev poselitve, ki je trajala več stoletij vse do
+                mladohalštatskega obdobja (6.–4. stoletje pr. n. št.), ko je
+                Cvinger dosegel višek svoje moči. Ohranjeni materialni ostanki
+                in izjemne arheološke najdbe nam zgovorno pričajo o pomenu in
+                gospodarski moči skupnosti, ki je pred poltretjim tisočletjem
+                sooblikovala evropski kulturni prostor in neizbrisno obogatila
+                zakladnico evropske kulturne dediščine.
+            </> : <>
+                The earliest archaeological remains at the site date back to the Late Bronze Age and possibly the
+                beginning of the Early Iron Age (10 th –8 th century BC). After an interruption in human habitation,
+                which lasted several centuries, Cvinger reached the peak of its power in the Late Hallstatt period
+                (6 th –4 th century BC). The surviving material remains that include exceptional archaeological finds
+                reveal the importance and economic strength of the local community that actively participated in
+                shaping the European cultural landscape some two and a half millennia ago.
+            </>}
         </Typography>
 
         <ArticleImage
             src={pot1}
-            caption="Steze, po katerih poteka arheološka pot, se vijejo po mešanem gozdu."
+            caption={(lang == Lang.Si) ?
+                "Steze, po katerih poteka arheološka pot, se vijejo po mešanem gozdu." :
+                "The archaeological trail winds through a mixed forest."
+            }
         />
 
         <Typography paragraph>
-            Najdišče je kot enota kulturne dediščine Dolenjske Toplice ‒
-            Arheološko najdišče Cvinger (EŠD 110) vpisano v{' '}
+            {(lang == Lang.Si) ?
+                "Najdišče je kot enota kulturne dediščine Dolenjske Toplice ‒ Arheološko najdišče Cvinger (EŠD 110) vpisano v" :
+                "Dolenjske Toplice ‒ the Cvinger Archaeological Site is scheduled in the"}
+            {' '}
             <a
                 target="_blank"
                 href="https://gisportal.gov.si/portal/apps/webappviewer/index.html?id=df5b0c8a300145fda417eda6b0c2b52b&extent=503151.3467%2C67099.7664%2C504812.9333%2C68802.3636%2C3912"
                 rel="noopener noreferrer"
             >
-                register kulturne dediščine
+                {(lang == Lang.Si) ?
+                    "register kulturne dediščine" :
+                    "Cultural Heritage Register"
+                }
             </a>
-            . Status kulturnega spomenika je z občinskim
-            odlokom pridobilo že leta 1992. Današnjo pravno zaščito temu
-            kulturnemu spomeniku zagotavlja{' '}
+            {(lang == Lang.Si) ?
+                ". Status kulturnega spomenika je z občinskim odlokom pridobilo že leta 1992. Današnjo pravno zaščito temu kulturnemu spomeniku zagotavlja " :
+                " as a unit of cultural heritage under EŠD 110. By municipal ordinance, it was given the status of a cultural monument already in 1992. The monument is now             protected by the Ordinance designating the immovable cultural monuments of local importance in the Dolenjske Toplice Municipality ("
+            }
             <a
                 target="_blank"
                 href="https://lukaprsina.github.io/cvinger.net/documents/Odlok o razglasitvi kulturnih spomenikov Dolenjske Toplice.pdf"
                 rel="noopener noreferrer"
             >
                 Odlok o razglasitvi
-            </a> nepremičnih
-            kulturnih spomenikov lokalnega pomena na območju Občine
-            Dolenjske Toplice iz leta 2018.
+            </a>
+            {(lang == Lang.Si) ?
+                " nepremičnih kulturnih spomenikov lokalnega pomena na območju Občine Dolenjske Toplice iz leta 2018." :
+                "), issued in 2018."
+            }
         </Typography>
 
         <Typography>
-            Zaradi svojega regionalnega pomena je bil Cvinger kot železarsko
-            središče vključen v več mednarodnih raziskovalnih in
-            promocijskih projektov. V sklopu projekta{' '}
+            {(lang == Lang.Si) ?
+                "Zaradi svojega regionalnega pomena je bil Cvinger kot železarsko središče vključen v več mednarodnih raziskovalnih in promocijskih projektov. V sklopu projekta" :
+                ""
+            }
             <a
                 target="_blank"
                 href="https://www.iron-age-danube.eu/"

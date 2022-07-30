@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Header from "../components/Header"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
@@ -9,6 +9,8 @@ import useBreakpointMatch from '../components/useBreakpointMatch';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Gallery from './Gallery';
+import CookieConsent from 'react-cookie-consent';
+import { useCookies } from 'react-cookie';
 
 type ArticleProps = {
     title?: string,
@@ -77,9 +79,46 @@ function Item({ to, text }: ItemProps) {
     )
 }
 
+export enum Lang {
+    Si,
+    En
+}
+
+export function getCookieLang(cookies: any) {
+    let lang = Lang.Si
+
+    if (cookies.lang == "en") {
+        lang = Lang.En
+    }
+
+    return lang
+}
+
+export function setCookieLang(lang: Lang, setCookie: any) {
+    let langString = "si"
+
+    if (lang == Lang.En) {
+        langString = "en"
+    }
+
+    setCookie("lang", langString, { path: "/", SameSite: true })
+}
+
 
 export default function Article({ title = "", noNavbar = false, children, maxWidth }: ArticleProps) {
     const { matches } = useBreakpointMatch("mdUp", true);
+    const [cookies, setCookie] = useCookies(["lang"]);
+    let lang = getCookieLang(cookies)
+
+    useEffect(() => {
+        if (document) {
+            let a = document.getElementById("rcc-confirm-button")
+            if (!a)
+                return
+
+            a.innerHTML = "Sprejmi piškotke"
+        }
+    }, [])
 
     const center = maxWidth ? {
         display: "flex",
@@ -99,6 +138,8 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
             <Item to="/zemljevid" text="Zemljevid" />
             <Item to="/literatura" text="Literatura" />
         </Menu>}
+
+        <CookieConsent debug={true}>Ta stran uporablja piškotke</CookieConsent>
 
         <Box id="page-wrap">
             <Gallery site={children}></Gallery>

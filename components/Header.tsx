@@ -1,14 +1,17 @@
 import React from "react"
 import Link from "next/link"
 import NextjsImage from "next/image"
-import { Box } from "@mui/material"
+import { Box, Button, ButtonGroup } from "@mui/material"
 
 import "./useBreakpointMatch"
 import logo from "/public/images/logo/logo.svg"
 import useBreakpointMatch from "./useBreakpointMatch"
+import { Lang, setCookieLang } from "./Article"
+import { useCookies } from "react-cookie"
 
 const Header = () => {
     let { matches } = useBreakpointMatch("mdUp", true);
+    const [cookies, setCookie] = useCookies(["lang"]);
 
     return (
         <Box
@@ -43,7 +46,11 @@ const Header = () => {
                     />
                 </a>
             </Link>
-        </Box>
+            <ButtonGroup>
+                <Button onClick={() => setCookieLang(Lang.Si, setCookie)}>SI</Button>
+                <Button onClick={() => setCookieLang(Lang.En, setCookie)}>EN</Button>
+            </ButtonGroup >
+        </Box >
     )
 }
 

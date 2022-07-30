@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { Box } from '@mui/system';
 import Head from "next/head";
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 const theme = createTheme({
     palette: {
@@ -48,6 +49,9 @@ const theme = createTheme({
 })
 
 function App({ Component, pageProps }) {
+    const [cookies, setCookie] = useCookies(["lang"]);
+    setCookie("lang", "si", { path: "/" })
+
     return <>
         <Head>
             <link rel="shortcut icon" href="/favicon.png" />
@@ -59,7 +63,9 @@ function App({ Component, pageProps }) {
                 backgroundColor: "secondary.light",
             }}>
                 <CssBaseline />
-                <Component {...pageProps} />
+                <CookiesProvider>
+                    <Component {...pageProps} />
+                </CookiesProvider>
             </Box>
         </ThemeProvider>
     </>;

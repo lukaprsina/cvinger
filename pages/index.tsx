@@ -1,35 +1,55 @@
 import React from "react"
 import { Typography } from "@mui/material"
 
-import Article from "../components/Article"
+import Article, { getCookieLang, Lang } from "../components/Article"
 import ArticleImage from "../components/ArticleImage"
 import HomeNavbar from "../components/HomeNavbar"
 
 import panorama from "/public/images/home/panorama.jpg"
 import pot1 from "/public/images/home/pot1.jpg"
+import { useCookies } from "react-cookie"
 
 function Home() {
+    const [cookies, setCookie] = useCookies(["lang"]);
+    let lang = getCookieLang(cookies)
+    console.log(lang)
+
     return <Article noNavbar>
         <HomeNavbar />
         <Typography paragraph>
-            Cvinger pri Dolenjskih Toplicah je eno najpomembnejših
-            starejšeželeznodobnih središč v Sloveniji in širšem jugovzhodnem
-            predalpskem prostoru. Najdišče, ki leži na odlični strateški
-            lokaciji, je v naravi predstavljeno kot arheološki park. Njegove
-            najpomembnejše gradnike povezuje arheološka pot, s čimer
-            prazgodovinsko dediščino predstavlja v izvirnem okolju.
-            Arheološko najdišče Cvinger sestavlja več arheoloških območij,
-            ki jih moramo razumeti kot neločljivo povezano celoto. Osrednji
-            del je <b>prazgodovinsko gradišče</b>, ki je obdano z nekoč mogočnim
-            obzidjem in je v krajšem segmentu delno rekonstruirano. Na
-            njegovem južnem pobočju se razteza <b>talilniško območje</b>, na
-            katerem so staroselci v več sto talilnih pečeh pridobivali
-            železo. Tega so nato s kovanjem predelovali v orodje, orožje in
-            nakit ter druge uporabne izdelke, s katerimi so trgovali v
-            širšem prostoru. Vsebinsko celoto najdišča zaključujejo <b>gomilna
-                grobišča</b>, kjer so v številnih zemljenih gomilah skupaj z
-            grobnimi pridatki pokopani nekdanji pripadniki tukajšnje
-            dolenjske prazgodovinske skupnosti.
+            {(lang == Lang.En) ? <>
+                Cvinger near Dolenjske Toplice is the site of one of the most prominent Early Iron centres in
+                Slovenia and wider in the south-eastern Alpine area. It is a site of an excellent strategic location
+                that is presented to the public as an archaeological trail, connected its main features and
+                displaying the prehistoric heritage in its original setting. The site comprises several archaeological
+                areas. The central component is the <b>prehistoric hillfort</b> enclosed within a once mighty rampart,
+                partially reconstructed in a short section. Extending on the south slope of the hill is the iron-
+                <b>smelting area</b>, where the ancient inhabitants built several hundreds of smelting furnaces to
+                produce iron. The metal would then be forged into tools, weapons, jewellery and other products
+                to supply their own community, but also trade them across wide areas. The hillfort is associated
+                with burial grounds, in this case <b>barrow cemeteries</b> consisting of burial mounds where the local
+                prehistoric community buried their dead with a wealth of grave goods.
+            </> : <>
+                Cvinger pri Dolenjskih Toplicah je eno najpomembnejših
+                starejšeželeznodobnih središč v Sloveniji in širšem jugovzhodnem
+                predalpskem prostoru. Najdišče, ki leži na odlični strateški
+                lokaciji, je v naravi predstavljeno kot arheološki park. Njegove
+                najpomembnejše gradnike povezuje arheološka pot, s čimer
+                prazgodovinsko dediščino predstavlja v izvirnem okolju.
+                Arheološko najdišče Cvinger sestavlja več arheoloških območij,
+                ki jih moramo razumeti kot neločljivo povezano celoto. Osrednji
+                del je <b>prazgodovinsko gradišče</b>, ki je obdano z nekoč mogočnim
+                obzidjem in je v krajšem segmentu delno rekonstruirano. Na
+                njegovem južnem pobočju se razteza <b>talilniško območje</b>, na
+                katerem so staroselci v več sto talilnih pečeh pridobivali
+                železo. Tega so nato s kovanjem predelovali v orodje, orožje in
+                nakit ter druge uporabne izdelke, s katerimi so trgovali v
+                širšem prostoru. Vsebinsko celoto najdišča zaključujejo <b>gomilna
+                    grobišča</b>, kjer so v številnih zemljenih gomilah skupaj z
+                grobnimi pridatki pokopani nekdanji pripadniki tukajšnje
+                dolenjske prazgodovinske skupnosti.
+            </>
+            }
         </Typography>
 
         <ArticleImage

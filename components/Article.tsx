@@ -75,13 +75,12 @@ function Item({ to, text }: ItemProps) {
 
 type ArticleProps = {
     title?: string,
-    lang?: String
+    lang: String,
     children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
     maxWidth?: boolean,
-
 }
 
-export default function Article({ title = "", lang = "si", children, maxWidth }: ArticleProps) {
+function Article({ title = "", lang, children, maxWidth }: ArticleProps) {
     const { matches } = useBreakpointMatch("mdUp", true);
     const [cookies, setCookie] = useCookies(["lang"]);
     const router = useRouter()
@@ -96,17 +95,23 @@ export default function Article({ title = "", lang = "si", children, maxWidth }:
         }
     }, [])
 
-    if (cookies.lang !== lang)
-        return <></>
-
     const center = maxWidth ? {
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
     } : {}
+    // console.log({ cookies: cookies.lang, lang, ssr: ssrLang })
+    // TODO
+    /* if (cookies && cookies.lang && (cookies.lang !== lang))
+        return <></> */
 
-    return <>
+    let display = "box"
+    /* if (cookies.lang && cookies.lang !== lang) {
+        display = "none"
+    } */
+
+    return <Box /* sx={{ display: (ssrLang !== lang) ? "none" : "box" }} */>
         {matches ? null : <Menu pageWrapId="page-wrap" outerContainerId="outer-container">
             <Item to="/pot" text="Arheološka pot" />
             <Item to="/gradisce" text="Prazgodovinsko gradišče" />
@@ -118,7 +123,7 @@ export default function Article({ title = "", lang = "si", children, maxWidth }:
             <Item to="/literatura" text="Literatura" />
         </Menu>}
 
-        <CookieConsent debug={true}>Ta stran uporablja piškotke</CookieConsent>
+        <CookieConsent debug={true}>{(cookies.lang == "si") ? "Ta stran uporablja piškotke" : "This site uses cookies"}</CookieConsent>
 
         <Box id="page-wrap">
             <Gallery site={children}></Gallery>
@@ -158,6 +163,8 @@ export default function Article({ title = "", lang = "si", children, maxWidth }:
             </Box>
             <Footer />
         </Box>
-    </>
+    </Box>
 
 }
+
+export default Article

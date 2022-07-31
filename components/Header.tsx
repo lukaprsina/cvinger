@@ -46,8 +46,8 @@ const Header = () => {
                 </a>
             </Link>
             <ButtonGroup>
-                <Button onClick={() => setCookie("lang", "si", { path: "/" })}>SI</Button>
-                <Button onClick={() => setCookie("lang", "en", { path: "/" })}>EN</Button>
+                <Button onClick={() => setCookie("lang", "si", { path: "/", sameSite: true })}>SI</Button>
+                <Button onClick={() => setCookie("lang", "en", { path: "/", sameSite: true })}>EN</Button>
             </ButtonGroup >
         </Box >
     )

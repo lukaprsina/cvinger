@@ -11,6 +11,7 @@ import Head from "next/head";
 import { CookiesProvider, useCookies } from 'react-cookie';
 import { MDXProvider } from '@mdx-js/react'
 import Link from 'next/link';
+import App from 'next/app'
 
 const theme = createTheme({
     palette: {
@@ -72,9 +73,18 @@ const components = {
     )
 }
 
-function App({ Component, pageProps }) {
+/* Cvinger.getInitialProps = async (ctx) => {
+    const appProps = await App.getInitialProps(ctx);
+
+    return {
+        ssrLang: "ha",// cookies(ctx).lang
+        ...appProps
+    }
+} */
+
+function Cvinger({ Component, pageProps }) {
     const [cookies, setCookie] = useCookies(["lang"]);
-    setCookie("lang", "si", { path: "/" })
+    setCookie("lang", "si", { path: "/", sameSite: true })
 
     return <>
         <Head>
@@ -98,4 +108,4 @@ function App({ Component, pageProps }) {
 }
 
 
-export default App;
+export default Cvinger;

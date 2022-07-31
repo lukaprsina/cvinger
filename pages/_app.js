@@ -10,8 +10,7 @@ import { Box } from '@mui/system';
 import Head from "next/head";
 import { CookiesProvider, useCookies } from 'react-cookie';
 import { MDXProvider } from '@mdx-js/react'
-import Article, { getCookieLang, Lang } from "../components/Article"
-import ArticleImage from '../components/ArticleImage';
+import Link from 'next/link';
 
 const theme = createTheme({
     palette: {
@@ -59,6 +58,18 @@ const components = {
     h4: (props) => <Typography variant="h4" {...props}></Typography>,
     h5: (props) => <Typography variant="h5" {...props}></Typography>,
     h6: (props) => <Typography variant="h6" {...props}></Typography>,
+    a: (props) => (
+        <Link
+            target="_blank"
+            passHref
+            {...props}
+        >
+            <a
+                target="_blank"
+                rel="noopener noreferrer"
+            >{props.children}</a>
+        </Link>
+    )
 }
 
 function App({ Component, pageProps }) {
@@ -77,11 +88,9 @@ function App({ Component, pageProps }) {
             }}>
                 <CssBaseline />
                 <CookiesProvider>
-                    <Article>
-                        <MDXProvider components={components}>
-                            <Component {...pageProps} />
-                        </MDXProvider>
-                    </Article>
+                    <MDXProvider components={components}>
+                        <Component {...pageProps} />
+                    </MDXProvider>
                 </CookiesProvider>
             </Box>
         </ThemeProvider>

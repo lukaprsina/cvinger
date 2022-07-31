@@ -6,7 +6,6 @@ import { Box, Button, ButtonGroup } from "@mui/material"
 import "./useBreakpointMatch"
 import logo from "/public/images/logo/logo.svg"
 import useBreakpointMatch from "./useBreakpointMatch"
-import { Lang, setCookieLang } from "./Article"
 import { useCookies } from "react-cookie"
 
 const Header = () => {
@@ -47,8 +46,8 @@ const Header = () => {
                 </a>
             </Link>
             <ButtonGroup>
-                <Button onClick={() => setCookieLang(Lang.Si, setCookie)}>SI</Button>
-                <Button onClick={() => setCookieLang(Lang.En, setCookie)}>EN</Button>
+                <Button onClick={() => setCookie("lang", "si", { path: "/" })}>SI</Button>
+                <Button onClick={() => setCookie("lang", "en", { path: "/" })}>EN</Button>
             </ButtonGroup >
         </Box >
     )

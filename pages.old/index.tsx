@@ -1,7 +1,7 @@
 import React from "react"
 import { Typography } from "@mui/material"
 
-import Article, { getCookieLang, Lang } from "../components/Article"
+import Article from "../components/Article"
 import ArticleImage from "../components/ArticleImage"
 import HomeNavbar from "../components/HomeNavbar"
 

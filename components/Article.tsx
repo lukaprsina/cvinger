@@ -13,12 +13,6 @@ import CookieConsent from 'react-cookie-consent';
 import { useCookies } from 'react-cookie';
 import HomeNavbar from './HomeNavbar';
 
-type ArticleProps = {
-    title?: string,
-    children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
-    maxWidth?: boolean,
-}
-
 type ItemProps = {
     to: string,
     text: string,
@@ -79,37 +73,18 @@ function Item({ to, text }: ItemProps) {
     )
 }
 
-export enum Lang {
-    Si,
-    En
+type ArticleProps = {
+    title?: string,
+    lang?: String
+    children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
+    maxWidth?: boolean,
+
 }
 
-export function getCookieLang(cookies: any) {
-    let lang = Lang.Si
-
-    if (cookies.lang == "en") {
-        lang = Lang.En
-    }
-
-    return lang
-}
-
-export function setCookieLang(lang: Lang, setCookie: any) {
-    let langString = "si"
-
-    if (lang == Lang.En) {
-        langString = "en"
-    }
-
-    setCookie("lang", langString, { path: "/", SameSite: true })
-}
-
-
-export default function Article({ title = "", children, maxWidth }: ArticleProps) {
+export default function Article({ title = "", lang = "si", children, maxWidth }: ArticleProps) {
     const { matches } = useBreakpointMatch("mdUp", true);
     const [cookies, setCookie] = useCookies(["lang"]);
     const router = useRouter()
-    let lang = getCookieLang(cookies)
 
     useEffect(() => {
         if (document) {
@@ -120,6 +95,9 @@ export default function Article({ title = "", children, maxWidth }: ArticleProps
             a.innerHTML = "Sprejmi piškotke"
         }
     }, [])
+
+    if (cookies.lang !== lang)
+        return <></>
 
     const center = maxWidth ? {
         display: "flex",

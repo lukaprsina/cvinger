@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Header from "../components/Header"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
@@ -11,10 +11,10 @@ import { useRouter } from 'next/router';
 import Gallery from './Gallery';
 import CookieConsent from 'react-cookie-consent';
 import { useCookies } from 'react-cookie';
+import HomeNavbar from './HomeNavbar';
 
 type ArticleProps = {
     title?: string,
-    noNavbar?: boolean,
     children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
     maxWidth?: boolean,
 }
@@ -105,9 +105,10 @@ export function setCookieLang(lang: Lang, setCookie: any) {
 }
 
 
-export default function Article({ title = "", noNavbar = false, children, maxWidth }: ArticleProps) {
+export default function Article({ title = "", children, maxWidth }: ArticleProps) {
     const { matches } = useBreakpointMatch("mdUp", true);
     const [cookies, setCookie] = useCookies(["lang"]);
+    const router = useRouter()
     let lang = getCookieLang(cookies)
 
     useEffect(() => {
@@ -144,7 +145,7 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
         <Box id="page-wrap">
             <Gallery site={children}></Gallery>
             <Header />
-            {noNavbar ? null : <Navbar />}
+            {(router.pathname == '/') ? null : <Navbar />}
             <Box
                 sx={{
                     maxWidth: maxWidth ? "100%" : "840px",
@@ -173,6 +174,7 @@ export default function Article({ title = "", noNavbar = false, children, maxWid
                     </Typography>
                 ) : null}
                 <Box sx={{ textAlign: 'justify' }}>
+                    {(router.pathname == '/') ? <HomeNavbar /> : null}
                     {children}
                 </Box>
             </Box>

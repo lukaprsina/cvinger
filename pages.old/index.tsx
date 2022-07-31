@@ -12,9 +12,8 @@ import { useCookies } from "react-cookie"
 function Home() {
     const [cookies, setCookie] = useCookies(["lang"]);
     let lang = getCookieLang(cookies)
-    console.log(lang)
 
-    return <Article noNavbar>
+    return <Article>
         <HomeNavbar />
         <Typography paragraph>
             {(lang == Lang.Si) ? <>

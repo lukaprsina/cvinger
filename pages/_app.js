@@ -4,10 +4,14 @@ import "../styles/index.scss";
 import {
     CssBaseline, ThemeProvider,
     createTheme,
+    Typography,
 } from "@mui/material";
 import { Box } from '@mui/system';
 import Head from "next/head";
 import { CookiesProvider, useCookies } from 'react-cookie';
+import { MDXProvider } from '@mdx-js/react'
+import Article, { getCookieLang, Lang } from "../components/Article"
+import ArticleImage from '../components/ArticleImage';
 
 const theme = createTheme({
     palette: {
@@ -48,6 +52,15 @@ const theme = createTheme({
     }
 })
 
+const components = {
+    h1: (props) => <Typography variant="h1" {...props}></Typography>,
+    h2: (props) => <Typography variant="h2" {...props}></Typography>,
+    h3: (props) => <Typography variant="h3" {...props}></Typography>,
+    h4: (props) => <Typography variant="h4" {...props}></Typography>,
+    h5: (props) => <Typography variant="h5" {...props}></Typography>,
+    h6: (props) => <Typography variant="h6" {...props}></Typography>,
+}
+
 function App({ Component, pageProps }) {
     const [cookies, setCookie] = useCookies(["lang"]);
     setCookie("lang", "si", { path: "/" })
@@ -64,11 +77,16 @@ function App({ Component, pageProps }) {
             }}>
                 <CssBaseline />
                 <CookiesProvider>
-                    <Component {...pageProps} />
+                    <Article>
+                        <MDXProvider components={components}>
+                            <Component {...pageProps} />
+                        </MDXProvider>
+                    </Article>
                 </CookiesProvider>
             </Box>
         </ThemeProvider>
     </>;
 }
+
 
 export default App;

@@ -87,12 +87,15 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
     const [cookies, setCookies] = useCookies(["lang"])
 
     let hidden = false
-    let realLang = "";
+    let realLang = "si";
 
     if (typeof (cookies) != 'undefined' && typeof (cookies.lang) != 'undefined')
         realLang = cookies.lang
-    else
+    else if (typeof (ssrLang) != 'undefined')
         realLang = ssrLang
+
+    if (ssrLang == "force")
+        realLang = "si"
 
     hidden = realLang !== lang
 
@@ -139,11 +142,11 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
             <Item to="/literatura" text="Literatura" />
         </Menu>}
 
-        <CookieConsent debug={true}>{(lang == "si") ? "Ta stran uporablja piškotke" : "This site uses cookies"}</CookieConsent>
+        <CookieConsent /* debug={true} */>{(realLang == "si") ? "Ta stran uporablja piškotke" : "This site uses cookies"}</CookieConsent>
 
         <Box id="page-wrap">
             <Gallery site={children}></Gallery>
-            <Header />
+            <Header lang={realLang} />
             {(router.pathname == '/') ? null : <Navbar />}
             <Box
                 sx={{
@@ -172,14 +175,21 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
                         {title}
                     </Typography>
                 ) : null}
-                <Box sx={{ textAlign: 'justify' }}>
+                <Box sx={{
+                    textAlign: 'justify',
+                    /* ">p:last-of-type": {
+                    mb: "0!important",
+                    } */
+                    boxSizing: "border-box"
+                }}
+                >
                     {(router.pathname == '/') ? <HomeNavbar /> : null}
                     {children}
                 </Box>
             </Box>
             <Footer />
         </Box>
-    </Box>
+    </Box >
 
 }
 

@@ -1,0 +1,13 @@
+import ArticleImage from "../components/ArticleImage"
+import Article from "../components/Article"
+import nookies from 'nookies'
+
+export async function getServerSideProps(ctx) {
+    return {props: {cookies: nookies.get(ctx)}}
+}
+
+<Article title="" lang="si" ssrLang={props.cookies.lang}>
+</Article>
+
+<Article title="" lang="en" ssrLang={props.cookies.lang}>
+</Article>

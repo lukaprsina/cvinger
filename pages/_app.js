@@ -53,6 +53,7 @@ const theme = createTheme({
 })
 
 const components = {
+    p: (props) => <Typography paragraph {...props}></Typography>,
     h1: (props) => <Typography variant="h1" {...props}></Typography>,
     h2: (props) => <Typography variant="h2" {...props}></Typography>,
     h3: (props) => <Typography variant="h3" {...props}></Typography>,

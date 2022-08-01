@@ -147,7 +147,7 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
         <Box id="page-wrap">
             <Gallery site={children}></Gallery>
             <Header lang={realLang} />
-            {(router.pathname == '/') ? null : <Navbar />}
+            {(router.pathname == '/') ? null : <Navbar lang={realLang} />}
             <Box
                 sx={{
                     maxWidth: maxWidth ? "100%" : "840px",
@@ -183,11 +183,11 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
                     boxSizing: "border-box"
                 }}
                 >
-                    {(router.pathname == '/') ? <HomeNavbar /> : null}
+                    {(router.pathname == '/') ? <HomeNavbar lang={realLang} /> : null}
                     {children}
                 </Box>
             </Box>
-            <Footer />
+            <Footer lang={realLang} />
         </Box>
     </Box >
 

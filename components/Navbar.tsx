@@ -70,7 +70,7 @@ function Circle() {
 
 let path: string;
 
-function Navbar() {
+function Navbar(props: { lang: string }) {
     let { matches } = useBreakpointMatch("mdUp", true);
     const router = useRouter()
     path = router.pathname
@@ -95,27 +95,51 @@ function Navbar() {
                         display: "flex",
                         justifyContent: "space-between",
                     }}>
-                    <NavbarButton to="/pot">Arheološka pot</NavbarButton>
-                    <Circle />
-                    <NavbarButton to="/gradisce">
-                        Prazgodovinsko gradišče
-                    </NavbarButton>
-                    <Circle />
-                    <NavbarButton to="/vhod">Utrjen vhod</NavbarButton>
-                    <Circle />
-                    <NavbarButton to="/jama">Cvingerska jama</NavbarButton>
-                    <Circle />
-                    <NavbarButton to="/talilnice">
-                        Talilniško območje
-                    </NavbarButton>
-                    <Circle />
-                    <NavbarButton to="/gomile">
-                        Gomilno grobišče
-                    </NavbarButton>
-                    <Circle />
-                    <NavbarButton to="/zemljevid">Zemljevid</NavbarButton>
-                    <Circle />
-                    <NavbarButton to="/literatura">Literatura</NavbarButton>
+                    {(props.lang === "si") ? <>
+                        <NavbarButton to="/pot">Arheološka pot</NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/gradisce">
+                            Prazgodovinsko gradišče
+                        </NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/vhod">Utrjen vhod</NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/jama">Cvingerska jama</NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/talilnice">
+                            Talilniško območje
+                        </NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/gomile">
+                            Gomilno grobišče
+                        </NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/literatura">Literatura</NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/zemljevid">Zemljevid</NavbarButton>
+                    </> : <>
+                        <NavbarButton to="/pot">The archaeological trail</NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/gradisce">
+                            The prehistoric hillfort
+                        </NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/vhod">The fortified entrance</NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/jama">The Cvinger Cave</NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/talilnice">
+                            The smelting area
+                        </NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/gomile">
+                            The barrow cemetery
+                        </NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/literatura">Literature</NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/zemljevid">Map</NavbarButton>
+                    </>}
                 </Toolbar>
             </AppBar>
         </HideOnScroll> : null

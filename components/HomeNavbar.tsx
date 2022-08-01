@@ -83,7 +83,7 @@ function Item({ image, text, to }: ItemProps) {
     )
 }
 
-const HomeNavbar = () => {
+const HomeNavbar = (props: { lang: string }) => {
     let { matches } = useBreakpointMatch("mdUp", true);
 
     return <>        {
@@ -96,19 +96,35 @@ const HomeNavbar = () => {
                 justifyContent: "space-between",
             }}
         >
-            <Item image={pot} text="Arheološka pot" to="/pot" />
-            <Item
-                image={gradisce}
-                text="Prazgodovinsko gradišče"
-                to="/gradisce"
-            />
-            <Item image={vhod} text="Utrjen vhod" to="/vhod" />
-            <Item image={jama} text="Cvingerska jama" to="/jama" />
+            {(props.lang === "si") ? <>
+                <Item image={pot} text="Arheološka pot" to="/pot" />
+                <Item
+                    image={gradisce}
+                    text="Prazgodovinsko gradišče"
+                    to="/gradisce"
+                />
+                <Item image={vhod} text="Utrjen vhod" to="/vhod" />
+                <Item image={jama} text="Cvingerska jama" to="/jama" />
 
-            <Item image={talilnice} text="Talilniško območje" to="/talilnice" />
-            <Item image={gomile} text="Gomilno grobišče" to="/gomile" />
-            <Item image={zemljevid} text="Zemljevid" to="/zemljevid" />
-            <Item image={literatura} text="Literatura" to="/literatura" />
+                <Item image={talilnice} text="Talilniško območje" to="/talilnice" />
+                <Item image={gomile} text="Gomilno grobišče" to="/gomile" />
+                <Item image={zemljevid} text="Zemljevid" to="/zemljevid" />
+                <Item image={literatura} text="Literatura" to="/literatura" />
+            </> : <>
+                <Item image={pot} text="The archaeological trail" to="/pot" />
+                <Item
+                    image={gradisce}
+                    text="The prehistoric hillfort"
+                    to="/gradisce"
+                />
+                <Item image={vhod} text="The fortified entrance" to="/vhod" />
+                <Item image={jama} text="The Cvinger Cave" to="/jama" />
+
+                <Item image={talilnice} text="The smelting area" to="/talilnice" />
+                <Item image={gomile} text="The barrow cemetery" to="/gomile" />
+                <Item image={literatura} text="Literature" to="/literatura" />
+                <Item image={zemljevid} text="Map" to="/zemljevid" />
+            </>}
         </Box > : null
     }</>
 }

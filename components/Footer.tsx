@@ -29,7 +29,7 @@ function Logo({ children, href, style = {} }: LogoProps) {
     )
 }
 
-function Avtorstvo() {
+function Avtorstvo(props: { lang: string }) {
     return (
         <Box sx={{
             textAlign: "center",
@@ -38,25 +38,40 @@ function Avtorstvo() {
             borderRadius: "0 0 4px 4px",
             marginTop: "-10px",
         }}>
-            <Typography>
-                <b>Besedila:</b> dr. Borut Križ, Andrej Hudoklin, Marko Pršina, dr.
-                Matija Črešnar
-            </Typography>
-            <Typography><b>Fotografije:</b> Marko Pršina</Typography>
-            <Typography>
-                <b>Ilustracije in grafični prikazi:</b> Marko Pršina, dr. Matija
-                Črešnar
-            </Typography>
-            <Typography>
-                <b>Oblikovanje informativnih tabel, zgibanke in spletne strani:</b>
-                Marko Pršina
-            </Typography>
-            <Typography><b>Spletna postavitev:</b> Luka Pršina</Typography>
+            {(props.lang === "si") ? <>
+                <Typography>
+                    <b>Besedila:</b> dr. Borut Križ, Andrej Hudoklin, Marko Pršina, dr.
+                    Matija Črešnar
+                </Typography>
+                <Typography><b>Fotografije:</b> Marko Pršina</Typography>
+                <Typography>
+                    <b>Ilustracije in grafični prikazi:</b> Marko Pršina, dr. Matija
+                    Črešnar
+                </Typography>
+                <Typography>
+                    <b>Oblikovanje informativnih tabel, zgibanke in spletne strani:</b> Marko Pršina
+                </Typography>
+                <Typography><b>Spletna postavitev:</b> Luka Pršina</Typography>
+            </> : <>
+                <Typography>
+                    <b>Text:</b> dr. Borut Križ, Andrej Hudoklin, Marko Pršina, dr.
+                    Matija Črešnar
+                </Typography>
+                <Typography><b>Photos:</b> Marko Pršina</Typography>
+                <Typography>
+                    <b>Illustrations and graphics:</b> Marko Pršina, dr. Matija
+                    Črešnar
+                </Typography>
+                <Typography>
+                    <b>Information table, brochure and website design:</b> Marko Pršina
+                </Typography>
+                <Typography><b>Made by:</b> Luka Pršina</Typography>
+            </>}
         </Box >
     )
 }
 
-const Footer = () => {
+const Footer = (props: { lang: string }) => {
     const [avtorstvo, setAvtorstvo] = useState(false)
 
     return (
@@ -153,9 +168,9 @@ const Footer = () => {
                         })
                     }}
                 >
-                    Avtorstvo
+                    {(props.lang === "si") ? "Avtorstvo" : "Authors"}
                 </Button>
-                {avtorstvo && <Avtorstvo />}
+                {avtorstvo && <Avtorstvo lang={props.lang} />}
             </Box >
         </Box >
     )

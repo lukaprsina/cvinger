@@ -29,24 +29,71 @@ const Header = (props: { lang: string }) => {
                 },
                 boxShadow: "0 3px 3px rgb(0 0 0 / 50%)",
                 borderBottom: "1px solid rgb(135, 23, 31)",
-                // textAlign: "center",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
             }}
         >
-            <Box sx={{
-                display: "inline-block",
-                position: "relative",
-            }}>
+            {matches ? (
                 <Box sx={{
-                    width: "800px",
+                    display: "inline-block",
+                    position: "relative",
+                }}>
+                    <Box sx={{
+                        width: "800px",
+                        display: "flex",
+                        justifyContent: "center"
+                    }}>
+                        <Link href="/" prefetch={false}>
+                            <a style={{
+                                height: !matches ? "30px" : "initial",
+                            }}
+                            >
+                                <NextjsImage
+                                    src={logo}
+                                    alt="cvinger"
+                                    width={matches ? "615px" : "150px"}
+                                    height={matches ? "125px" : "30px"}
+                                />
+                            </a>
+                        </Link>
+                    </Box>
+                    <Box sx={{
+                        position: "absolute",
+                        height: "100%",
+                        left: "100%",
+                        top: "0",
+                        display: "flex",
+                        alignItems: "center",
+                    }}>
+                        <Tooltip title={nextLang}>
+                            <Button
+                                variant="text"
+                                onClick={() => {
+                                    let nLang = ""
+                                    if (cookies.lang == "en")
+                                        nLang = "si"
+                                    else
+                                        nLang = "en"
+
+                                    setCookie("lang", nLang, { path: "/", sameSite: true })
+                                    setNextLang(nLang)
+                                }}
+                            >
+                                <LanguageIcon />
+                            </Button>
+                        </Tooltip>
+                    </Box >
+                </Box>
+            ) : (
+                <Box sx={{
                     display: "flex",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    height: "30px"
                 }}>
                     <Link href="/" prefetch={false}>
                         <a style={{
-                            height: !matches ? "30px" : "initial",
+                            height: "30px"
                         }}
                         >
                             <NextjsImage
@@ -57,16 +104,13 @@ const Header = (props: { lang: string }) => {
                             />
                         </a>
                     </Link>
-                </Box>
-                <Box sx={{
-                    position: "absolute",
-                    height: "100%",
-                    left: "100%",
-                    top: "0",
-                    display: "flex",
-                    alignItems: "center",
-                }}>
-                    <Tooltip title={nextLang}>
+                    <Tooltip
+                        title={nextLang}
+                        sx={{
+                            position: "absolute",
+                            right: "20px"
+                        }}
+                    >
                         <Button
                             variant="text"
                             onClick={() => {
@@ -83,8 +127,8 @@ const Header = (props: { lang: string }) => {
                             <LanguageIcon />
                         </Button>
                     </Tooltip>
-                </Box >
-            </Box>
+                </Box>
+            )}
         </Box >
     )
 }

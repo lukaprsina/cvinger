@@ -1,11 +1,11 @@
 import ArticleImage from "../components/ArticleImage"
 import Article from "../components/Article"
 import nookies from 'nookies'
+import PdfButton from "../components/PdfButton"
 
 import pot2 from "/public/images/pot/pot2.jpg"
 import smerokaz from "/public/images/pot/smerokaz.jpg"
 import enote from "/public/images/pot/enote.jpg"
-import PdfButton from "../components/PdfButton"
 
 export async function getServerSideProps(ctx) {
     return {props: {cookies: nookies.get(ctx)}}

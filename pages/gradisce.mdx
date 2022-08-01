@@ -1,0 +1,68 @@
+import ArticleImage from "../components/ArticleImage"
+import Article from "../components/Article"
+import nookies from 'nookies'
+import PdfButton from "../components/PdfButton"
+
+import sonda from "/public/images/gradisce/sonda.jpg"
+import zid from "/public/images/gradisce/zid.jpg"
+import obzidje from "/public/images/gradisce/obzidje.jpg"
+
+export async function getServerSideProps(ctx) {
+    return {props: {cookies: nookies.get(ctx)}}
+}
+
+<Article title="Prazgodovinsko gradišče" lang="si" ssrLang={props.cookies.lang}>
+    <ArticleImage
+        src={sonda}
+        caption="Delno zasuta arheološka sonda razkriva sestavo prazgodovinskega obzidja."
+    />
+
+    <ArticleImage
+        src={zid}
+        caption="Idealiziran prikaz kamnitega obzidja, ki je obdajalo gradišče."
+    />
+
+    <ArticleImage
+        src={obzidje}
+        caption="Pojasnjevalni tabli pri delno rekonstruiranem obzidju iz leta 1990."
+    />
+
+    <PdfButton
+        href="Informativna_tabla_prazgodovinsko_gradišče.pdf"
+        text="Informativna tabla prazgodovinsko gradišče"
+    />
+</Article>
+
+<Article title="The prehistoric hillfort" lang="en" ssrLang={props.cookies.lang}>
+    Throughout human history, river valleys represented the main lines of communication that offered spots suitable for habitation. Particularly attractive were confluences of waterways, which were the points with the greatest circulation of people and goods. The wider area of Dolenjske Toplice, located in the municipality of the same name and also known as the Toplice valley (Topliška dolina), is a prime example of this. Here, the communication line along the valley of the Krka river forks to lead along the Črmošnjica valley. Almost parallel to it is the route along the valley of the Sušica stream, both of which follow the easiest natural passages to the region of Bela krajina and onwards to Croatia. It is an area rich in the remains of human activities from all historical periods. Of the archaeological sites, Cvinger certainly holds pride of place both for the numerous investigations that took place here and for the richness of the artefacts that have come to light. The site is located in the heart of the Toplice valley, in a triangle between the villages of Dolenjske Toplice, Meniška vas and Sela pri Dolenjskih Toplicah. Its key component is the fortified prehistoric settlement or hillfort on top of the hill, associated with the ironworking-smelting area south of the settlement, the barrow cemetery at Branževec above Sela and individual barrows in the area of Meniška vas. The archaeological finds from this and other sites around it reveal human presence here from the Stone Age and the Early Middle Ages to the present day.
+
+    The prehistoric hillfort dominates the forested karst hill of Cvinger, with the highest point rising 265 m above sea level. This sloping hill is delimited in the north by the Krka river, in the east and west by the Radeščica river and the torrential stream of Sušica. Its south slope continues into a ridge flanked by the Radeščica and Sušica. The summit holds numerous sinkholes, even a karst abyss at its highest point, and is enclosed with a 740 m long uninterrupted rampart. The rampart survives as a stone bank that rises to the height of two metres on the interior side, while on the exterior side it falls sharply towards the valleys. In the past, people observing the ruins believed a monastery had once stood on Cvinger. It is the monks believed to be living here that gave the name of Meniška vas for the village at the foot of the hill. Recent historical studies show that the monks of Stična indeed had an estate here, but no monastery. The main entrance to the hillfort is located in the south. It was accessed via a path that led from the valley of the Radeščica past the barrows and the iron-smelting area, and was protected by impressive stone banks in the bends. 
+
+    <ArticleImage
+        src={sonda}
+        caption="The archaeological trench with partly collapsed walls reveals the construction of the prehistoric rampart."
+    />
+
+    The archaeological site on Cvinger appeared in literature very early on. In his extensive book on the history of iron in Carniola, Gorica area and Istria from 1909, Alfons Müllner wrote thus, “Here between the Krka and the waterways of Radeča and Sušica lies the Branževci hill, where in 1873 I found a prehistoric rampart. It measures 680 m in circumference. The wall is composed of earth and stone, with iron slag between the stones. The settlement holds traces of huts and an open fireplace, as well as great quantities of iron slag. In the forest outside Cvinger was a beautiful, now unfortunately destroyed barrow, measuring some 2 metres in height and 70 paces in circumference. It contained around 40 graves. The goods from this barrow and the graves next to it were from the ‘Hallstatt’ period of the 6<sup>th</sup> and 5<sup>th</sup> centuries.” Between 1898 and 1899, Josef Szombathy, the first head of the Anthropological and Prehistoric Collection at the Natural History Museum in Vienna, excavated inside the settlement. He conducted a topographical survey, took measurements and also drew up a sketch of the hillfort with marked locations of his trenches. His work is considered the first major investigation campaign in any prehistoric hillfort in the former province of Carniola. Oral accounts also claim that the Duchess of Mecklenburg excavated here before World War I, but there is no record of her activities in literature. In the 1930s, Walter Schmid investigated the western part of the hillfort, but the results of his work are now largely lost; we only have a brief report in the Jutro journal relating that he found four buildings. In 1986, the Institute for the protection of cultural and natural heritage Novo mesto, began with modern excavations on Cvinger under the leadership of Borut Križ. In six consecutive years, a team of archaeologists dug six trenches that explored and explained the appearance of the prehistoric ramparts and their chronological succession, but also showed the construction technique of the buildings in their interior.
+
+    The earliest rampart was constructed of wood and earth. It had an inner and an outer lacing of wooden boards placed just over one metre apart and filled with loam. At places, fire destroyed the rampart and caused the loam to get burnt through, leaving a red-orange-grey mass mixed with the charred boards of the collapsed lacing. The radiocarbon analyses of the wood remains and the analyses of the few sherds of prehistoric pottery have shown that this rampart dates to the Late Bronze Age or the beginning of the Early Iron Age (10th–8th century BC). Constructed on top of its ruins was another rampart, this time of stone. It was made with the inner and outer faces built of carefully selected and laid stones, and the space in between filled with stone rubble and earth. This wall was roughly two metres thick. It had an earthen bank along the exterior that terminated, after a few metres of a steep incline, in a small retaining wall and a ditch. The stone wall was additionally strengthened with wooden posts that reached into the ground below the level of the stone wall. Investigations also reliably showed that the rampart was repaired in several places.
+
+    <ArticleImage
+        src={zid}
+        caption="Proposed reconstruction of the stone rampart that encircled the hillfort."
+    />
+
+    In the hillfort interior, investigations have unearthed buildings erected along the rampart. Standing on levelled ground, they were either timber framed or log houses with the wooden walls daubed with clay. Some had the foundations of horizontally laid stones and other had holes for posts that supported the walls and the roof. These holes revealed stones used as packing material, to secure the posts. The buildings usually had storage pits in the interior, dug into the earth or even hewn into the bedrock. 
+
+    <ArticleImage
+        src={obzidje}
+        caption="Information panels near the section of the rampart that was partially reconstructed in 1990."
+    />
+
+    The finds recovered from the hillfort interior mainly consist of items associated with everyday life: pottery sherds, burnt daub, ceramic spindle whorls, ceramic pyramidal loom weights, ceramic rings as kitchen utensils, remains of animal food (bones) and iron slag as the remains of ironworking. The analysis of the prehistoric animal and plant remains has shown a predominance of domestic (bred) animals (cattle, pigs, goats, sheep) and only a minor share of wild (hunting) species, while the rich plant food consisted of millet, wheat, barley, flax, elder, blackberries, crucifer plants (swede, turnip) and surprisingly great amounts of mustard.
+
+    <PdfButton
+        href="Informativna_tabla_prazgodovinsko_gradišče.pdf"
+        text="Information board for the prehistoric hillfort"
+    />
+</Article>

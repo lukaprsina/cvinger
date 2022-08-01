@@ -99,33 +99,12 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
 
     hidden = realLang !== lang
 
-    useEffect(() => {
-        if (document) {
-            let text = "Accept cookies"
-
-            if (realLang == "si")
-                text = "Sprejmi piškotke"
-
-            setTimeout(() => {
-                let cookieButton = document.getElementById("rcc-confirm-button")
-                if (cookieButton)
-                    cookieButton.innerHTML = text
-            }, 0)
-        }
-    }, [realLang])
-
     const center = maxWidth ? {
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
     } : {}
-
-    /* console.log({
-        langOfArticle: lang,
-        reactCookies: cookies.lang,
-        serverLang: ssrLang
-    }) */
 
     if (hidden)
         return <></>
@@ -142,7 +121,13 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
             <Item to="/literatura" text="Literatura" />
         </Menu>}
 
-        <CookieConsent /* debug={true} */>{(realLang == "si") ? "Ta stran uporablja piškotke" : "This site uses cookies"}</CookieConsent>
+        <CookieConsent
+            enableDeclineButton={true}
+            sameSite={'lax'}
+            acceptOnScroll={true}
+            acceptOnScrollPercentage={20}
+            buttonText={(realLang === "si") ? "Sprejmi piškotke" : "Accept cookies"}
+        >{(realLang == "si") ? "Ta stran uporablja piškotke" : "This site uses cookies"}</CookieConsent>
 
         <Box id="page-wrap">
             <Gallery site={children}></Gallery>

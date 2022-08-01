@@ -1,20 +1,51 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import NextjsImage from "next/image"
-import { Box, Button, Tooltip, } from "@mui/material"
+import { Box, Button, Snackbar, Tooltip, } from "@mui/material"
 import LanguageIcon from '@mui/icons-material/Language';
 
 import "./useBreakpointMatch"
 import logo from "/public/images/logo/logo.svg"
 import useBreakpointMatch from "./useBreakpointMatch"
 import { useCookies } from "react-cookie"
+import { getCookieConsentValue, resetCookieConsentValue } from "react-cookie-consent";
 
 const Header = (props: { lang: string }) => {
     let { matches } = useBreakpointMatch("mdUp", true);
-    const [cookies, setCookie] = useCookies(["lang"]);
+    const [cookies, setCookie] = useCookies(["lang", "CookieConsent"]);
     const [nextLang, setNextLang] = useState(props.lang !== "en" ? "en" : "si");
+    const [snackbar, setSnackbar] = useState(false);
 
-    return (
+    const switchLanguage = () => {
+        const consent = getCookieConsentValue("CookieConsent")
+
+        if (consent !== "true") {
+            if (consent === "false")
+                resetCookieConsentValue()
+
+            setSnackbar(true)
+            return
+        } else if (consent === "true") {
+            let nLang = ""
+            if (cookies.lang == "en")
+                nLang = "si"
+            else
+                nLang = "en"
+
+            setCookie("lang", nLang, { path: "/", sameSite: "lax" })
+            setNextLang(nLang)
+        }
+    }
+
+    return <>
+        <Snackbar
+            open={snackbar}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            autoHideDuration={6_000}
+            onClose={() => setSnackbar(false)}
+            message="Please acccept cookies to switch languages"
+        />
+
         <Box
             sx={{
                 width: "100%",
@@ -69,16 +100,7 @@ const Header = (props: { lang: string }) => {
                         <Tooltip title={nextLang}>
                             <Button
                                 variant="text"
-                                onClick={() => {
-                                    let nLang = ""
-                                    if (cookies.lang == "en")
-                                        nLang = "si"
-                                    else
-                                        nLang = "en"
-
-                                    setCookie("lang", nLang, { path: "/", sameSite: true })
-                                    setNextLang(nLang)
-                                }}
+                                onClick={switchLanguage}
                             >
                                 <LanguageIcon />
                             </Button>
@@ -113,16 +135,7 @@ const Header = (props: { lang: string }) => {
                     >
                         <Button
                             variant="text"
-                            onClick={() => {
-                                let nLang = ""
-                                if (cookies.lang == "en")
-                                    nLang = "si"
-                                else
-                                    nLang = "en"
-
-                                setCookie("lang", nLang, { path: "/", sameSite: true })
-                                setNextLang(nLang)
-                            }}
+                            onClick={switchLanguage}
                         >
                             <LanguageIcon />
                         </Button>
@@ -130,7 +143,7 @@ const Header = (props: { lang: string }) => {
                 </Box>
             )}
         </Box >
-    )
+    </>
 }
 
 export default Header

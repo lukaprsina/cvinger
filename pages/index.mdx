@@ -1,20 +1,14 @@
 import lidar from "/public/images/gomile/lidar.jpg"
 import ArticleImage from "../components/ArticleImage"
 import Article from "../components/Article"
-import { getCookie } from "cookies-next"
+import nookies from 'nookies'
 
-export async function getServerSideProps({ req, res }) {
-    const lang = getCookie("lang", { req, res })
-    return {
-        props: {
-            lang
-        }
-    }
+export async function getServerSideProps(ctx) {
+    const cookies = nookies.get(ctx)
+    return {props: {cookies}}
 }
 
-{console.log("SSR:", props.lang)}
-
-<Article lang="si">
+<Article lang="si" ssrLang={props.cookies.lang}>
 # Si
 text
 - test
@@ -27,7 +21,7 @@ text
 />
 </Article>
 
-<Article lang="en">
+<Article lang="en"  ssrLang={props.cookies.lang}>
 # En
 text
 - test

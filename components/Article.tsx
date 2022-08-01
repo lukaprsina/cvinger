@@ -10,8 +10,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Gallery from './Gallery';
 import CookieConsent from 'react-cookie-consent';
-import { useCookies } from 'react-cookie';
 import HomeNavbar from './HomeNavbar';
+import { useCookies } from 'react-cookie';
 
 type ItemProps = {
     to: string,
@@ -75,25 +75,41 @@ function Item({ to, text }: ItemProps) {
 
 type ArticleProps = {
     title?: string,
-    lang?: String,
+    lang?: string,
+    ssrLang: string,
     children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
     maxWidth?: boolean,
 }
 
-function Article({ title = "", lang, children, maxWidth }: ArticleProps) {
+function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps) {
     const { matches } = useBreakpointMatch("mdUp", true);
-    const [cookies, setCookie] = useCookies(["lang"]);
     const router = useRouter()
+    const [cookies, setCookies] = useCookies(["lang"])
+
+    let hidden = false
+    let realLang = "";
+
+    if (typeof (cookies) != 'undefined' && typeof (cookies.lang) != 'undefined')
+        realLang = cookies.lang
+    else
+        realLang = ssrLang
+
+    hidden = realLang !== lang
 
     useEffect(() => {
         if (document) {
-            let a = document.getElementById("rcc-confirm-button")
-            if (!a)
-                return
+            let text = "Accept cookies"
 
-            a.innerHTML = "Sprejmi piškotke"
+            if (realLang == "si")
+                text = "Sprejmi piškotke"
+
+            setTimeout(() => {
+                let cookieButton = document.getElementById("rcc-confirm-button")
+                if (cookieButton)
+                    cookieButton.innerHTML = text
+            }, 0)
         }
-    }, [])
+    }, [realLang])
 
     const center = maxWidth ? {
         display: "flex",
@@ -102,8 +118,13 @@ function Article({ title = "", lang, children, maxWidth }: ArticleProps) {
         alignItems: "center",
     } : {}
 
-    console.log({ lang, cookie: cookies.lang })
-    if (lang !== cookies.lang)
+    /* console.log({
+        langOfArticle: lang,
+        reactCookies: cookies.lang,
+        serverLang: ssrLang
+    }) */
+
+    if (hidden)
         return <></>
 
     return <Box>

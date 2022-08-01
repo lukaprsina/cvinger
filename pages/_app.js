@@ -8,11 +8,10 @@ import {
 } from "@mui/material";
 import { Box } from '@mui/system';
 import Head from "next/head";
-import { CookiesProvider, useCookies } from 'react-cookie';
+import { CookiesProvider } from 'react-cookie';
 import { MDXProvider } from '@mdx-js/react'
 import Link from 'next/link';
 import App from 'next/app'
-import { getCookie, setCookie } from 'cookies-next';
 
 const theme = createTheme({
     palette: {
@@ -75,9 +74,6 @@ const components = {
 }
 
 function Cvinger({ Component, pageProps }) {
-    setCookie("lang", "si", { path: "/", sameSite: true })
-    // console.log(pageProps)
-
     return <>
         <Head>
             <link rel="shortcut icon" href="/favicon.png" />

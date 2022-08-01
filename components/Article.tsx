@@ -75,7 +75,7 @@ function Item({ to, text }: ItemProps) {
 
 type ArticleProps = {
     title?: string,
-    lang: String,
+    lang?: String,
     children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
     maxWidth?: boolean,
 }
@@ -101,17 +101,12 @@ function Article({ title = "", lang, children, maxWidth }: ArticleProps) {
         flexDirection: "column",
         alignItems: "center",
     } : {}
-    // console.log({ cookies: cookies.lang, lang, ssr: ssrLang })
-    // TODO
-    /* if (cookies && cookies.lang && (cookies.lang !== lang))
-        return <></> */
 
-    let display = "box"
-    /* if (cookies.lang && cookies.lang !== lang) {
-        display = "none"
-    } */
+    console.log({ lang, cookie: cookies.lang })
+    if (lang !== cookies.lang)
+        return <></>
 
-    return <Box /* sx={{ display: (ssrLang !== lang) ? "none" : "box" }} */>
+    return <Box>
         {matches ? null : <Menu pageWrapId="page-wrap" outerContainerId="outer-container">
             <Item to="/pot" text="Arheološka pot" />
             <Item to="/gradisce" text="Prazgodovinsko gradišče" />
@@ -123,7 +118,7 @@ function Article({ title = "", lang, children, maxWidth }: ArticleProps) {
             <Item to="/literatura" text="Literatura" />
         </Menu>}
 
-        <CookieConsent debug={true}>{(cookies.lang == "si") ? "Ta stran uporablja piškotke" : "This site uses cookies"}</CookieConsent>
+        <CookieConsent debug={true}>{(lang == "si") ? "Ta stran uporablja piškotke" : "This site uses cookies"}</CookieConsent>
 
         <Box id="page-wrap">
             <Gallery site={children}></Gallery>

@@ -1,6 +1,18 @@
 import lidar from "/public/images/gomile/lidar.jpg"
 import ArticleImage from "../components/ArticleImage"
 import Article from "../components/Article"
+import { getCookie } from "cookies-next"
+
+export async function getServerSideProps({ req, res }) {
+    const lang = getCookie("lang", { req, res })
+    return {
+        props: {
+            lang
+        }
+    }
+}
+
+{console.log("SSR:", props.lang)}
 
 <Article lang="si">
 # Si

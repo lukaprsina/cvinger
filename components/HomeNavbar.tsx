@@ -111,17 +111,17 @@ const HomeNavbar = (props: { lang: string }) => {
                 <Item image={zemljevid} text="Zemljevid" to="/zemljevid" />
                 <Item image={literatura} text="Literatura" to="/literatura" />
             </> : <>
-                <Item image={pot} text="The archaeological trail" to="/pot" />
+                <Item image={pot} text="Archaeological trail" to="/pot" />
                 <Item
                     image={gradisce}
-                    text="The prehistoric hillfort"
+                    text="Prehistoric hillfort"
                     to="/gradisce"
                 />
-                <Item image={vhod} text="The fortified entrance" to="/vhod" />
-                <Item image={jama} text="The Cvinger Cave" to="/jama" />
+                <Item image={vhod} text="Fortified entrance" to="/vhod" />
+                <Item image={jama} text="Cvinger Cave" to="/jama" />
 
-                <Item image={talilnice} text="The smelting area" to="/talilnice" />
-                <Item image={gomile} text="The barrow cemetery" to="/gomile" />
+                <Item image={talilnice} text="Smelting area" to="/talilnice" />
+                <Item image={gomile} text="Barrow cemetery" to="/gomile" />
                 <Item image={literatura} text="Literature" to="/literatura" />
                 <Item image={zemljevid} text="Map" to="/zemljevid" />
             </>}

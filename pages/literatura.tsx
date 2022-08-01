@@ -1,6 +1,6 @@
 import { SxProps, Typography, List, Tab } from '@mui/material';
 import React from 'react';
-import NextjsLink from 'next/link';
+import nookies from 'nookies'
 import data, { DataProps } from "../components/Data"
 import Article from '../components/Article'
 import { Box } from '@mui/system';
@@ -110,44 +110,92 @@ const literatura = data.map((entry: DataProps, index: number) => {
     </List>
 })
 
-function Literatura() {
+export async function getServerSideProps(ctx: any) {
+    return { props: { cookies: nookies.get(ctx) } }
+}
+
+type LiteraturaProps = {
+    cookies: {
+        lang: string
+    }
+}
+
+function Literatura(props: LiteraturaProps) {
     const [tab, setTab] = React.useState(0);
 
-    return <Article title="Literatura">
-        <Box>
-            <FilledTabs
-                value={tab}
-                onChange={(e: React.SyntheticEvent, newValue: number) => setTab(newValue)}
-                scrollButtons="auto"
-                variant="scrollable"
+    return <>
+        <Article title="Literatura" lang="si" ssrLang={props.cookies.lang}>
+            <Box>
+                <FilledTabs
+                    value={tab}
+                    onChange={(e: React.SyntheticEvent, newValue: number) => setTab(newValue)}
+                    scrollButtons="auto"
+                    variant="scrollable"
+                >
+                    <Tab label="Ikone" />
+                    <Tab label="Seznam" />
+                </FilledTabs>
+            </Box>
+            <SwipeableViews
+                axis='x'
+                index={tab}
+                onChangeIndex={(index: number) => setTab(index)}
+                containerStyle={{
+                    transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+                }}
             >
-                <Tab label="Ikone" />
-                <Tab label="Seznam" />
-            </FilledTabs>
-        </Box>
-        <SwipeableViews
-            axis='x'
-            index={tab}
-            onChangeIndex={(index: number) => setTab(index)}
-            containerStyle={{
-                transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-            }}
-        >
-            <TabPanel value={tab} index={0}>
-                <Box sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                }}>
-                    {data.map((entry, index) => <PdfIcon entry={entry} key={index} />)}
-                </Box>
-            </TabPanel>
-            <TabPanel value={tab} index={1} component="ul">
-                {literatura}
-            </TabPanel>
-        </SwipeableViews>
-    </Article>
+                <TabPanel value={tab} index={0}>
+                    <Box sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                    }}>
+                        {data.map((entry, index) => <PdfIcon entry={entry} key={index} />)}
+                    </Box>
+                </TabPanel>
+                <TabPanel value={tab} index={1} component="ul">
+                    {literatura}
+                </TabPanel>
+            </SwipeableViews>
+        </Article>
+
+        <Article title="Literatura" lang="en" ssrLang={props.cookies.lang}>
+            <Box>
+                <FilledTabs
+                    value={tab}
+                    onChange={(e: React.SyntheticEvent, newValue: number) => setTab(newValue)}
+                    scrollButtons="auto"
+                    variant="scrollable"
+                >
+                    <Tab label="Icons" />
+                    <Tab label="List" />
+                </FilledTabs>
+            </Box>
+            <SwipeableViews
+                axis='x'
+                index={tab}
+                onChangeIndex={(index: number) => setTab(index)}
+                containerStyle={{
+                    transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+                }}
+            >
+                <TabPanel value={tab} index={0}>
+                    <Box sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                    }}>
+                        {data.map((entry, index) => <PdfIcon entry={entry} key={index} />)}
+                    </Box>
+                </TabPanel>
+                <TabPanel value={tab} index={1} component="ul">
+                    {literatura}
+                </TabPanel>
+            </SwipeableViews>
+        </Article>
+    </>
 }
 
 type PdfIconProps = {

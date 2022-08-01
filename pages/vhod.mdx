@@ -1,13 +1,65 @@
 import ArticleImage from "../components/ArticleImage"
 import Article from "../components/Article"
 import nookies from 'nookies'
+import PdfButton from "../components/PdfButton"
+
+import vhod from "/public/images/vhod/vhod.jpg"
+import fotoskica from "/public/images/vhod/fotoskica.jpg"
+import tloris from "/public/images/vhod/tloris.jpg"
 
 export async function getServerSideProps(ctx) {
     return {props: {cookies: nookies.get(ctx)}}
 }
 
-<Article title="" lang="si" ssrLang={props.cookies.lang}>
+<Article title="Utrjen vhod" lang="si" ssrLang={props.cookies.lang}>
+    Gradišče je imelo dva vhoda, severnega in južnega, vsi drugi današnji prehodi skozi okop so nastali kasneje. Glavno vlogo je imel južni vhod, pred katerim je bilo na rezultatih zračnega laserskega skeniranja prvič mogoče prepoznati dostopno pot, ki je po svojem načinu izgradnje edinstvena v širšem prostoru. Gre za pot dolžine okoli 180 m in širine 4–5 m, ki se začne pri železarsko-talilniškem območju na Branževcu in vodi do vhoda v naselje. Pot na tej razdalji večkrat zavije, na obeh straneh je utrjena in ob tem dvakrat dopolnjena s prečnima okopoma. Z izkopavanjem tistega bližje naselbini so arheologi ugotovili, da gre za ostanke kamnitega zidu, ki je bil širok pribl. 4 m. Kljub slabše ohranjenim ostalinam je bilo jasno prepoznavno njegovo zunanje in notranje lice, grajeno iz večjih kamnov. Zid je imel še dve liniji večjih kamnov v notranjosti. Vmesni prostori so bili, podobno kot je bilo to pri obzidju okoli gradišča, zapolnjeni z manjšimi kamni in drobirjem.
+
+    <ArticleImage
+        src={vhod}
+        caption="Delno rekonstruiran (2020) skoraj 4 m širok dvojni zid ob dohodni poti."
+    />
+
+    <ArticleImage
+        src={fotoskica}
+        caption="Digitalni model ostalin več kot 3 m širokega prečnega utrdbenega zidu."
+    />
+
+    Utrjena pot je prebivalcem Cvingerja zagotavljala dodatno varnost in nadzor nad prišleki. Treba jo je razumeti skupaj z drugimi deli najdišča, ki je premišljeno organizirano. Šele z zračnim laserskim snemanjem je bilo namreč mogoče prepoznati tudi ugreznjene poti, ki se družijo v koridor premikanja in jih razumemo kot ostanke nekdanjih poti. Te vodijo najprej mimo gomilnega grobišča na Branževcu, mimo talilniškega območja in nato skozi utrjen dostop do naselja. Takšna ureditev prostora v okolici gradišča ni edinstvena, a nam predstavlja doslej slabo poznan vidik železnodobne družbe, ki si ga poskušamo razložiti. Obiskovalec, ki je prihajal na Cvinger, je naprej šel skozi nekropolo (svet mrtvih), kjer je spoznal slavo preteklih rodov. Nadaljeval je mimo talilnic, ki so zagotavljale blagostanje tukajšnje skupnosti. Nato je v zadnjih metrih moral prestati še preverjanje ob utrjenih prehodih na dostopni poti, da je lahko vstopil v naselbino. Morda boste o tem razmišljali tudi vi, današnji obiskovalci Cvingerja, ko boste naslednjič hodili po naši arheološki poti.    
+
+    <ArticleImage
+        src={tloris}
+        caption="Zračni posnetek, iz katerega je razviden potek dvojnega zidu."
+    />
+
+    <PdfButton
+        href="Informativna_tabla_utrjen_vhod.pdf"
+        text="Informativna tabla utrjen vhod"
+    />
 </Article>
 
-<Article title="" lang="en" ssrLang={props.cookies.lang}>
+<Article title="The fortified entrance" lang="en" ssrLang={props.cookies.lang}>
+    The hillfort had two original entrances, one in the north and the other in the south; all other »openings« in the rampart are later in date. The main entrance was in the south. In front of it, ALS data revealed the access path, which is unique in its constructional features. It is a 4–5 m wide path identified in the length of some 180 m that begins at the iron-smelting area on Branževec and makes several turns before reaching the entrance. In this section, it is flanked by banks on both sides and additionally fortified with two transverse walls. The excavations of the one closer to the hillfort have unearthed a roughly 4 m wide stone wall. It is poorly preserved, but it is still possible to identify an inner and an outer face constructed of large stones, two lines of large stone along the middle and stone rubble filling the spaces in between, similarly as in the rampart. 
+
+    <ArticleImage
+        src={vhod}
+        caption="Partly reconstructed (2020) and almost 4 m wide double wall flanking the path leading to the hillfort."
+    />
+    {/* TODO */}
+
+    <ArticleImage
+        src={fotoskica}
+        caption="Digital model of the remains of the over 3 m wide transverse wall."
+    />
+
+    The embanked path offered additional protection for the inhabitants of Cvinger and also control over any visitors. It should be considered in association with other parts of the site, which was a carefully organised unit. ALS data also revealed holloways that converge into a corridor of movement and represent the remains of ancient paths. These lead past the barrow cemetery on Branževec, past the iron-smelting area and through the fortified entrance into the hillfort. Such a spatial organisation of a hillfort area is not unique, but offers an insight into an aspect of Iron Age society that has previously been poorly known. The visitor to Cvinger first had to pass through the necropolis (the world of the dead), which celebrated the glory of the community’s ancestors, continued past the smelteries as the source of the community’s prosperity and finally endured the »final test« along the embanked path before being allowed to enter the hillfort. This was a journey that the ancients specifically designed for their contemporaries, but one that may also intrigue the modern visitor.
+
+    <ArticleImage
+        src={tloris}
+        caption="Aerial view of the double wall."
+    />
+
+    <PdfButton
+        href="Informativna_tabla_utrjen_vhod.pdf"
+        text="Informativna tabla utrjen vhod"
+    />
 </Article>

@@ -1,0 +1,74 @@
+import ArticleImage from "../components/ArticleImage"
+import Article from "../components/Article"
+import nookies from 'nookies'
+import PdfButton from "../components/PdfButton"
+
+import vzorci from "/public/images/talilnice/vzorci.jpg"
+import talilnik from "/public/images/talilnice/talilnik.jpg"
+import raziskave from "/public/images/talilnice/raziskave.jpg"
+
+export async function getServerSideProps(ctx) {
+    return {props: {cookies: nookies.get(ctx)}}
+}
+
+<Article title="Talilniško območje" lang="si" ssrLang={props.cookies.lang}>
+    Med najpomembnejše dejavnosti tukajšnjih prazgodovinskih prebivalcev štejemo taljenje železa in kovaštvo. Sledovi teh dejavnosti so prisotni tako znotraj naselja, kjer lahko na tleh najdemo kovaško žlindro, predvsem pa na južnem pobočju Cvingerja. Nekje na polovici poti med naseljem in gomilnim grobiščem Branževec so leta 1988 strokovnjaki med terenskimi pregledi na površini našli večje količine železove žlindre. Ker so bili vmes tudi koščki prežgane ilovice, je vse kazalo na to, da se pod gozdnim humusom skrivajo ostanki železnodobnih talilnih peči.
+
+    Domnevo so takrat preverili z manjšim izkopom (3 × 4 m) na sredini prostora, kjer je bila koncentracija najdb na površini največja. Sondiranje je domneve potrdilo, saj se je tik pod površjem nahajala večja količina železove žlindre in prežgane ilovice, ki je ležala raztresena po vsej površini izkopa. Na nivoju oranžno-rdeče ilovice (50‒60 cm pod površjem) so se pokazali jasni obrisi dvanajstih železarskih talilnih peči. Ležale so tesno skupaj, dve sta se celo dotikali. Nadaljnji izkop je pokazal, da gre za jame, vkopane v ilovnata tla. Njihova notranjost je bila večinoma močno ožgana in zapolnjena s temnejšo zemljo, kosi železove žlindre, lesnim ogljem in ponekod tudi prežganim kamenjem. Ohranili so se le spodnji deli peči z ostenjem, ki je bilo izdelano iz gline. V tlorisu so bile peči povečini okroglih oblik s premerom od 40 do 70 cm, le ena je merila 80 × 100 cm.
+
+    <ArticleImage
+        src={vzorci}
+        caption="Oblikovni in utežnostni prikaz različnih oblik železa."
+    />
+
+    Arheološko sondiranje na Branževcu je torej potrdilo domnevo, da je tu v železni dobi stal talilniški obrat. Sledile so prve nedestruktivne geofizikalne raziskave (magnetna metoda, 1997), ki so pokazale, da se je ta raztezal na približno 0,6 ha velikem prostoru, na katerem so nekdaj postavili več sto talilnih peči. Pridobivanje železa je v tistem času torej potekalo izven naselja, pridobljeno surovo železo (volk) pa so predelovali in kovali tudi znotraj naselja.
+
+    <ArticleImage
+        src={talilnik}
+        caption="Prerez skozi naloženo in dogorelo jaškasto talilno peč z jamo za žlindro."
+    />
+
+    Od leta 2013 do 2018 so na Branževcu potekale dodatne arheološke raziskave, kjer so bile uporabljene najsodobnejše geofizikalne metode. Na podlagi njihovih rezultatov je bila narejen še en arheološki izkop, ki je ponovno pokazal na gosto razporeditev talinih peči. Nadalje je pokazal, da so bile nekatere peči uporabljene večkrat. Ko je stara peč postala neuporabna, so jo včasih celo delno pre-uporabili za postavitev nove peči, ali pa so to sezidali v njeni neposredni bližini.
+
+    <ArticleImage
+        src={raziskave}
+        caption="Raziskave v arheološkem izkopu (sondi) na talilniškem območju. Foto Matija Črešnar."
+    />
+
+    <PdfButton
+        href="Informativna_tabla_talilniško_območje.pdf"
+        text="Informativna tabla talilniško območje"
+    />
+</Article>
+
+<Article title="The smelting area" lang="en" ssrLang={props.cookies.lang}>
+    Iron smelting and blacksmithing were among the most important activities of Cvinger’s prehistoric inhabitants. Traces of these activities have come to light both inside the settlement, where slag can be found on the surface, but even more on the southern slope of the hill. Roughly halfway between the settlement and the barrow cemetery at Branževec, archaeological field surveys in 1988 recovered large quantities of iron slag on the surface. The slag was mixed with pieces of burnt loam, which suggested the remains of Iron Age iron-smelting furnaces under the forest humus.
+
+    To verify this hypothesis, a trial trench (3 × 4 m) was excavated at the centre of the maximum concentration of surface finds. It revealed great quantities of slag and burnt loam just under the turf, which were scattered across the trench. The outlines of twelve iron smelting furnaces appeared at the level of orange-red loam (50‒60 cm below the surface). They stood close to one another, two were even touching. Further excavation showed that only the lower parts of the furnaces survived, which were pits dug into loamy soil with clay lining the walls; the walls were for the most part heavily burnt and the pits filled with darker soil, pieces of slag, wood charcoal and at places also burnt stones. In plan, most furnaces were round and measured 40 to 70 cm in diameter, one only was larger, with 80 × 100 cm.
+
+    <ArticleImage
+        src={vzorci}
+        caption="Display of iron in its different forms and weights."
+    />
+
+    The archaeological trial trenching confirmed the existence of a smelting complex on Branževec. The subsequent non-destructive geophysical investigations (using the magnetic method, 1997) showed that the complex extended across roughly 0.6 ha and comprised several hundreds of smelting furnaces. Iron extraction thus took place outside the settlement, while the obtained raw iron (bloom) was processed and forged also inside the hillfort.
+
+    <ArticleImage
+        src={talilnik}
+        caption="Section through the smelting furnace with the slag pit, at the beginning and end of the smelting process."
+    />
+
+    Further archaeological investigations took place on Branževec from 2013 to 2018 and involved the most advanced geophysical methods. The results were used as the basis for new excavations, which again showed densely spaced smelting surfaces. They also showed that some furnaces were used several times and even when a furnace was no longer functional, it was in some cases partially reused or a new one constructed next to it.
+
+    <ArticleImage
+        src={raziskave}
+        caption="Archaeological trial trenching in the smelting area. Photo by Matija Črešnar."
+    />
+
+    One of the furnaces was also dated using the magnetic dating method (for the first time in Slovenia). The result corresponds with the archaeological evidence and suggests the furnace was last used in 640–370 BC. The success of this dating attempt was all the more significant in view of the absence of chronologically diagnostic ceramic or metal finds in the smelting area and the fact that the radiocarbon dating of charcoal is limited for the period in question.
+
+    <PdfButton
+        href="Informativna_tabla_talilniško_območje.pdf"
+        text="Information board for the smelting area"
+    />
+</Article>

@@ -118,22 +118,22 @@ function Navbar(props: { lang: string }) {
                         <Circle />
                         <NavbarButton to="/zemljevid">Zemljevid</NavbarButton>
                     </> : <>
-                        <NavbarButton to="/pot">The archaeological trail</NavbarButton>
+                        <NavbarButton to="/pot">Archaeological trail</NavbarButton>
                         <Circle />
                         <NavbarButton to="/gradisce">
-                            The prehistoric hillfort
+                            Prehistoric hillfort
                         </NavbarButton>
                         <Circle />
-                        <NavbarButton to="/vhod">The fortified entrance</NavbarButton>
+                        <NavbarButton to="/vhod">Fortified entrance</NavbarButton>
                         <Circle />
-                        <NavbarButton to="/jama">The Cvinger Cave</NavbarButton>
+                        <NavbarButton to="/jama">Cvinger Cave</NavbarButton>
                         <Circle />
                         <NavbarButton to="/talilnice">
-                            The smelting area
+                            Smelting area
                         </NavbarButton>
                         <Circle />
                         <NavbarButton to="/gomile">
-                            The barrow cemetery
+                            Barrow cemetery
                         </NavbarButton>
                         <Circle />
                         <NavbarButton to="/literatura">Literature</NavbarButton>

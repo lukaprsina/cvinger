@@ -33,7 +33,7 @@ function ArticleImage({ src, caption, center = false, noBorder = false, priority
             }
         }}>
             {noGallery ? (
-                <Box sx={{ textAlign: "center" }} component="a">
+                <Box sx={{ display: "flex", justifyContent: "center" }} component="a">
                     <NextjsImage
                         src={src}
                         alt={caption}

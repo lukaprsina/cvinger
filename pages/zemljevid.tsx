@@ -1,4 +1,5 @@
 import { ButtonGroup, Container, IconButton, Tab, Tooltip } from '@mui/material';
+import nookies from 'nookies'
 import { Box } from '@mui/system';
 import React, { useRef, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
@@ -178,46 +179,94 @@ function GoogleMap({ mapRef }: GoogleMapProps) {
     </iframe>
 }
 
-function Zemljevid() {
+export async function getServerSideProps(ctx: any) {
+    return { props: { cookies: nookies.get(ctx) } }
+}
+
+type ZemljevidProps = {
+    cookies: {
+        lang: string
+    }
+}
+
+function Zemljevid(props: ZemljevidProps) {
     const [tab, setTab] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null)
     const mapRef = useRef<HTMLDivElement>(null)
 
-    return <Article maxWidth>
-        <FilledTabs
-            value={tab}
-            onChange={(e, newValue) => setTab(newValue)}
-            scrollButtons="auto"
-            variant="scrollable"
-        >
-            <Tab label="Zemljevid" />
-            <Tab label="Google zemljevid" />
-        </FilledTabs>
-        <Container ref={containerRef} sx={{
-            overflow: "hidden",
-            boxSizing: "border-box",
-            width: "100%",
-            padding: "0px!important",
-            margin: "0px!important",
-        }}>
-            <SwipeableViews
-                axis='x'
-                index={tab}
-                onChangeIndex={(index: number) => setTab(index)}
-                containerStyle={{
-                    transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-                    marginTop: "-10px"
-                }}
+    return <>
+        <Article maxWidth lang="si" ssrLang={props.cookies.lang}>
+            <FilledTabs
+                value={tab}
+                onChange={(e, newValue) => setTab(newValue)}
+                scrollButtons="auto"
+                variant="scrollable"
             >
-                <TabPanel value={tab} index={0}>
-                    <MyMap mapRef={mapRef} />
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                    <GoogleMap mapRef={containerRef} />
-                </TabPanel>
-            </SwipeableViews>
-        </Container>
-    </Article>
+                <Tab label="Zemljevid" />
+                <Tab label="Google zemljevid" />
+            </FilledTabs>
+            <Container ref={containerRef} sx={{
+                overflow: "hidden",
+                boxSizing: "border-box",
+                width: "100%",
+                padding: "0px!important",
+                margin: "0px!important",
+            }}>
+                <SwipeableViews
+                    axis='x'
+                    index={tab}
+                    onChangeIndex={(index: number) => setTab(index)}
+                    containerStyle={{
+                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+                        marginTop: "-10px"
+                    }}
+                >
+                    <TabPanel value={tab} index={0}>
+                        <MyMap mapRef={mapRef} />
+                    </TabPanel>
+                    <TabPanel value={tab} index={1}>
+                        <GoogleMap mapRef={containerRef} />
+                    </TabPanel>
+                </SwipeableViews>
+            </Container>
+        </Article>
+
+        <Article maxWidth lang="en" ssrLang={props.cookies.lang}>
+            <FilledTabs
+                value={tab}
+                onChange={(e, newValue) => setTab(newValue)}
+                scrollButtons="auto"
+                variant="scrollable"
+            >
+                <Tab label="Map" />
+                <Tab label="Google Maps" />
+            </FilledTabs>
+            <Container ref={containerRef} sx={{
+                overflow: "hidden",
+                boxSizing: "border-box",
+                width: "100%",
+                padding: "0px!important",
+                margin: "0px!important",
+            }}>
+                <SwipeableViews
+                    axis='x'
+                    index={tab}
+                    onChangeIndex={(index: number) => setTab(index)}
+                    containerStyle={{
+                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+                        marginTop: "-10px"
+                    }}
+                >
+                    <TabPanel value={tab} index={0}>
+                        <MyMap mapRef={mapRef} />
+                    </TabPanel>
+                    <TabPanel value={tab} index={1}>
+                        <GoogleMap mapRef={containerRef} />
+                    </TabPanel>
+                </SwipeableViews>
+            </Container>
+        </Article>
+    </>
 }
 
 export default Zemljevid

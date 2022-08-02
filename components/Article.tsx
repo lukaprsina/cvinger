@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Header from "../components/Header"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
@@ -82,9 +82,22 @@ type ArticleProps = {
 }
 
 function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps) {
-    const { matches } = useBreakpointMatch("mdUp", true);
+    const { matches } = useBreakpointMatch("mdUp");
     const router = useRouter()
     const [cookies, setCookies] = useCookies(["lang"])
+    const articleRef = useRef<HTMLDivElement>()
+
+    useEffect(() => {
+        if (!articleRef || !articleRef.current)
+            return
+
+        if (!articleRef.current.lastElementChild)
+            return
+
+        if (articleRef.current.lastElementChild.tagName == "P") {
+            articleRef.current.lastElementChild.classList.add("last-paragraph")
+        }
+    }, [articleRef])
 
     let hidden = false
     let realLang = "si";
@@ -127,6 +140,7 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
             acceptOnScroll={true}
             acceptOnScrollPercentage={20}
             buttonText={(realLang === "si") ? "Sprejmi piškotke" : "Accept cookies"}
+            declineButtonText={(realLang === "si") ? "Zavrni piškotke" : "Decline cookies"}
         >{(realLang == "si") ? "Ta stran uporablja piškotke" : "This site uses cookies"}</CookieConsent>
 
         <Box id="page-wrap">
@@ -160,7 +174,7 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
                         {title}
                     </Typography>
                 ) : null}
-                <Box sx={{
+                <Box ref={articleRef} sx={{
                     textAlign: 'justify',
                     /* ">p:last-of-type": {
                     mb: "0!important",

@@ -11,7 +11,7 @@ import { useCookies } from "react-cookie"
 import { getCookieConsentValue, resetCookieConsentValue } from "react-cookie-consent";
 
 const Header = (props: { lang: string }) => {
-    let { matches } = useBreakpointMatch("mdUp", true);
+    let { matches } = useBreakpointMatch("mdUp");
     const [cookies, setCookie] = useCookies(["lang", "CookieConsent"]);
     const [nextLang, setNextLang] = useState(props.lang !== "en" ? "en" : "si");
     const [snackbar, setSnackbar] = useState(false);

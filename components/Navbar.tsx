@@ -71,7 +71,7 @@ function Circle() {
 let path: string;
 
 function Navbar(props: { lang: string }) {
-    let { matches } = useBreakpointMatch("mdUp", true);
+    let { matches } = useBreakpointMatch("mdUp");
     const router = useRouter()
     path = router.pathname
 

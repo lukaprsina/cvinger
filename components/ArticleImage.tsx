@@ -3,6 +3,7 @@ import React from "react"
 import { Typography, Box } from "@mui/material"
 import NextjsImage, { StaticImageData } from "next/image"
 import Link from "next/link"
+import Subtitle from "./Subtitle"
 
 type ArticleImageProps = {
     src: StaticImageData,
@@ -66,16 +67,7 @@ function ArticleImage({ src, caption, center = false, noBorder = false, priority
                     </Box>
                 </Link>
             )}
-            <Typography
-                variant="caption"
-                paragraph
-                align={center ? "center" : "left"}
-                sx={{
-                    mt: "5px",
-                }}
-            >
-                {caption}
-            </Typography>
+            <Subtitle center={center} caption={caption} />
         </Box >
     )
 }

@@ -84,7 +84,7 @@ function Item({ image, text, to }: ItemProps) {
 }
 
 const HomeNavbar = (props: { lang: string }) => {
-    let { matches } = useBreakpointMatch("mdUp", true);
+    let { matches } = useBreakpointMatch("mdUp");
 
     return <>        {
         matches ? <Box

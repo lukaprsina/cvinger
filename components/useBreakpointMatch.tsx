@@ -1,6 +1,5 @@
-// https://gist.github.com/xiel/9c8e58bb5854eeec8de779f9da7f85b6
-import { useState, useEffect } from 'react'
-import { Theme, useTheme, Breakpoint } from '@mui/material'
+import { Breakpoint, Theme, useTheme } from '@mui/material'
+import { useState, useLayoutEffect } from 'react'
 
 export type BreakpointVisiblityValues =
     | 'xsOnly'
@@ -34,17 +33,17 @@ const getMQForVisiblityValues = (theme: Theme, visValues: BreakpointVisiblityVal
     return mqArray.join()
 }
 
-function useBreakpointMatch(breakpointValue: BreakpointValueProp = 'always', defaultChoice: boolean) {
+export default function useBreakpointMatch(breakpointValue: BreakpointValueProp = 'always') {
     const theme = useTheme<Theme>()
-    const [matches, setMatches] = useState(defaultChoice)
+    const [matches, setMatches] = useState(breakpointValue === 'always')
+    const visibleArray =
+        breakpointValue && breakpointValue !== 'always'
+            ? Array.isArray(breakpointValue)
+                ? breakpointValue
+                : [breakpointValue]
+            : []
 
-    useEffect(() => {
-        const visibleArray =
-            breakpointValue && breakpointValue !== 'always'
-                ? Array.isArray(breakpointValue)
-                    ? breakpointValue
-                    : [breakpointValue]
-                : []
+    useLayoutEffect(() => {
         // exit early for default value
         if (breakpointValue === 'always') {
             setMatches(true)
@@ -65,9 +64,7 @@ function useBreakpointMatch(breakpointValue: BreakpointValueProp = 'always', def
 
         // cleanup and remove listeners
         return () => mediaQueryList.removeEventListener('change', matchChangeHandler)
-    }, [breakpointValue, theme])
+    }, visibleArray)
 
     return { matches }
 }
-
-export default useBreakpointMatch

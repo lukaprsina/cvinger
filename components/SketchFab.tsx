@@ -28,7 +28,7 @@ function SketchFab(props: { lang: string }) {
                 variant="scrollable"
             >
                 <Tab label={(lang === "si") ?
-                    "Model jame pred raziskavami" : "Model of the cave prior to the speleological-archaeological investigations"} />
+                    "Model jame pred raziskavami" : "Model of the cave prior to the investigations"} />
                 <Tab label={(lang === "si") ?
                     "Vhod jame" : "Entrance to the cave"} />
                 <Tab label={(lang === "si") ?

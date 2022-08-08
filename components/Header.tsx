@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import NextjsImage from "next/image"
-import { Box, Button, Snackbar, Tooltip, } from "@mui/material"
+import { Box, Button, IconButton, Snackbar, } from "@mui/material"
 
 import "./useBreakpointMatch"
 import logo from "/public/images/logo/logo.svg"
-import flagSI from "/public/images/zastave/SI.png"
-import flagGB from "/public/images/zastave/GB.png"
+import flagSI from "/public/images/zastave/si.png"
+import flagUK from "/public/images/zastave/uk.png"
 import useBreakpointMatch from "./useBreakpointMatch"
 import { useCookies } from "react-cookie"
 import { getCookieConsentValue, resetCookieConsentValue } from "react-cookie-consent";
@@ -15,7 +15,7 @@ import { getCookieConsentValue, resetCookieConsentValue } from "react-cookie-con
 const Header = (props: { lang: string }) => {
     let { matches } = useBreakpointMatch("mdUp");
     const [cookies, setCookie] = useCookies(["lang", "CookieConsent"]);
-    const [nextLang, setNextLang] = useState(props.lang);
+    const [nextLang, setNextLang] = useState(props.lang !== "en" ? "en" : "si");
     const [snackbar, setSnackbar] = useState(false);
 
     const switchLanguage = () => {
@@ -38,6 +38,33 @@ const Header = (props: { lang: string }) => {
             setNextLang(nLang)
         }
     }
+
+    const test = !matches ? {
+        position: "absolute",
+        right: "10px",
+        // top: "50%"
+    } : {}
+
+    const languageSwitcher = (
+        <IconButton
+            onClick={switchLanguage}
+            size="small"
+            sx={{
+                "& img": {
+                    transform: "scale(0.6)"
+                },
+                ...test
+            }}
+        >
+            {(nextLang == "si") ? <NextjsImage
+                src={flagSI}
+                alt="Slovenian flag"
+            /> : <NextjsImage
+                src={flagUK}
+                alt="English flag"
+            />}
+        </IconButton >
+    )
 
     return <>
         <Snackbar
@@ -99,29 +126,20 @@ const Header = (props: { lang: string }) => {
                         display: "flex",
                         alignItems: "center",
                     }}>
-                        <Tooltip title={(nextLang == "si") ? "Slovenščina" : "English"}>
-                            <Button
-                                variant="text"
-                                onClick={switchLanguage}
-                            >
-                                {(nextLang == "si") ? <NextjsImage
-                                    src={flagSI}
-                                    alt="Slovenian flag"
-                                /> : <NextjsImage
-                                    src={flagGB}
-                                    alt="English flag"
-                                />}
-                            </Button>
-                        </Tooltip>
+                        {languageSwitcher}
                     </Box >
                 </Box>
             ) : (
                 <Box sx={{
                     display: "flex",
                     justifyContent: "center",
-                    height: "30px"
+                    alignItems: "center",
+                    height: "30px",
                 }}>
-                    <Link href="/" prefetch={false}>
+                    <Link
+                        href="/"
+                        prefetch={false}
+                    >
                         <a style={{
                             height: "30px"
                         }}
@@ -134,26 +152,7 @@ const Header = (props: { lang: string }) => {
                             />
                         </a>
                     </Link>
-                    <Tooltip
-                        title={(nextLang == "si") ? "Slovenščina" : "English"}
-                        sx={{
-                            position: "absolute",
-                            right: "20px"
-                        }}
-                    >
-                        <Button
-                            variant="text"
-                            onClick={switchLanguage}
-                        >
-                            {(nextLang == "si") ? <NextjsImage
-                                src={flagSI}
-                                alt="Slovenian flag"
-                            /> : <NextjsImage
-                                src={flagGB}
-                                alt="English flag"
-                            />}
-                        </Button>
-                    </Tooltip>
+                    {languageSwitcher}
                 </Box>
             )}
         </Box >

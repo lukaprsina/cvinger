@@ -2,18 +2,20 @@ import React, { useState } from "react"
 import Link from "next/link"
 import NextjsImage from "next/image"
 import { Box, Button, Snackbar, Tooltip, } from "@mui/material"
-import LanguageIcon from '@mui/icons-material/Language';
 
 import "./useBreakpointMatch"
 import logo from "/public/images/logo/logo.svg"
+import flagSI from "/public/images/zastave/SI.png"
+import flagGB from "/public/images/zastave/GB.png"
 import useBreakpointMatch from "./useBreakpointMatch"
 import { useCookies } from "react-cookie"
 import { getCookieConsentValue, resetCookieConsentValue } from "react-cookie-consent";
 
+
 const Header = (props: { lang: string }) => {
     let { matches } = useBreakpointMatch("mdUp");
     const [cookies, setCookie] = useCookies(["lang", "CookieConsent"]);
-    const [nextLang, setNextLang] = useState(props.lang !== "en" ? "en" : "si");
+    const [nextLang, setNextLang] = useState(props.lang);
     const [snackbar, setSnackbar] = useState(false);
 
     const switchLanguage = () => {
@@ -97,12 +99,18 @@ const Header = (props: { lang: string }) => {
                         display: "flex",
                         alignItems: "center",
                     }}>
-                        <Tooltip title={nextLang}>
+                        <Tooltip title={(nextLang == "si") ? "Slovenščina" : "English"}>
                             <Button
                                 variant="text"
                                 onClick={switchLanguage}
                             >
-                                <LanguageIcon />
+                                {(nextLang == "si") ? <NextjsImage
+                                    src={flagSI}
+                                    alt="Slovenian flag"
+                                /> : <NextjsImage
+                                    src={flagGB}
+                                    alt="English flag"
+                                />}
                             </Button>
                         </Tooltip>
                     </Box >
@@ -127,7 +135,7 @@ const Header = (props: { lang: string }) => {
                         </a>
                     </Link>
                     <Tooltip
-                        title={nextLang}
+                        title={(nextLang == "si") ? "Slovenščina" : "English"}
                         sx={{
                             position: "absolute",
                             right: "20px"
@@ -137,7 +145,13 @@ const Header = (props: { lang: string }) => {
                             variant="text"
                             onClick={switchLanguage}
                         >
-                            <LanguageIcon />
+                            {(nextLang == "si") ? <NextjsImage
+                                src={flagSI}
+                                alt="Slovenian flag"
+                            /> : <NextjsImage
+                                src={flagGB}
+                                alt="English flag"
+                            />}
                         </Button>
                     </Tooltip>
                 </Box>

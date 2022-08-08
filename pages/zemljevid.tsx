@@ -47,7 +47,7 @@ function MapButton({ onClick, icon }: MapButtonProps) {
 const AnimatedCircle = animated(LocationOn)
 
 function toPDF(title: string): string {
-    return "/documents/table/" + title.replace(/ /g, "_") + ".pdf";
+    return "https://lukaprsina.github.io/cvinger.net/documents/table/" + title.replace(/ /g, "_") + ".pdf";
 }
 
 type MarkerProps = {

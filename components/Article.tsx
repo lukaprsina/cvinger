@@ -176,9 +176,6 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
                 ) : null}
                 <Box ref={articleRef} sx={{
                     textAlign: 'justify',
-                    /* ">p:last-of-type": {
-                    mb: "0!important",
-                    } */
                     boxSizing: "border-box"
                 }}
                 >

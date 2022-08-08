@@ -114,9 +114,9 @@ function Navbar(props: { lang: string }) {
                             Gomilno grobišče
                         </NavbarButton>
                         <Circle />
-                        <NavbarButton to="/literatura">Literatura</NavbarButton>
-                        <Circle />
                         <NavbarButton to="/zemljevid">Zemljevid</NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/literatura">Literatura</NavbarButton>
                     </> : <>
                         <NavbarButton to="/pot">Archaeological trail</NavbarButton>
                         <Circle />
@@ -136,9 +136,9 @@ function Navbar(props: { lang: string }) {
                             Barrow cemetery
                         </NavbarButton>
                         <Circle />
-                        <NavbarButton to="/literatura">Literature</NavbarButton>
-                        <Circle />
                         <NavbarButton to="/zemljevid">Map</NavbarButton>
+                        <Circle />
+                        <NavbarButton to="/literatura">Literature</NavbarButton>
                     </>}
                 </Toolbar>
             </AppBar>

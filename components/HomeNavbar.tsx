@@ -122,8 +122,8 @@ const HomeNavbar = (props: { lang: string }) => {
 
                 <Item image={talilnice} text="Smelting area" to="/talilnice" />
                 <Item image={gomile} text="Barrow cemetery" to="/gomile" />
-                <Item image={literatura} text="Literature" to="/literatura" />
                 <Item image={zemljevid} text="Map" to="/zemljevid" />
+                <Item image={literatura} text="Literature" to="/literatura" />
             </>}
         </Box > : null
     }</>

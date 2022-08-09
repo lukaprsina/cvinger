@@ -1,3 +1,5 @@
+const { withAxiom } = require('next-axiom');
+
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
@@ -7,8 +9,8 @@ const withMDX = require('@next/mdx')({
   },
 })
 
-module.exports = withMDX({
+module.exports = withAxiom(withMDX({
   reactStrictMode: true,
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-})
+}))
 

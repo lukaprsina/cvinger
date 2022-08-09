@@ -1,19 +1,17 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import NextjsImage from "next/image"
-import { Box, Button, IconButton, Snackbar, } from "@mui/material"
+import { Box, IconButton, Snackbar, useMediaQuery, useTheme, } from "@mui/material"
 
-import "./useBreakpointMatch"
 import logo from "/public/images/logo/logo.svg"
 import flagSI from "/public/images/zastave/si.png"
 import flagUK from "/public/images/zastave/uk.png"
-import useBreakpointMatch from "./useBreakpointMatch"
 import { useCookies } from "react-cookie"
 import { getCookieConsentValue, resetCookieConsentValue } from "react-cookie-consent";
 
-
 const Header = (props: { lang: string }) => {
-    let { matches } = useBreakpointMatch("mdUp");
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up("md"));
     const [cookies, setCookie] = useCookies(["lang", "CookieConsent"]);
     const [nextLang, setNextLang] = useState(props.lang !== "en" ? "en" : "si");
     const [snackbar, setSnackbar] = useState(false);

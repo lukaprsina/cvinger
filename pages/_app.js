@@ -11,7 +11,6 @@ import Head from "next/head";
 import { CookiesProvider } from 'react-cookie';
 import { MDXProvider } from '@mdx-js/react'
 import Link from 'next/link';
-import App from 'next/app'
 
 const theme = createTheme({
     palette: {

@@ -3,9 +3,8 @@ import Header from "../components/Header"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 
-import { Typography, Box, } from "@mui/material"
+import { Typography, Box, useMediaQuery, useTheme, } from "@mui/material"
 import { push as Menu } from 'react-burger-menu'
-import useBreakpointMatch from '../components/useBreakpointMatch';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Gallery from './Gallery';
@@ -82,7 +81,8 @@ type ArticleProps = {
 }
 
 function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps) {
-    const { matches } = useBreakpointMatch("mdUp");
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up("md"));
     const router = useRouter()
     const [cookies, setCookies] = useCookies(["lang"])
     const articleRef = useRef<HTMLDivElement>()

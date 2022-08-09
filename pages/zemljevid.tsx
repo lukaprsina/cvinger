@@ -10,9 +10,13 @@ import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
-import { useSpring, animated } from 'react-spring';
+import { useSpring, animated, to } from 'react-spring';
 import useWindowSize from '../components/useWindowSize';
 import FilledTabs from '../components/FilledTabs';
+
+export async function getServerSideProps(ctx: any) {
+    return { props: { cookies: nookies.get(ctx) } }
+}
 
 const markers = [
     { x: 282, y: 210, text: "Uvodna tabla Meniška vas" },
@@ -29,7 +33,7 @@ const markers = [
     { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
 ];
 
-const AnimatedCircle = animated(LocationOn)
+const AnimatedMarker = animated(LocationOn)
 
 type MapButtonProps = {
     onClick: () => void;
@@ -50,6 +54,50 @@ function toPDF(title: string): string {
     return "https://lukaprsina.github.io/cvinger.net/documents/table/" + title.replace(/ /g, "_") + ".pdf";
 }
 
+type MarkerProps = {
+    title: string;
+    position: { x: number, y: number };
+    mapRef: React.RefObject<HTMLDivElement>;
+    mapScale: number;
+}
+
+function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
+    useWindowSize();
+
+    const [hovered, setHovered] = useState(false);
+
+    const { number } = useSpring({
+        number: hovered ? mapScale * 1.2 : mapScale,
+    })
+
+    if (!mapRef || !mapRef.current)
+        return null;
+
+    const x = position.x
+    const y = position.y - 8
+    const bounds = mapRef.current.getBoundingClientRect();
+    const link = toPDF(title);
+
+    return (
+        <Tooltip
+            onClick={() => { window.open(link, "_blank") }}
+            title={title}
+            onMouseEnter={() => { setHovered(true) }}
+            onMouseLeave={() => { setHovered(false) }}
+        >
+            <AnimatedMarker
+                color='info'
+                style={{
+                    position: "absolute",
+                    left: x * (bounds.width / zemljevid.width),
+                    top: y * (bounds.height / zemljevid.height),
+                    transformOrigin: "center bottom",
+                    scale3d: to([number], (num) => [num, num, num]),
+                }}
+            />
+        </Tooltip>
+    )
+}
 
 type MyMapProps = {
     mapRef: React.RefObject<HTMLDivElement>;
@@ -94,13 +142,13 @@ function MyMap({ mapRef }: MyMapProps) {
                     />
                 </ButtonGroup>
 
-                <Box ref={mapRef}>
+                <Box ref={mapRef}/*  className="marker" */>
                     <TransformComponent>
                         <NextjsImage
                             src={zemljevid}
                             priority
                         />
-                        {/* {built && markers.map(({ x, y, text }, index) => {
+                        {built && markers.map(({ x, y, text }, index) => {
                             return <Marker
                                 key={index}
                                 title={text}
@@ -108,7 +156,7 @@ function MyMap({ mapRef }: MyMapProps) {
                                 mapRef={mapRef}
                                 mapScale={1.5 / controls.state.scale}
                             />
-                        })} */}
+                        })}
                     </TransformComponent>
                 </Box>
             </>
@@ -219,3 +267,5 @@ function Zemljevid(props: ZemljevidProps) {
         </Article>
     </>
 }
+
+export default Zemljevid

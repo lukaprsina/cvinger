@@ -1,11 +1,10 @@
 import React, { useState } from "react"
-import { Typography } from "@mui/material"
+import { Typography, useMediaQuery, useTheme } from "@mui/material"
 import { useSpring, animated } from "react-spring"
 
 import Link from "next/link"
 import { Box } from "@mui/system"
 import { StaticImageData } from "next/image"
-import useBreakpointMatch from "./useBreakpointMatch"
 
 import pot from "/public/images/home/krogci/01_pot.png"
 import gradisce from "/public/images/home/krogci/02_gradisce.png"
@@ -84,7 +83,8 @@ function Item({ image, text, to }: ItemProps) {
 }
 
 const HomeNavbar = (props: { lang: string }) => {
-    let { matches } = useBreakpointMatch("mdUp");
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up("md"));
 
     return <>        {
         matches ? <Box

@@ -5,9 +5,8 @@ import {
     Button,
     Toolbar,
     useScrollTrigger,
-    Slide,
+    Slide, useMediaQuery, useTheme
 } from "@mui/material"
-import useBreakpointMatch from "./useBreakpointMatch"
 import { Box } from "@mui/system"
 import { useRouter } from "next/router"
 
@@ -71,7 +70,8 @@ function Circle() {
 let path: string;
 
 function Navbar(props: { lang: string }) {
-    let { matches } = useBreakpointMatch("mdUp");
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up("md"));
     const router = useRouter()
     path = router.pathname
 

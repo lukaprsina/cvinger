@@ -1,5 +1,5 @@
-import nookies from 'nookies'
 import { ButtonGroup, Container, IconButton, Tab, Tooltip } from '@mui/material';
+import nookies from 'nookies'
 import { Box } from '@mui/system';
 import React, { useRef, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
@@ -10,33 +10,32 @@ import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
-import { useSpring, animated } from 'react-spring';
-import useWindowSize from '../components/useWindowSize';
+import { useSpring, animated, to } from 'react-spring';
 import FilledTabs from '../components/FilledTabs';
+import { useCookies } from 'react-cookie';
+import DisableSSR from '../components/DisableSSR';
 
-export async function getServerSideProps(ctx: any) {
-    return { props: { cookies: nookies.get(ctx) } }
-}
+const markers = [
+    { x: 282, y: 210, textSi: "Uvodna tabla Meniška vas", textEn: "Introduction board in Meniška vas" },
+    { x: 525, y: 224, textSi: "Vmesna tabla Meniška vas", textEn: "Information board in Meniška vas" },
+    { x: 813, y: 233, textSi: "Uvodna tabla osnovna šola", textEn: "Introduction board at the primary school" },
+    { x: 585, y: 276, textSi: "Vmesna tabla osnovna šola", textEn: "Information board at the primary school" },
+    { x: 468, y: 294, textSi: "Informativna tabla prazgodovinsko gradišče", textEn: "Information board for the prehistoric hillfort" },
+    { x: 520, y: 285, textSi: "Informativna tabla apnenice", textEn: "Information board at the limepit" },
+    { x: 510, y: 310, textSi: "Informativna tabla Cvingerska jama", textEn: "Information board for the Cvinger cave" },
+    { x: 525, y: 383, textSi: "Vmesna tabla utrjen vhod", textEn: "Information board the fortified entrance" },
+    { x: 520, y: 411, textSi: "Informativna tabla utrjen vhod", textEn: "Information board the fortified entrance" },
+    { x: 522, y: 501, textSi: "Informativna tabla talilniško območje", textEn: "Information board for the smelting area" },
+    { x: 643, y: 633, textSi: "Informativna tabla gomilno grobišče", textEn: "Information board for the barrow cemetery" },
+    { x: 831, y: 664, textSi: "Uvodna tabla pokopališče", textEn: "Introduction board at the cemetery" },
+];
+
+const AnimatedMarker = animated(LocationOn)
 
 type MapButtonProps = {
     onClick: () => void;
     icon: JSX.Element;
 }
-
-const markers = [
-    { x: 282, y: 210, text: "Uvodna tabla Meniška vas" },
-    { x: 525, y: 224, text: "Vmesna tabla Meniška vas" },
-    { x: 813, y: 233, text: "Uvodna tabla osnovna šola" },
-    { x: 585, y: 276, text: "Vmesna tabla osnovna šola" },
-    { x: 468, y: 294, text: "Informativna tabla prazgodovinsko gradišče" },
-    { x: 520, y: 285, text: "Informativna tabla apnenice" },
-    { x: 510, y: 310, text: "Informativna tabla Cvingerska jama" },
-    { x: 525, y: 383, text: "Vmesna tabla utrjen vhod" },
-    { x: 520, y: 411, text: "Informativna tabla utrjen vhod" },
-    { x: 522, y: 501, text: "Informativna tabla talilniško območje" },
-    { x: 643, y: 633, text: "Informativna tabla gomilno grobišče" },
-    { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
-];
 
 function MapButton({ onClick, icon }: MapButtonProps) {
     return (
@@ -47,7 +46,6 @@ function MapButton({ onClick, icon }: MapButtonProps) {
         </IconButton>
     )
 }
-
 
 function toPDF(title: string): string {
     return "https://lukaprsina.github.io/cvinger.net/documents/table/" + title.replace(/ /g, "_") + ".pdf";
@@ -60,18 +58,12 @@ type MarkerProps = {
     mapScale: number;
 }
 
-const AnimatedMarker = animated(LocationOn)
-
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
-    const windowSize = useWindowSize();
     const [hovered, setHovered] = useState(false);
-    const [styles, api] = useSpring(() => ({
-        scale: mapScale,
-    }));
 
-    api({
-        scale: hovered ? mapScale * 1.2 : mapScale
-    });
+    const { number } = useSpring({
+        number: hovered ? mapScale * 1.2 : mapScale,
+    })
 
     if (!mapRef || !mapRef.current)
         return null;
@@ -95,7 +87,7 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
                     left: x * (bounds.width / zemljevid.width),
                     top: y * (bounds.height / zemljevid.height),
                     transformOrigin: "center bottom",
-                    ...styles,
+                    scale3d: to([number], (num) => [num, num, num]),
                 }}
             />
         </Tooltip>
@@ -104,9 +96,10 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
 
 type MyMapProps = {
     mapRef: React.RefObject<HTMLDivElement>;
+    lang: "si" | "en"
 }
 
-function MyMap({ mapRef }: MyMapProps) {
+function MyMap({ mapRef, lang }: MyMapProps) {
     const [built, setBuilt] = useState(false)
 
     useEffect(() => {
@@ -151,10 +144,10 @@ function MyMap({ mapRef }: MyMapProps) {
                             src={zemljevid}
                             priority
                         />
-                        {built && markers.map(({ x, y, text }, index) => {
+                        {built && markers.map(({ x, y, textSi, textEn }, index) => {
                             return <Marker
                                 key={index}
-                                title={text}
+                                title={lang == "si" ? textSi : textEn}
                                 position={{ x, y }}
                                 mapRef={mapRef}
                                 mapScale={1.5 / controls.state.scale}
@@ -188,42 +181,47 @@ function Zemljevid() {
     const [tab, setTab] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null)
     const mapRef = useRef<HTMLDivElement>(null)
+    let [cookies, setCookies] = useCookies(["lang"])
 
-    return <Article maxWidth ssrLang="force" lang="si">
-        <FilledTabs
-            value={tab}
-            onChange={(e, newValue) => setTab(newValue)}
-            scrollButtons="auto"
-            variant="scrollable"
-        >
-            <Tab label="Zemljevid" />
-            <Tab label="Google zemljevid" />
-        </FilledTabs>
-        <Container ref={containerRef} sx={{
-            overflow: "hidden",
-            boxSizing: "border-box",
-            width: "100%",
-            padding: "0px!important",
-            margin: "0px!important",
-        }}>
-            <SwipeableViews
-                axis='x'
-                index={tab}
-                onChangeIndex={(index: number) => setTab(index)}
-                containerStyle={{
-                    transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-                    marginTop: "-10px"
-                }}
+    return <DisableSSR>
+        <Article maxWidth lang={cookies.lang} ssrLang={cookies.lang}>
+            <FilledTabs
+                value={tab}
+                onChange={(e, newValue) => setTab(newValue)}
+                scrollButtons="auto"
+                variant="scrollable"
             >
-                <TabPanel value={tab} index={0}>
-                    <MyMap mapRef={mapRef} />
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                    <GoogleMap mapRef={containerRef} />
-                </TabPanel>
-            </SwipeableViews>
-        </Container>
-    </Article>
+
+                <Tab label={cookies.lang == "si" ? "Zemljevid" : "Map"} />
+                <Tab label={cookies.lang == "si" ? "Google zemljevid" : "Google Maps"} />
+
+            </FilledTabs>
+            <Container ref={containerRef} sx={{
+                overflow: "hidden",
+                boxSizing: "border-box",
+                width: "100%",
+                padding: "0px!important",
+                margin: "0px!important",
+            }}>
+                <SwipeableViews
+                    axis='x'
+                    index={tab}
+                    onChangeIndex={(index: number) => setTab(index)}
+                    containerStyle={{
+                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+                        marginTop: "-10px"
+                    }}
+                >
+                    <TabPanel value={tab} index={0}>
+                        <MyMap mapRef={mapRef} lang={cookies.lang} />
+                    </TabPanel>
+                    <TabPanel value={tab} index={1}>
+                        <GoogleMap mapRef={containerRef} />
+                    </TabPanel>
+                </SwipeableViews>
+            </Container>
+        </Article>
+    </DisableSSR>
 }
 
 export default Zemljevid

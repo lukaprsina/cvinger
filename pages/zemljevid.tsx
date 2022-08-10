@@ -12,6 +12,7 @@ import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { useSpring, animated, to } from 'react-spring';
 import FilledTabs from '../components/FilledTabs';
+import DisableSSR from '../components/DisableSSR';
 
 export async function getServerSideProps(ctx: any) {
     return { props: { cookies: nookies.get(ctx) } }
@@ -116,7 +117,7 @@ function MyMap({ mapRef }: MyMapProps) {
         <NextjsImage
             src={zemljevid}
             priority
-        />{markers.map(({ x, y, text }, index) => {
+        /><DisableSSR>{markers.map(({ x, y, text }, index) => {
             return <Marker
                 key={index}
                 title={text}
@@ -124,7 +125,7 @@ function MyMap({ mapRef }: MyMapProps) {
                 mapRef={mapRef}
                 mapScale={1.5}
             />
-        })}</Box>
+        })}</DisableSSR></Box>
 
 }
 

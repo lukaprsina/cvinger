@@ -25,7 +25,7 @@ const markers = [
     { x: 520, y: 285, textSi: "Informativna tabla apnenice", textEn: "Information board at the limepit" },
     { x: 510, y: 310, textSi: "Informativna tabla Cvingerska jama", textEn: "Information board for the Cvinger cave" },
     { x: 525, y: 383, textSi: "Vmesna tabla utrjen vhod", textEn: "Information board the fortified entrance" },
-    { x: 520, y: 411, textSi: "Informativna tabla utrjen vhod", textEn: "Information board the fortified entrance" },
+    { x: 520, y: 411, textSi: "Informativna tabla utrjen vhod", textEn: "Information board for the fortified entrance" },
     { x: 522, y: 501, textSi: "Informativna tabla talilniško območje", textEn: "Information board for the smelting area" },
     { x: 643, y: 633, textSi: "Informativna tabla gomilno grobišče", textEn: "Information board for the barrow cemetery" },
     { x: 831, y: 664, textSi: "Uvodna tabla pokopališče", textEn: "Introduction board at the cemetery" },
@@ -53,13 +53,14 @@ function toPDF(title: string): string {
 }
 
 type MarkerProps = {
+    file: string;
     title: string;
     position: { x: number, y: number };
     mapRef: React.RefObject<HTMLDivElement>;
     mapScale: number;
 }
 
-function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
+function Marker({ file, title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
 
     const { number } = useSpring({
@@ -72,11 +73,10 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const x = position.x
     const y = position.y - 8
     const bounds = mapRef.current.getBoundingClientRect();
-    const link = toPDF(title);
 
     return (
         <Tooltip
-            onClick={() => { window.open(link, "_blank") }}
+            onClick={() => { window.open(file, "_blank") }}
             title={title}
             onMouseEnter={() => { setHovered(true) }}
             onMouseLeave={() => { setHovered(false) }}
@@ -150,6 +150,7 @@ function MyMap({ mapRef, lang }: MyMapProps) {
                             return <Marker
                                 key={index}
                                 title={lang == "si" ? textSi : textEn}
+                                file={toPDF(textSi)}
                                 position={{ x, y }}
                                 mapRef={mapRef}
                                 mapScale={1.5 / controls.state.scale}

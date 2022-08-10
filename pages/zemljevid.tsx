@@ -1,4 +1,4 @@
-import { ButtonGroup, Container, IconButton, Tab, Tooltip } from '@mui/material';
+import { ButtonGroup, Container, IconButton, NoSsr, Tab, Tooltip } from '@mui/material';
 import nookies from 'nookies'
 import { Box } from '@mui/system';
 import React, { useRef, useState } from 'react';
@@ -117,7 +117,7 @@ function MyMap({ mapRef }: MyMapProps) {
         <NextjsImage
             src={zemljevid}
             priority
-        /><DisableSSR>{markers.map(({ x, y, text }, index) => {
+        /><NoSsr><DisableSSR>{markers.map(({ x, y, text }, index) => {
             return <Marker
                 key={index}
                 title={text}
@@ -125,7 +125,7 @@ function MyMap({ mapRef }: MyMapProps) {
                 mapRef={mapRef}
                 mapScale={1.5}
             />
-        })}</DisableSSR></Box>
+        })}</DisableSSR></NoSsr></Box>
 
 }
 

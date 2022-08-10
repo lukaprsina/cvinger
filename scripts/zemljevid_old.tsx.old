@@ -2,14 +2,16 @@ import { ButtonGroup, Container, IconButton, Tab, Tooltip } from '@mui/material'
 import nookies from 'nookies'
 import { Box } from '@mui/system';
 import React, { useRef, useState } from 'react';
-// import SwipeableViews from 'react-swipeable-views';
+import SwipeableViews from 'react-swipeable-views';
 import Article from '../components/Article';
+import TabPanel from '../components/TabPanel';
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { useSpring, animated, to } from 'react-spring';
+import FilledTabs from '../components/FilledTabs';
 
 export async function getServerSideProps(ctx: any) {
     return { props: { cookies: nookies.get(ctx) } }
@@ -190,7 +192,15 @@ function Zemljevid(props: ZemljevidProps) {
 
     return <>
         <Article maxWidth lang="si" ssrLang={props.cookies.lang}>
-
+            <FilledTabs
+                value={tab}
+                onChange={(e, newValue) => setTab(newValue)}
+                scrollButtons="auto"
+                variant="scrollable"
+            >
+                <Tab label="Zemljevid" />
+                <Tab label="Google zemljevid" />
+            </FilledTabs>
             <Container ref={containerRef} sx={{
                 overflow: "hidden",
                 boxSizing: "border-box",
@@ -198,12 +208,35 @@ function Zemljevid(props: ZemljevidProps) {
                 padding: "0px!important",
                 margin: "0px!important",
             }}>
-                <MyMap mapRef={mapRef} />
-                <GoogleMap mapRef={containerRef} />
+                <SwipeableViews
+                    axis='x'
+                    index={tab}
+                    onChangeIndex={(index: number) => setTab(index)}
+                    containerStyle={{
+                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+                        marginTop: "-10px"
+                    }}
+                >
+                    <TabPanel value={tab} index={0}>
+                        <MyMap mapRef={mapRef} />
+                    </TabPanel>
+                    <TabPanel value={tab} index={1}>
+                        <GoogleMap mapRef={containerRef} />
+                    </TabPanel>
+                </SwipeableViews>
             </Container>
         </Article>
 
         <Article maxWidth lang="en" ssrLang={props.cookies.lang}>
+            <FilledTabs
+                value={tab}
+                onChange={(e, newValue) => setTab(newValue)}
+                scrollButtons="auto"
+                variant="scrollable"
+            >
+                <Tab label="Map" />
+                <Tab label="Google Maps" />
+            </FilledTabs>
             <Container ref={containerRef} sx={{
                 overflow: "hidden",
                 boxSizing: "border-box",
@@ -211,8 +244,22 @@ function Zemljevid(props: ZemljevidProps) {
                 padding: "0px!important",
                 margin: "0px!important",
             }}>
-                <MyMap mapRef={mapRef} />
-                <GoogleMap mapRef={containerRef} />
+                <SwipeableViews
+                    axis='x'
+                    index={tab}
+                    onChangeIndex={(index: number) => setTab(index)}
+                    containerStyle={{
+                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+                        marginTop: "-10px"
+                    }}
+                >
+                    <TabPanel value={tab} index={0}>
+                        <MyMap mapRef={mapRef} />
+                    </TabPanel>
+                    <TabPanel value={tab} index={1}>
+                        <GoogleMap mapRef={containerRef} />
+                    </TabPanel>
+                </SwipeableViews>
             </Container>
         </Article>
     </>

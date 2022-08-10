@@ -59,13 +59,13 @@ type MarkerProps = {
     mapRef: React.RefObject<HTMLDivElement>;
     mapScale: number;
 }
-
+/* 
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
 
-    /* const { number } = useSpring({
+    const { number } = useSpring({
         number: hovered ? mapScale * 1.2 : mapScale,
-    }) */
+    })
 
     if (!mapRef || !mapRef.current)
         return null;
@@ -82,8 +82,7 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
             onMouseEnter={() => { setHovered(true) }}
             onMouseLeave={() => { setHovered(false) }}
         >
-            <p>Test</p>
-            {/* <AnimatedMarker
+            <AnimatedMarker
                 color='info'
                 style={{
                     position: "absolute",
@@ -92,17 +91,17 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
                     transformOrigin: "center bottom",
                     scale3d: to([number], (num) => [num, num, num]),
                 }}
-            /> */}
+            />
         </Tooltip>
     )
 }
-
+ */
 type MyMapProps = {
     mapRef: React.RefObject<HTMLDivElement>;
 }
 
 function MyMap({ mapRef }: MyMapProps) {
-    const [built, setBuilt] = useState(false)
+    /* const [built, setBuilt] = useState(false)
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -110,7 +109,7 @@ function MyMap({ mapRef }: MyMapProps) {
                 setBuilt(true)
             }, 100)
         }
-    }, [])
+    }, []) */
 
     return <TransformWrapper>
         {(controls) => (
@@ -146,7 +145,7 @@ function MyMap({ mapRef }: MyMapProps) {
                             src={zemljevid}
                             priority
                         />
-                        {built && markers.map(({ x, y, text }, index) => {
+                        {/* {built && markers.map(({ x, y, text }, index) => {
                             return <Marker
                                 key={index}
                                 title={text}
@@ -154,7 +153,7 @@ function MyMap({ mapRef }: MyMapProps) {
                                 mapRef={mapRef}
                                 mapScale={1.5 / controls.state.scale}
                             />
-                        })}
+                        })} */}
                     </TransformComponent>
                 </Box>
             </>

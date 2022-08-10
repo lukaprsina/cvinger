@@ -110,6 +110,16 @@ type MyMapProps = {
 }
 
 function MyMap({ mapRef }: MyMapProps) {
+    return <Box>{markers.map(({ x, y, text }, index) => {
+        return <Marker
+            key={index}
+            title={text}
+            position={{ x, y }}
+            mapRef={mapRef}
+            mapScale={1.5}
+        />
+    })}</Box>
+
     {/* <TransformWrapper>
         {(controls) => (*/}
     return <>
@@ -144,7 +154,7 @@ function MyMap({ mapRef }: MyMapProps) {
                 src={zemljevid}
                 priority
             />
-            {markers.map(({ x, y, text }, index) => {
+            {/* {markers.map(({ x, y, text }, index) => {
                 return <Marker
                     key={index}
                     title={text}
@@ -152,21 +162,13 @@ function MyMap({ mapRef }: MyMapProps) {
                     mapRef={mapRef}
                     mapScale={1.5}
                 />
-            })}
+            })} */}
             {/* </TransformComponent> */}
         </Box>
     </> /*
         )}
     </TransformWrapper > */
-    /* return <Box>{markers.map(({ x, y, text }, index) => {
-        return <Marker
-            key={index}
-            title={text}
-            position={{ x, y }}
-            mapRef={mapRef}
-            mapScale={1.5}
-        />
-    })}</Box> */
+
 }
 
 type GoogleMapProps = {

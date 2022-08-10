@@ -150,7 +150,7 @@ function Zemljevid(props: ZemljevidProps) {
 
     return <>
         <Article maxWidth lang="si" ssrLang={props.cookies.lang}>
-            <FilledTabs
+            {/* <FilledTabs
                 value={tab}
                 onChange={(e, newValue) => setTab(newValue)}
                 scrollButtons="auto"
@@ -158,7 +158,7 @@ function Zemljevid(props: ZemljevidProps) {
             >
                 <Tab label="Zemljevid" />
                 <Tab label="Google zemljevid" />
-            </FilledTabs>
+            </FilledTabs> */}
             <Container ref={containerRef} sx={{
                 overflow: "hidden",
                 boxSizing: "border-box",
@@ -175,18 +175,18 @@ function Zemljevid(props: ZemljevidProps) {
                         marginTop: "-10px"
                     }}
                 > */}
-                <TabPanel value={tab} index={0}>
-                    <MyMap mapRef={mapRef} />
+                <MyMap mapRef={mapRef} />
+                <GoogleMap mapRef={containerRef} />
+                {/* <TabPanel value={tab} index={0}>
                 </TabPanel>
                 <TabPanel value={tab} index={1}>
-                    <GoogleMap mapRef={containerRef} />
-                </TabPanel>
+                </TabPanel> */}
                 {/* </SwipeableViews> */}
             </Container>
         </Article>
 
         <Article maxWidth lang="en" ssrLang={props.cookies.lang}>
-            <FilledTabs
+            {/* <FilledTabs
                 value={tab}
                 onChange={(e, newValue) => setTab(newValue)}
                 scrollButtons="auto"
@@ -194,7 +194,7 @@ function Zemljevid(props: ZemljevidProps) {
             >
                 <Tab label="Map" />
                 <Tab label="Google Maps" />
-            </FilledTabs>
+            </FilledTabs> */}
             <Container ref={containerRef} sx={{
                 overflow: "hidden",
                 boxSizing: "border-box",
@@ -211,12 +211,12 @@ function Zemljevid(props: ZemljevidProps) {
                         marginTop: "-10px"
                     }}
                 > */}
-                <TabPanel value={tab} index={0}>
-                    <MyMap mapRef={mapRef} />
+                <MyMap mapRef={mapRef} />
+                <GoogleMap mapRef={containerRef} />
+                {/* <TabPanel value={tab} index={0}>
                 </TabPanel>
                 <TabPanel value={tab} index={1}>
-                    <GoogleMap mapRef={containerRef} />
-                </TabPanel>
+                </TabPanel> */}
                 {/* </SwipeableViews> */}
             </Container>
         </Article>

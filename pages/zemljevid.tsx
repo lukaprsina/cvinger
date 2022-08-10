@@ -7,10 +7,10 @@ import Article from '../components/Article';
 import TabPanel from '../components/TabPanel';
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+// import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
-// import { useSpring, animated, to } from 'react-spring';
+import { useSpring, animated, to } from 'react-spring';
 import FilledTabs from '../components/FilledTabs';
 
 export async function getServerSideProps(ctx: any) {
@@ -32,7 +32,7 @@ const markers = [
     { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
 ];
 
-// const AnimatedMarker = animated(LocationOn)
+const AnimatedMarker = animated(LocationOn)
 
 type MapButtonProps = {
     onClick: () => void;
@@ -63,9 +63,9 @@ type MarkerProps = {
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
 
-    /* const { number } = useSpring({
+    const { number } = useSpring({
         number: hovered ? mapScale * 1.2 : mapScale,
-    }) */
+    })
 
     if (!mapRef || !mapRef.current)
         return null;
@@ -82,7 +82,7 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
             onMouseEnter={() => { setHovered(true) }}
             onMouseLeave={() => { setHovered(false) }}
         >
-            <p
+            {/* <p
                 style={{
                     position: "absolute",
                     left: x * (bounds.width / zemljevid.width),
@@ -90,8 +90,8 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
                     transformOrigin: "center bottom",
                     // scale3d: to([number], (num) => [num, num, num]),
                 }}
-            >Text</p>
-            {/* <AnimatedMarker
+            >Text</p> */}
+            <AnimatedMarker
                 color='info'
                 style={{
                     position: "absolute",
@@ -100,7 +100,7 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
                     transformOrigin: "center bottom",
                     scale3d: to([number], (num) => [num, num, num]),
                 }}
-            /> */}
+            />
         </Tooltip>
     )
 }
@@ -120,7 +120,7 @@ function MyMap({ mapRef }: MyMapProps) {
         }
     }, [])
 
-    return <TransformWrapper>
+    /* return <TransformWrapper>
         {(controls) => (
             <>
                 <ButtonGroup
@@ -148,7 +148,7 @@ function MyMap({ mapRef }: MyMapProps) {
                     />
                 </ButtonGroup>
 
-                <Box ref={mapRef}/*  className="marker" */>
+                <Box ref={mapRef}>
                     <TransformComponent>
                         <NextjsImage
                             src={zemljevid}
@@ -167,7 +167,16 @@ function MyMap({ mapRef }: MyMapProps) {
                 </Box>
             </>
         )}
-    </TransformWrapper>
+    </TransformWrapper> */
+    return <Box>{markers.map(({ x, y, text }, index) => {
+        return <Marker
+            key={index}
+            title={text}
+            position={{ x, y }}
+            mapRef={mapRef}
+            mapScale={1.5}
+        />
+    })}</Box>
 }
 
 type GoogleMapProps = {

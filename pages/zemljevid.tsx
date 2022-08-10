@@ -32,7 +32,7 @@ const markers = [
     { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
 ];
 
-/* const AnimatedMarker = animated(LocationOn)
+// const AnimatedMarker = animated(LocationOn)
 
 type MapButtonProps = {
     onClick: () => void;
@@ -58,8 +58,8 @@ type MarkerProps = {
     position: { x: number, y: number };
     mapRef: React.RefObject<HTMLDivElement>;
     mapScale: number;
-} */
-/* 
+}
+
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
 
@@ -82,7 +82,16 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
             onMouseEnter={() => { setHovered(true) }}
             onMouseLeave={() => { setHovered(false) }}
         >
-            <AnimatedMarker
+            <p
+                style={{
+                    position: "absolute",
+                    left: x * (bounds.width / zemljevid.width),
+                    top: y * (bounds.height / zemljevid.height),
+                    transformOrigin: "center bottom",
+                    // scale3d: to([number], (num) => [num, num, num]),
+                }}
+            >Text</p>
+            {/* <AnimatedMarker
                 color='info'
                 style={{
                     position: "absolute",
@@ -91,17 +100,17 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
                     transformOrigin: "center bottom",
                     scale3d: to([number], (num) => [num, num, num]),
                 }}
-            />
+            /> */}
         </Tooltip>
     )
 }
- */
+
 type MyMapProps = {
     mapRef: React.RefObject<HTMLDivElement>;
 }
 
 function MyMap({ mapRef }: MyMapProps) {
-    /* const [built, setBuilt] = useState(false)
+    const [built, setBuilt] = useState(false)
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -109,9 +118,9 @@ function MyMap({ mapRef }: MyMapProps) {
                 setBuilt(true)
             }, 100)
         }
-    }, []) */
+    }, [])
 
-    /* return <TransformWrapper>
+    return <TransformWrapper>
         {(controls) => (
             <>
                 <ButtonGroup
@@ -139,7 +148,7 @@ function MyMap({ mapRef }: MyMapProps) {
                     />
                 </ButtonGroup>
 
-                <Box ref={mapRef}>
+                <Box ref={mapRef}/*  className="marker" */>
                     <TransformComponent>
                         <NextjsImage
                             src={zemljevid}
@@ -158,8 +167,7 @@ function MyMap({ mapRef }: MyMapProps) {
                 </Box>
             </>
         )}
-    </TransformWrapper> */
-    return <p>MyMap</p>
+    </TransformWrapper>
 }
 
 type GoogleMapProps = {

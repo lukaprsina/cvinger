@@ -60,6 +60,8 @@ type MarkerProps = {
     mapScale: number;
 }
 
+const AnimatedMarker = animated(LocationOn)
+
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
 
@@ -75,6 +77,24 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const bounds = mapRef.current.getBoundingClientRect();
     const link = toPDF(title);
 
+    return (
+        <Tooltip
+            onClick={() => { window.open(link, "_blank") }}
+            title={title}
+            onMouseEnter={() => { setHovered(true) }}
+            onMouseLeave={() => { setHovered(false) }}
+        >
+            <AnimatedMarker
+                color='info'
+                style={{
+                    position: "absolute",
+                    left: x * (bounds.width / zemljevid.width),
+                    top: y * (bounds.height / zemljevid.height),
+                    transformOrigin: "center bottom",
+                    scale3d: to([number], (num) => [num, num, num]),
+                }}
+            />
+        </Tooltip>)
     return <p
         style={{
             position: "absolute",

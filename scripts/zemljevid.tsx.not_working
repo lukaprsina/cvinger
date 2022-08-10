@@ -2,16 +2,14 @@ import { ButtonGroup, Container, IconButton, Tab, Tooltip } from '@mui/material'
 import nookies from 'nookies'
 import { Box } from '@mui/system';
 import React, { useRef, useState } from 'react';
-import SwipeableViews from 'react-swipeable-views';
+// import SwipeableViews from 'react-swipeable-views';
 import Article from '../components/Article';
-import TabPanel from '../components/TabPanel';
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { useSpring, animated, to } from 'react-spring';
-import FilledTabs from '../components/FilledTabs';
 
 export async function getServerSideProps(ctx: any) {
     return { props: { cookies: nookies.get(ctx) } }
@@ -32,7 +30,7 @@ const markers = [
     { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
 ];
 
-// const AnimatedMarker = animated(LocationOn)
+const AnimatedMarker = animated(LocationOn)
 
 type MapButtonProps = {
     onClick: () => void;
@@ -63,9 +61,9 @@ type MarkerProps = {
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
 
-    /* const { number } = useSpring({
+    const { number } = useSpring({
         number: hovered ? mapScale * 1.2 : mapScale,
-    }) */
+    })
 
     if (!mapRef || !mapRef.current)
         return null;
@@ -75,23 +73,14 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const bounds = mapRef.current.getBoundingClientRect();
     const link = toPDF(title);
 
-    return (<p
-        style={{
-            position: "absolute",
-            left: x * (bounds.width / zemljevid.width),
-            top: y * (bounds.height / zemljevid.height),
-            transformOrigin: "center bottom",
-            // scale3d: to([number], (num) => [num, num, num]),
-        }}
-    >Text</p>)
-    {/* <Tooltip
+    return (
+        <Tooltip
             onClick={() => { window.open(link, "_blank") }}
             title={title}
             onMouseEnter={() => { setHovered(true) }}
             onMouseLeave={() => { setHovered(false) }}
-    > */}
-
-    {/* <AnimatedMarker
+        >
+            <AnimatedMarker
                 color='info'
                 style={{
                     position: "absolute",
@@ -100,9 +89,9 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
                     transformOrigin: "center bottom",
                     scale3d: to([number], (num) => [num, num, num]),
                 }}
-            /> */}
-    {/* </Tooltip> */ }
-
+            />
+        </Tooltip>
+    )
 }
 
 type MyMapProps = {
@@ -110,13 +99,64 @@ type MyMapProps = {
 }
 
 function MyMap({ mapRef }: MyMapProps) {
-    return <Box><Marker
-        title={"asfd"}
-        position={{ x: 30, y: 30 }}
-        mapRef={mapRef}
-        mapScale={1.5}
-    /></Box>
+    const [built, setBuilt] = useState(false)
 
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setTimeout(() => {
+                setBuilt(true)
+            }, 100)
+        }
+    }, [])
+
+    return <TransformWrapper>
+        {(controls) => (
+            <>
+                <ButtonGroup
+                    orientation='vertical'
+                    variant='contained'
+                    sx={{
+                        position: "absolute",
+                        zIndex: 2,
+                        bottom: "100px",
+                        right: "20px",
+                        backgroundColor: "secondary.main",
+                    }}
+                >
+                    <MapButton
+                        icon={<Add />}
+                        onClick={() => controls.zoomIn()}
+                    />
+                    <MapButton
+                        icon={<Remove />}
+                        onClick={() => controls.zoomOut()}
+                    />
+                    <MapButton
+                        icon={<Close />}
+                        onClick={() => controls.resetTransform()}
+                    />
+                </ButtonGroup>
+
+                <Box ref={mapRef}/*  className="marker" */>
+                    <TransformComponent>
+                        <NextjsImage
+                            src={zemljevid}
+                            priority
+                        />
+                        {built && markers.map(({ x, y, text }, index) => {
+                            return <Marker
+                                key={index}
+                                title={text}
+                                position={{ x, y }}
+                                mapRef={mapRef}
+                                mapScale={1.5 / controls.state.scale}
+                            />
+                        })}
+                    </TransformComponent>
+                </Box>
+            </>
+        )}
+    </TransformWrapper>
 }
 
 type GoogleMapProps = {
@@ -150,15 +190,6 @@ function Zemljevid(props: ZemljevidProps) {
 
     return <>
         <Article maxWidth lang="si" ssrLang={props.cookies.lang}>
-            {/* <FilledTabs
-                value={tab}
-                onChange={(e, newValue) => setTab(newValue)}
-                scrollButtons="auto"
-                variant="scrollable"
-            >
-                <Tab label="Zemljevid" />
-                <Tab label="Google zemljevid" />
-            </FilledTabs> */}
             <Container ref={containerRef} sx={{
                 overflow: "hidden",
                 boxSizing: "border-box",
@@ -166,35 +197,12 @@ function Zemljevid(props: ZemljevidProps) {
                 padding: "0px!important",
                 margin: "0px!important",
             }}>
-                {/* <SwipeableViews
-                    axis='x'
-                    index={tab}
-                    onChangeIndex={(index: number) => setTab(index)}
-                    containerStyle={{
-                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-                        marginTop: "-10px"
-                    }}
-                > */}
                 <MyMap mapRef={mapRef} />
                 <GoogleMap mapRef={containerRef} />
-                {/* <TabPanel value={tab} index={0}>
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                </TabPanel> */}
-                {/* </SwipeableViews> */}
             </Container>
         </Article>
 
         <Article maxWidth lang="en" ssrLang={props.cookies.lang}>
-            {/* <FilledTabs
-                value={tab}
-                onChange={(e, newValue) => setTab(newValue)}
-                scrollButtons="auto"
-                variant="scrollable"
-            >
-                <Tab label="Map" />
-                <Tab label="Google Maps" />
-            </FilledTabs> */}
             <Container ref={containerRef} sx={{
                 overflow: "hidden",
                 boxSizing: "border-box",
@@ -202,22 +210,8 @@ function Zemljevid(props: ZemljevidProps) {
                 padding: "0px!important",
                 margin: "0px!important",
             }}>
-                {/* <SwipeableViews
-                    axis='x'
-                    index={tab}
-                    onChangeIndex={(index: number) => setTab(index)}
-                    containerStyle={{
-                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-                        marginTop: "-10px"
-                    }}
-                > */}
                 <MyMap mapRef={mapRef} />
                 <GoogleMap mapRef={containerRef} />
-                {/* <TabPanel value={tab} index={0}>
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                </TabPanel> */}
-                {/* </SwipeableViews> */}
             </Container>
         </Article>
     </>

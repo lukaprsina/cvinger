@@ -10,7 +10,7 @@ import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
-import { useSpring, animated, to } from 'react-spring';
+// import { useSpring, animated, to } from 'react-spring';
 import FilledTabs from '../components/FilledTabs';
 
 export async function getServerSideProps(ctx: any) {
@@ -63,9 +63,9 @@ type MarkerProps = {
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
 
-    const { number } = useSpring({
+    /* const { number } = useSpring({
         number: hovered ? mapScale * 1.2 : mapScale,
-    })
+    }) */
 
     if (!mapRef || !mapRef.current)
         return null;

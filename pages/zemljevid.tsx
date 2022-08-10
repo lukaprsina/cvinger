@@ -10,13 +10,11 @@ import NextjsImage from "next/image"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
-import { useSpring, animated } from 'react-spring';
-import useWindowSize from '../components/useWindowSize';
+import { useSpring, animated, to } from 'react-spring';
 import FilledTabs from '../components/FilledTabs';
 
-type MapButtonProps = {
-    onClick: () => void;
-    icon: JSX.Element;
+export async function getServerSideProps(ctx: any) {
+    return { props: { cookies: nookies.get(ctx) } }
 }
 
 const markers = [
@@ -34,6 +32,13 @@ const markers = [
     { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
 ];
 
+const AnimatedMarker = animated(LocationOn)
+
+type MapButtonProps = {
+    onClick: () => void;
+    icon: JSX.Element;
+}
+
 function MapButton({ onClick, icon }: MapButtonProps) {
     return (
         <IconButton
@@ -43,8 +48,6 @@ function MapButton({ onClick, icon }: MapButtonProps) {
         </IconButton>
     )
 }
-
-const AnimatedCircle = animated(LocationOn)
 
 function toPDF(title: string): string {
     return "https://lukaprsina.github.io/cvinger.net/documents/table/" + title.replace(/ /g, "_") + ".pdf";
@@ -58,15 +61,11 @@ type MarkerProps = {
 }
 
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
-    const windowSize = useWindowSize();
     const [hovered, setHovered] = useState(false);
-    const [styles, api] = useSpring(() => ({
-        scale: mapScale,
-    }));
 
-    api({
-        scale: hovered ? mapScale * 1.2 : mapScale
-    });
+    /* const { number } = useSpring({
+        number: hovered ? mapScale * 1.2 : mapScale,
+    }) */
 
     if (!mapRef || !mapRef.current)
         return null;
@@ -83,16 +82,17 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
             onMouseEnter={() => { setHovered(true) }}
             onMouseLeave={() => { setHovered(false) }}
         >
-            <AnimatedCircle
+            <p>Test</p>
+            {/* <AnimatedMarker
                 color='info'
                 style={{
                     position: "absolute",
                     left: x * (bounds.width / zemljevid.width),
                     top: y * (bounds.height / zemljevid.height),
                     transformOrigin: "center bottom",
-                    ...styles,
+                    scale3d: to([number], (num) => [num, num, num]),
                 }}
-            />
+            /> */}
         </Tooltip>
     )
 }
@@ -179,9 +179,6 @@ function GoogleMap({ mapRef }: GoogleMapProps) {
     </iframe>
 }
 
-export async function getServerSideProps(ctx: any) {
-    return { props: { cookies: nookies.get(ctx) } }
-}
 
 type ZemljevidProps = {
     cookies: {

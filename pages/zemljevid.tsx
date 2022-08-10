@@ -7,7 +7,7 @@ import Article from '../components/Article';
 import TabPanel from '../components/TabPanel';
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
-// import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
 // import { useSpring, animated, to } from 'react-spring';
@@ -110,17 +110,7 @@ type MyMapProps = {
 }
 
 function MyMap({ mapRef }: MyMapProps) {
-    const [built, setBuilt] = useState(false)
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setTimeout(() => {
-                setBuilt(true)
-            }, 100)
-        }
-    }, [])
-
-    /* return <TransformWrapper>
+    return <TransformWrapper>
         {(controls) => (
             <>
                 <ButtonGroup
@@ -154,7 +144,7 @@ function MyMap({ mapRef }: MyMapProps) {
                             src={zemljevid}
                             priority
                         />
-                        {built && markers.map(({ x, y, text }, index) => {
+                        {markers.map(({ x, y, text }, index) => {
                             return <Marker
                                 key={index}
                                 title={text}
@@ -167,8 +157,8 @@ function MyMap({ mapRef }: MyMapProps) {
                 </Box>
             </>
         )}
-    </TransformWrapper> */
-    return <Box>{markers.map(({ x, y, text }, index) => {
+    </TransformWrapper>
+    /* return <Box>{markers.map(({ x, y, text }, index) => {
         return <Marker
             key={index}
             title={text}
@@ -176,7 +166,7 @@ function MyMap({ mapRef }: MyMapProps) {
             mapRef={mapRef}
             mapScale={1.5}
         />
-    })}</Box>
+    })}</Box> */
 }
 
 type GoogleMapProps = {

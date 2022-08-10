@@ -182,6 +182,7 @@ function Zemljevid() {
     const containerRef = useRef<HTMLDivElement>(null)
     const mapRef = useRef<HTMLDivElement>(null)
     let [cookies, setCookies] = useCookies(["lang"])
+    console.log(cookies)
 
     return <DisableSSR>
         <Article maxWidth lang={cookies.lang} ssrLang={cookies.lang}>
@@ -191,10 +192,8 @@ function Zemljevid() {
                 scrollButtons="auto"
                 variant="scrollable"
             >
-
                 <Tab label={cookies.lang == "si" ? "Zemljevid" : "Map"} />
                 <Tab label={cookies.lang == "si" ? "Google zemljevid" : "Google Maps"} />
-
             </FilledTabs>
             <Container ref={containerRef} sx={{
                 overflow: "hidden",

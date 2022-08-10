@@ -32,7 +32,7 @@ const markers = [
     { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
 ];
 
-const AnimatedMarker = animated(LocationOn)
+/* const AnimatedMarker = animated(LocationOn)
 
 type MapButtonProps = {
     onClick: () => void;
@@ -58,7 +58,7 @@ type MarkerProps = {
     position: { x: number, y: number };
     mapRef: React.RefObject<HTMLDivElement>;
     mapScale: number;
-}
+} */
 /* 
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);

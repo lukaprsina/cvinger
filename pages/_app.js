@@ -95,5 +95,4 @@ function Cvinger({ Component, pageProps }) {
     </>;
 }
 
-export { reportWebVitals } from 'next-axiom';
 export default Cvinger;

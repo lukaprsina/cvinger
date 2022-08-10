@@ -1,4 +1,4 @@
-import { ButtonGroup, Container, IconButton, Tab, Tooltip } from '@mui/material';
+import { ButtonGroup, Container, IconButton, NoSsr, Tab, Tooltip } from '@mui/material';
 import nookies from 'nookies'
 import { Box } from '@mui/system';
 import React, { useRef, useState } from 'react';
@@ -12,6 +12,7 @@ import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { useSpring, animated, to } from 'react-spring';
 import FilledTabs from '../components/FilledTabs';
+import DisableSSR from '../components/DisableSSR';
 
 export async function getServerSideProps(ctx: any) {
     return { props: { cookies: nookies.get(ctx) } }
@@ -31,8 +32,6 @@ const markers = [
     { x: 643, y: 633, text: "Informativna tabla gomilno grobišče" },
     { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
 ];
-
-const AnimatedMarker = animated(LocationOn)
 
 type MapButtonProps = {
     onClick: () => void;
@@ -60,6 +59,8 @@ type MarkerProps = {
     mapScale: number;
 }
 
+// const AnimatedMarker = animated(LocationOn)
+
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
 
@@ -75,7 +76,7 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const bounds = mapRef.current.getBoundingClientRect();
     const link = toPDF(title);
 
-    return (
+    /* return (
         <Tooltip
             onClick={() => { window.open(link, "_blank") }}
             title={title}
@@ -92,8 +93,22 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
                     scale3d: to([number], (num) => [num, num, num]),
                 }}
             />
-        </Tooltip>
-    )
+        </Tooltip>) */
+    return <Tooltip
+        onClick={() => { window.open(link, "_blank") }}
+        title={title}
+        onMouseEnter={() => { setHovered(true) }}
+        onMouseLeave={() => { setHovered(false) }}
+    ><p
+        style={{
+            position: "absolute",
+            left: x * (bounds.width / zemljevid.width),
+            top: y * (bounds.height / zemljevid.height),
+            transformOrigin: "center bottom",
+            // scale3d: to([number], (num) => [num, num, num]),
+        }}
+    >Text</p></Tooltip>
+
 }
 
 type MyMapProps = {
@@ -101,16 +116,6 @@ type MyMapProps = {
 }
 
 function MyMap({ mapRef }: MyMapProps) {
-    const [built, setBuilt] = useState(false)
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setTimeout(() => {
-                setBuilt(true)
-            }, 100)
-        }
-    }, [])
-
     return <TransformWrapper>
         {(controls) => (
             <>
@@ -145,7 +150,7 @@ function MyMap({ mapRef }: MyMapProps) {
                             src={zemljevid}
                             priority
                         />
-                        {built && markers.map(({ x, y, text }, index) => {
+                        {markers.map(({ x, y, text }, index) => {
                             return <Marker
                                 key={index}
                                 title={text}
@@ -159,6 +164,20 @@ function MyMap({ mapRef }: MyMapProps) {
             </>
         )}
     </TransformWrapper>
+    /* return <Box>
+        <NextjsImage
+            src={zemljevid}
+            priority
+        /><NoSsr><DisableSSR>{markers.map(({ x, y, text }, index) => {
+            return <Marker
+                key={index}
+                title={text}
+                position={{ x, y }}
+                mapRef={mapRef}
+                mapScale={1.5}
+            />
+        })}</DisableSSR></NoSsr></Box> */
+
 }
 
 type GoogleMapProps = {
@@ -191,43 +210,7 @@ function Zemljevid(props: ZemljevidProps) {
     const mapRef = useRef<HTMLDivElement>(null)
 
     return <>
-        <Article maxWidth lang="si" ssrLang={props.cookies.lang}>
-            <FilledTabs
-                value={tab}
-                onChange={(e, newValue) => setTab(newValue)}
-                scrollButtons="auto"
-                variant="scrollable"
-            >
-                <Tab label="Zemljevid" />
-                <Tab label="Google zemljevid" />
-            </FilledTabs>
-            <Container ref={containerRef} sx={{
-                overflow: "hidden",
-                boxSizing: "border-box",
-                width: "100%",
-                padding: "0px!important",
-                margin: "0px!important",
-            }}>
-                <SwipeableViews
-                    axis='x'
-                    index={tab}
-                    onChangeIndex={(index: number) => setTab(index)}
-                    containerStyle={{
-                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-                        marginTop: "-10px"
-                    }}
-                >
-                    <TabPanel value={tab} index={0}>
-                        <MyMap mapRef={mapRef} />
-                    </TabPanel>
-                    <TabPanel value={tab} index={1}>
-                        <GoogleMap mapRef={containerRef} />
-                    </TabPanel>
-                </SwipeableViews>
-            </Container>
-        </Article>
-
-        <Article maxWidth lang="en" ssrLang={props.cookies.lang}>
+        <Article lang="si" maxWidth ssrLang="force">
             <FilledTabs
                 value={tab}
                 onChange={(e, newValue) => setTab(newValue)}

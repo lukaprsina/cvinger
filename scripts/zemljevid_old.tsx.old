@@ -139,7 +139,7 @@ function MyMap({ mapRef }: MyMapProps) {
                     />
                 </ButtonGroup>
 
-                <Box ref={mapRef}/*  className="marker" */>
+                <Box ref={mapRef}>
                     <TransformComponent>
                         <NextjsImage
                             src={zemljevid}

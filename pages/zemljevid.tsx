@@ -63,9 +63,9 @@ type MarkerProps = {
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
 
-    /* const { number } = useSpring({
+    const { number } = useSpring({
         number: hovered ? mapScale * 1.2 : mapScale,
-    }) */
+    })
 
     if (!mapRef || !mapRef.current)
         return null;
@@ -75,7 +75,7 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const bounds = mapRef.current.getBoundingClientRect();
     const link = toPDF(title);
 
-    return (<p
+    return <p
         style={{
             position: "absolute",
             left: x * (bounds.width / zemljevid.width),
@@ -83,25 +83,7 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
             transformOrigin: "center bottom",
             // scale3d: to([number], (num) => [num, num, num]),
         }}
-    >Text</p>)
-    {/* <Tooltip
-            onClick={() => { window.open(link, "_blank") }}
-            title={title}
-            onMouseEnter={() => { setHovered(true) }}
-            onMouseLeave={() => { setHovered(false) }}
-    > */}
-
-    {/* <AnimatedMarker
-                color='info'
-                style={{
-                    position: "absolute",
-                    left: x * (bounds.width / zemljevid.width),
-                    top: y * (bounds.height / zemljevid.height),
-                    transformOrigin: "center bottom",
-                    scale3d: to([number], (num) => [num, num, num]),
-                }}
-            /> */}
-    {/* </Tooltip> */ }
+    >Text</p>
 
 }
 
@@ -110,12 +92,19 @@ type MyMapProps = {
 }
 
 function MyMap({ mapRef }: MyMapProps) {
-    return <Box><Marker
-        title={"asfd"}
-        position={{ x: 30, y: 30 }}
-        mapRef={mapRef}
-        mapScale={1.5}
-    /></Box>
+    return <Box>
+        <NextjsImage
+            src={zemljevid}
+            priority
+        />{markers.map(({ x, y, text }, index) => {
+            return <Marker
+                key={index}
+                title={text}
+                position={{ x, y }}
+                mapRef={mapRef}
+                mapScale={1.5}
+            />
+        })}</Box>
 
 }
 
@@ -149,44 +138,8 @@ function Zemljevid(props: ZemljevidProps) {
     const mapRef = useRef<HTMLDivElement>(null)
 
     return <>
-        <Article maxWidth lang="si" ssrLang={props.cookies.lang}>
-            {/* <FilledTabs
-                value={tab}
-                onChange={(e, newValue) => setTab(newValue)}
-                scrollButtons="auto"
-                variant="scrollable"
-            >
-                <Tab label="Zemljevid" />
-                <Tab label="Google zemljevid" />
-            </FilledTabs> */}
-            <Container ref={containerRef} sx={{
-                overflow: "hidden",
-                boxSizing: "border-box",
-                width: "100%",
-                padding: "0px!important",
-                margin: "0px!important",
-            }}>
-                {/* <SwipeableViews
-                    axis='x'
-                    index={tab}
-                    onChangeIndex={(index: number) => setTab(index)}
-                    containerStyle={{
-                        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-                        marginTop: "-10px"
-                    }}
-                > */}
-                <MyMap mapRef={mapRef} />
-                <GoogleMap mapRef={containerRef} />
-                {/* <TabPanel value={tab} index={0}>
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                </TabPanel> */}
-                {/* </SwipeableViews> */}
-            </Container>
-        </Article>
-
-        <Article maxWidth lang="en" ssrLang={props.cookies.lang}>
-            {/* <FilledTabs
+        <Article lang="si" maxWidth ssrLang="force">
+            <FilledTabs
                 value={tab}
                 onChange={(e, newValue) => setTab(newValue)}
                 scrollButtons="auto"
@@ -194,7 +147,7 @@ function Zemljevid(props: ZemljevidProps) {
             >
                 <Tab label="Map" />
                 <Tab label="Google Maps" />
-            </FilledTabs> */}
+            </FilledTabs>
             <Container ref={containerRef} sx={{
                 overflow: "hidden",
                 boxSizing: "border-box",
@@ -202,7 +155,7 @@ function Zemljevid(props: ZemljevidProps) {
                 padding: "0px!important",
                 margin: "0px!important",
             }}>
-                {/* <SwipeableViews
+                <SwipeableViews
                     axis='x'
                     index={tab}
                     onChangeIndex={(index: number) => setTab(index)}
@@ -210,14 +163,14 @@ function Zemljevid(props: ZemljevidProps) {
                         transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
                         marginTop: "-10px"
                     }}
-                > */}
-                <MyMap mapRef={mapRef} />
-                <GoogleMap mapRef={containerRef} />
-                {/* <TabPanel value={tab} index={0}>
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                </TabPanel> */}
-                {/* </SwipeableViews> */}
+                >
+                    <TabPanel value={tab} index={0}>
+                        <MyMap mapRef={mapRef} />
+                    </TabPanel>
+                    <TabPanel value={tab} index={1}>
+                        <GoogleMap mapRef={containerRef} />
+                    </TabPanel>
+                </SwipeableViews>
             </Container>
         </Article>
     </>

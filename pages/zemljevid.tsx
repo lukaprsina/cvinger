@@ -33,8 +33,6 @@ const markers = [
     { x: 831, y: 664, text: "Uvodna tabla pokopališče" },
 ];
 
-// const AnimatedMarker = animated(LocationOn)
-
 type MapButtonProps = {
     onClick: () => void;
     icon: JSX.Element;
@@ -61,7 +59,7 @@ type MarkerProps = {
     mapScale: number;
 }
 
-const AnimatedMarker = animated(LocationOn)
+// const AnimatedMarker = animated(LocationOn)
 
 function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const [hovered, setHovered] = useState(false);
@@ -78,7 +76,7 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
     const bounds = mapRef.current.getBoundingClientRect();
     const link = toPDF(title);
 
-    return (
+    /* return (
         <Tooltip
             onClick={() => { window.open(link, "_blank") }}
             title={title}
@@ -95,8 +93,13 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
                     scale3d: to([number], (num) => [num, num, num]),
                 }}
             />
-        </Tooltip>)
-    return <p
+        </Tooltip>) */
+    return <Tooltip
+        onClick={() => { window.open(link, "_blank") }}
+        title={title}
+        onMouseEnter={() => { setHovered(true) }}
+        onMouseLeave={() => { setHovered(false) }}
+    ><p
         style={{
             position: "absolute",
             left: x * (bounds.width / zemljevid.width),
@@ -104,7 +107,7 @@ function Marker({ title, position, mapRef, mapScale }: MarkerProps) {
             transformOrigin: "center bottom",
             // scale3d: to([number], (num) => [num, num, num]),
         }}
-    >Text</p>
+    >Text</p></Tooltip>
 
 }
 
@@ -113,7 +116,55 @@ type MyMapProps = {
 }
 
 function MyMap({ mapRef }: MyMapProps) {
-    return <Box>
+    return <TransformWrapper>
+        {(controls) => (
+            <>
+                <ButtonGroup
+                    orientation='vertical'
+                    variant='contained'
+                    sx={{
+                        position: "absolute",
+                        zIndex: 2,
+                        bottom: "100px",
+                        right: "20px",
+                        backgroundColor: "secondary.main",
+                    }}
+                >
+                    <MapButton
+                        icon={<Add />}
+                        onClick={() => controls.zoomIn()}
+                    />
+                    <MapButton
+                        icon={<Remove />}
+                        onClick={() => controls.zoomOut()}
+                    />
+                    <MapButton
+                        icon={<Close />}
+                        onClick={() => controls.resetTransform()}
+                    />
+                </ButtonGroup>
+
+                <Box ref={mapRef}>
+                    <TransformComponent>
+                        <NextjsImage
+                            src={zemljevid}
+                            priority
+                        />
+                        {markers.map(({ x, y, text }, index) => {
+                            return <Marker
+                                key={index}
+                                title={text}
+                                position={{ x, y }}
+                                mapRef={mapRef}
+                                mapScale={1.5 / controls.state.scale}
+                            />
+                        })}
+                    </TransformComponent>
+                </Box>
+            </>
+        )}
+    </TransformWrapper>
+    /* return <Box>
         <NextjsImage
             src={zemljevid}
             priority
@@ -125,7 +176,7 @@ function MyMap({ mapRef }: MyMapProps) {
                 mapRef={mapRef}
                 mapScale={1.5}
             />
-        })}</DisableSSR></NoSsr></Box>
+        })}</DisableSSR></NoSsr></Box> */
 
 }
 

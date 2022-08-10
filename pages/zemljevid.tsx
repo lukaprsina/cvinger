@@ -2,12 +2,12 @@ import { ButtonGroup, Container, IconButton, Tab, Tooltip } from '@mui/material'
 import nookies from 'nookies'
 import { Box } from '@mui/system';
 import React, { useRef, useState } from 'react';
-import SwipeableViews from 'react-swipeable-views';
+// import SwipeableViews from 'react-swipeable-views';
 import Article from '../components/Article';
 import TabPanel from '../components/TabPanel';
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
-// import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
 import { useSpring, animated, to } from 'react-spring';
@@ -120,7 +120,7 @@ function MyMap({ mapRef }: MyMapProps) {
         }
     }, [])
 
-    /* return <TransformWrapper>
+    return <TransformWrapper>
         {(controls) => (
             <>
                 <ButtonGroup
@@ -167,8 +167,8 @@ function MyMap({ mapRef }: MyMapProps) {
                 </Box>
             </>
         )}
-    </TransformWrapper> */
-    return <Box>{markers.map(({ x, y, text }, index) => {
+    </TransformWrapper>
+    /* return <Box>{markers.map(({ x, y, text }, index) => {
         return <Marker
             key={index}
             title={text}
@@ -176,7 +176,7 @@ function MyMap({ mapRef }: MyMapProps) {
             mapRef={mapRef}
             mapScale={1.5}
         />
-    })}</Box>
+    })}</Box> */
 }
 
 type GoogleMapProps = {
@@ -226,7 +226,7 @@ function Zemljevid(props: ZemljevidProps) {
                 padding: "0px!important",
                 margin: "0px!important",
             }}>
-                <SwipeableViews
+                {/* <SwipeableViews
                     axis='x'
                     index={tab}
                     onChangeIndex={(index: number) => setTab(index)}
@@ -234,14 +234,14 @@ function Zemljevid(props: ZemljevidProps) {
                         transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
                         marginTop: "-10px"
                     }}
-                >
-                    <TabPanel value={tab} index={0}>
-                        <MyMap mapRef={mapRef} />
-                    </TabPanel>
-                    <TabPanel value={tab} index={1}>
-                        <GoogleMap mapRef={containerRef} />
-                    </TabPanel>
-                </SwipeableViews>
+                > */}
+                <TabPanel value={tab} index={0}>
+                    <MyMap mapRef={mapRef} />
+                </TabPanel>
+                <TabPanel value={tab} index={1}>
+                    <GoogleMap mapRef={containerRef} />
+                </TabPanel>
+                {/* </SwipeableViews> */}
             </Container>
         </Article>
 
@@ -262,7 +262,7 @@ function Zemljevid(props: ZemljevidProps) {
                 padding: "0px!important",
                 margin: "0px!important",
             }}>
-                <SwipeableViews
+                {/* <SwipeableViews
                     axis='x'
                     index={tab}
                     onChangeIndex={(index: number) => setTab(index)}
@@ -270,14 +270,14 @@ function Zemljevid(props: ZemljevidProps) {
                         transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
                         marginTop: "-10px"
                     }}
-                >
-                    <TabPanel value={tab} index={0}>
-                        <MyMap mapRef={mapRef} />
-                    </TabPanel>
-                    <TabPanel value={tab} index={1}>
-                        <GoogleMap mapRef={containerRef} />
-                    </TabPanel>
-                </SwipeableViews>
+                > */}
+                <TabPanel value={tab} index={0}>
+                    <MyMap mapRef={mapRef} />
+                </TabPanel>
+                <TabPanel value={tab} index={1}>
+                    <GoogleMap mapRef={containerRef} />
+                </TabPanel>
+                {/* </SwipeableViews> */}
             </Container>
         </Article>
     </>

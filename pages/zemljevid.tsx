@@ -7,7 +7,7 @@ import Article from '../components/Article';
 import TabPanel from '../components/TabPanel';
 import zemljevid from "/public/images/zemljevid/zemljevid.jpg"
 import NextjsImage from "next/image"
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+// import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Add, Close, LocationOn, Remove } from '@mui/icons-material';
 import { useEffect } from 'react';
 // import { useSpring, animated, to } from 'react-spring';
@@ -110,54 +110,54 @@ type MyMapProps = {
 }
 
 function MyMap({ mapRef }: MyMapProps) {
-    return <TransformWrapper>
-        {(controls) => (
-            <>
-                <ButtonGroup
-                    orientation='vertical'
-                    variant='contained'
-                    sx={{
-                        position: "absolute",
-                        zIndex: 2,
-                        bottom: "100px",
-                        right: "20px",
-                        backgroundColor: "secondary.main",
-                    }}
-                >
-                    <MapButton
-                        icon={<Add />}
-                        onClick={() => controls.zoomIn()}
-                    />
-                    <MapButton
-                        icon={<Remove />}
-                        onClick={() => controls.zoomOut()}
-                    />
-                    <MapButton
-                        icon={<Close />}
-                        onClick={() => controls.resetTransform()}
-                    />
-                </ButtonGroup>
+    {/* <TransformWrapper>
+        {(controls) => (*/}
+    return <>
+        <ButtonGroup
+            orientation='vertical'
+            variant='contained'
+            sx={{
+                position: "absolute",
+                zIndex: 2,
+                bottom: "100px",
+                right: "20px",
+                backgroundColor: "secondary.main",
+            }}
+        >
+            <MapButton
+                icon={<Add />}
+                onClick={() => { }/* controls.zoomIn() */}
+            />
+            <MapButton
+                icon={<Remove />}
+                onClick={() => { }/* controls.zoomOut() */}
+            />
+            <MapButton
+                icon={<Close />}
+                onClick={() => { }/* controls.resetTransform() */}
+            />
+        </ButtonGroup>
 
-                <Box ref={mapRef}>
-                    <TransformComponent>
-                        <NextjsImage
-                            src={zemljevid}
-                            priority
-                        />
-                        {markers.map(({ x, y, text }, index) => {
-                            return <Marker
-                                key={index}
-                                title={text}
-                                position={{ x, y }}
-                                mapRef={mapRef}
-                                mapScale={1.5 / controls.state.scale}
-                            />
-                        })}
-                    </TransformComponent>
-                </Box>
-            </>
+        <Box ref={mapRef}>
+            {/* <TransformComponent> */}
+            <NextjsImage
+                src={zemljevid}
+                priority
+            />
+            {markers.map(({ x, y, text }, index) => {
+                return <Marker
+                    key={index}
+                    title={text}
+                    position={{ x, y }}
+                    mapRef={mapRef}
+                    mapScale={1.5}
+                />
+            })}
+            {/* </TransformComponent> */}
+        </Box>
+    </> /*
         )}
-    </TransformWrapper>
+    </TransformWrapper > */
     /* return <Box>{markers.map(({ x, y, text }, index) => {
         return <Marker
             key={index}

@@ -14,6 +14,7 @@ import { useSpring, animated, to } from 'react-spring';
 import FilledTabs from '../components/FilledTabs';
 import { useCookies } from 'react-cookie';
 import DisableSSR from '../components/DisableSSR';
+import useWindowSize from '../components/useWindowSize';
 
 const markers = [
     { x: 282, y: 210, textSi: "Uvodna tabla Meniška vas", textEn: "Introduction board in Meniška vas" },
@@ -101,6 +102,7 @@ type MyMapProps = {
 
 function MyMap({ mapRef, lang }: MyMapProps) {
     const [built, setBuilt] = useState(false)
+    useWindowSize()
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -182,18 +184,25 @@ function Zemljevid() {
     const containerRef = useRef<HTMLDivElement>(null)
     const mapRef = useRef<HTMLDivElement>(null)
     let [cookies, setCookies] = useCookies(["lang"])
-    console.log(cookies)
+
+    let lang: "si" | "en";
+    if (typeof (cookies) !== 'undefined' && typeof (cookies.lang) !== 'undefined') {
+        lang = cookies.lang
+    } else {
+        lang = "si"
+        setCookies("lang", lang, { path: "/", sameSite: "lax" })
+    }
 
     return <DisableSSR>
-        <Article maxWidth lang={cookies.lang} ssrLang={cookies.lang}>
+        <Article maxWidth lang={lang} ssrLang={lang}>
             <FilledTabs
                 value={tab}
                 onChange={(e, newValue) => setTab(newValue)}
                 scrollButtons="auto"
                 variant="scrollable"
             >
-                <Tab label={cookies.lang == "si" ? "Zemljevid" : "Map"} />
-                <Tab label={cookies.lang == "si" ? "Google zemljevid" : "Google Maps"} />
+                <Tab label={lang == "si" ? "Zemljevid" : "Map"} />
+                <Tab label={lang == "si" ? "Google zemljevid" : "Google Maps"} />
             </FilledTabs>
             <Container ref={containerRef} sx={{
                 overflow: "hidden",
@@ -212,7 +221,7 @@ function Zemljevid() {
                     }}
                 >
                     <TabPanel value={tab} index={0}>
-                        <MyMap mapRef={mapRef} lang={cookies.lang} />
+                        <MyMap mapRef={mapRef} lang={lang} />
                     </TabPanel>
                     <TabPanel value={tab} index={1}>
                         <GoogleMap mapRef={containerRef} />

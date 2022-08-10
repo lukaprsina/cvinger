@@ -111,7 +111,7 @@ function MyMap({ mapRef }: MyMapProps) {
         }
     }, []) */
 
-    return <TransformWrapper>
+    /* return <TransformWrapper>
         {(controls) => (
             <>
                 <ButtonGroup
@@ -145,7 +145,7 @@ function MyMap({ mapRef }: MyMapProps) {
                             src={zemljevid}
                             priority
                         />
-                        {/* {built && markers.map(({ x, y, text }, index) => {
+                        {built && markers.map(({ x, y, text }, index) => {
                             return <Marker
                                 key={index}
                                 title={text}
@@ -153,12 +153,13 @@ function MyMap({ mapRef }: MyMapProps) {
                                 mapRef={mapRef}
                                 mapScale={1.5 / controls.state.scale}
                             />
-                        })} */}
+                        })}
                     </TransformComponent>
                 </Box>
             </>
         )}
-    </TransformWrapper>
+    </TransformWrapper> */
+    return <p>MyMap</p>
 }
 
 type GoogleMapProps = {

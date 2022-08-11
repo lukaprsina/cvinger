@@ -13,7 +13,6 @@ const Header = (props: { lang: string }) => {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up("md"));
     const [cookies, setCookie] = useCookies(["lang", "CookieConsent"]);
-    const [nextLang, setNextLang] = useState(props.lang !== "en" ? "en" : "si");
     const [snackbar, setSnackbar] = useState(false);
 
     const switchLanguage = () => {
@@ -33,7 +32,6 @@ const Header = (props: { lang: string }) => {
                 nLang = "en"
 
             setCookie("lang", nLang, { path: "/", sameSite: "lax" })
-            setNextLang(nLang)
         }
     }
 
@@ -42,6 +40,12 @@ const Header = (props: { lang: string }) => {
         right: "10px",
         // top: "50%"
     } : {}
+
+    let currentFlag = ""
+    if (cookies.lang == "en")
+        currentFlag = "si"
+    else
+        currentFlag = "en"
 
     const languageSwitcher = (
         <IconButton
@@ -54,7 +58,7 @@ const Header = (props: { lang: string }) => {
                 ...test
             }}
         >
-            {(nextLang == "si") ? <NextjsImage
+            {(currentFlag == "si") ? <NextjsImage
                 src={flagSI}
                 alt="Slovenian flag"
             /> : <NextjsImage

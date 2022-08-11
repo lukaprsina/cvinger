@@ -108,7 +108,7 @@ function MyMap({ mapRef, lang }: MyMapProps) {
         if (typeof window !== 'undefined') {
             setTimeout(() => {
                 setBuilt(true)
-            }, 100)
+            }, 300)
         }
     }, [])
 
@@ -185,14 +185,23 @@ function Zemljevid() {
     const containerRef = useRef<HTMLDivElement>(null)
     const mapRef = useRef<HTMLDivElement>(null)
     let [cookies, setCookies] = useCookies(["lang"])
+    const [update, setUpdate] = useState(false);
 
     let lang: "si" | "en";
-    if (typeof (cookies) !== 'undefined' && typeof (cookies.lang) !== 'undefined') {
-        lang = cookies.lang
-    } else {
+    useEffect(() => {
+        if (update) {
+            setCookies("lang", "si", { path: "/", sameSite: "lax" })
+        }
+    }, [setCookies, update])
+
+    if (typeof (cookies) === 'undefined' || typeof (cookies.lang) === 'undefined') {
         lang = "si"
-        setCookies("lang", lang, { path: "/", sameSite: "lax" })
+        if (!update)
+            setUpdate(true)
+    } else {
+        lang = cookies.lang
     }
+
 
     return <DisableSSR>
         <Article maxWidth lang={lang} ssrLang={lang}>

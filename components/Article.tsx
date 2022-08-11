@@ -75,7 +75,7 @@ function Item({ to, text }: ItemProps) {
 type ArticleProps = {
     title?: string,
     lang?: string,
-    ssrLang: string,
+    ssrLang?: string,
     children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | readonly React.ReactElement<any, string | React.JSXElementConstructor<any>>[],
     maxWidth?: boolean,
 }
@@ -86,7 +86,6 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
     const router = useRouter()
     const [cookies, setCookies] = useCookies(["lang"])
     const articleRef = useRef<HTMLDivElement>()
-
     useEffect(() => {
         if (!articleRef || !articleRef.current)
             return
@@ -106,11 +105,12 @@ function Article({ title = "", lang, ssrLang, children, maxWidth }: ArticleProps
         realLang = cookies.lang
     else if (typeof (ssrLang) != 'undefined')
         realLang = ssrLang
-
-    if (ssrLang == "force")
+    else if (typeof (lang) != 'undefined')
         realLang = "si"
 
     hidden = realLang !== lang
+
+    // console.log({ hidden, lang, ssrLang, realLang, cLang: cookies.lang })
 
     const center = maxWidth ? {
         display: "flex",
